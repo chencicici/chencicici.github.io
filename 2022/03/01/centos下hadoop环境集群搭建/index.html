@@ -4,15 +4,129 @@
   <meta charset="utf-8">
   
   
-  <title>Hexo</title>
+  <title>source/_posts/centos下hadoop环境集群搭建 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="大数据集群环境搭建&amp;nbsp;&amp;nbsp;本环境所有设置皆在root用户下进行1.基本环境设置1.2修改主机名(三个节点皆要设置,master,slave1,slave2)hostnamectl set-hostname master重启后生效1.3修改ip为静态,并使虚拟机和物理机互相通信,三个节点之间也要互相通信vim &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="source&#x2F;_posts&#x2F;centos下hadoop环境集群搭建">
+<meta property="og:url" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="大数据集群环境搭建&amp;nbsp;&amp;nbsp;本环境所有设置皆在root用户下进行1.基本环境设置1.2修改主机名(三个节点皆要设置,master,slave1,slave2)hostnamectl set-hostname master重启后生效1.3修改ip为静态,并使虚拟机和物理机互相通信,三个节点之间也要互相通信vim &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcf">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/1FBB3BA3-C090-4285-9EC3-FB8BF9EE55AC.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/DEB9A8D4-E436-4208-99C2-04087A31F181.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/ED9052F8-D0F0-42DA-B35E-5A73A6C132B8.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/A4D3515C-C287-40E5-B694-4C1ACB03EF9B.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/3AFBB15F-F8FB-4E13-929D-8CD5DAECDDEA.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/62BE734A-2C1C-47E8-A3FA-AACBA929AC1D.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/36E7389F-C914-43D7-99F1-C24EFEBB9565.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/249A72EF-F7AA-4AC6-A3CE-93D944D2E4DF.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/92CF6043-9AB2-4097-B02A-82196CBE30B8.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/EA1BCD35-3A8B-47D2-A78D-9D75BC2BB2D7.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/A2C8F8E4-836E-4404-BAF1-59CC7AF2F5A8.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/51F0E704-4ABD-4DF1-BD2D-1581F5B709C4.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/AF2EC0DC-A12A-419A-9C71-EFCEF53065ED.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/ADFF3F3D-74FE-4139-9C35-3DE271EEB59E.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/D4A6D131-7277-4339-82C5-54B68CF8DAE5.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/53350AEA-79FB-4F62-AE56-6C01FB6E1BD7.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/485A35B0-14DA-4B34-888E-060DCDAC6D2B.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/0507FAC0-2CAD-48B8-8A13-61E11A2EC31A.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/6D81A227-A3F7-43E4-A997-F03AD41B5FB1.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/A9B92A27-0886-433C-B83A-1CAAF2A00911.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/5742C6F1-C6DE-4C88-965D-0EFBC278DF3C.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/BA856C27-B49E-4466-B3CD-4603C70ED3F5.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/9A216A6C-2CB0-47A6-B56B-B34DF4151123.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/92FFF701-9366-447A-8CDA-F6135987A2C3.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/17FC44C9-11C6-4FFC-8C42-E750246D92B6.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/99625E7D-5FFB-4BEB-8D79-250FB0E77004.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/7736B061-7284-4AC0-B0DF-6FA31BEA6E95.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/B2C3F69F-1FF7-4D45-9C75-CF8487A40F73.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/BCCE33B2-774E-4290-A9BD-C0F5EB1AF64D.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/C21331A4-844E-423C-8DE4-2EB436DC63EB.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/BB32BABE-316E-4E12-B09C-1A18B87FF14A.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/4F9EBC42-86E7-4C67-A2AB-E0C645548864.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/A4625AEE-6999-440F-B23E-3E288D34A943.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/1A8B950F-4513-40C2-941E-45A081AB01B7.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/FA968571-E0FC-4112-AD35-F0E9976106A8.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/5A17E93C-B058-43DC-802D-9262342DB081.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/742D6EC3-6D72-4AE6-9AFB-809EDAB294AF.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/AA04E353-10B1-48F6-9790-75F06520A74F.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/F9077987-2DE7-48F7-8C64-B0AC4ED284F0.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/278C6E40-B210-4C45-A92B-5A744B9E5808.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/FA3A5657-3E0B-4165-9A08-1871ABAC785E.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/C2AB90F5-89B4-4321-917D-B7C9E3D73452.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/41758B64-57FD-4F91-8C2E-164A89A4777A.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/6DD57B3B-F844-4D31-872F-9BFFDAEB9C97.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/D1F59ED3-9D1F-4FB7-BC99-5ED3D2AE2A4B.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/127A74D3-3C1D-4D1A-99CB-4C3BB45F79F0.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/FE1C2BDA-F17C-448E-B929-8F0B1FBCD8DA.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/07889137-FA2D-48C1-9299-DEC3E181C58D.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/A8C7C52E-EA39-4BF7-8EAB-29DB2E01C107.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/BF8214D0-C11F-4456-AFD4-BB8F101FCE20.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/7DF63C78-D4D0-4CF4-BFA1-45843A4E801F.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/4726F688-65A5-4775-807A-9214F6136EDC.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/AE038E5F-B373-46C4-85CA-B1222ADAA325.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/4C6DF343-4AB4-46B4-B16F-3B58D9EADA8B.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/BA2C3462-525C-46C8-845C-216279EA1DD6.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/8E1EB714-09AA-4F41-B5CF-A04F7B556C0C.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/5652EF65-AB3A-4BBA-982E-FE1B64AC0D88.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/EC013AD4-7935-4C2C-9914-69F7016A4F14.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/146CB841-AE6A-4E10-802F-C31DBC4124BC.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/59C1CD56-DE10-4DA7-9338-2CFF058E7145.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/07E5897C-DBCB-4E70-8789-197814B2130E.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/A7DE4821-A122-463A-A08D-DF2E50CA3234.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/A94B46B3-B25A-464C-AD70-48C5CAFCB16B.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/12735DC5-6897-4542-B0FC-5BBE7AC5C925.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/C749E9CD-018B-4742-8A13-22E188F6781B.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/C5CB01A0-1787-4F78-A358-7B52E14A1895.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/BAE6FFB0-4140-4B05-BBB2-4B39812285C3.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/85947726-F36B-400E-8165-1C3026BCBA38.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/EC899546-D3C7-4736-BD28-22991827AFDD.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/DBEEE6AA-0DDB-41E5-B04B-87870DCF994B.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/BA6874E5-8F14-4DC6-AB79-860D1D79328A.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/6B279060-150E-4FAF-BA14-9749AC0F052C.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/C8FBAE19-11C6-4B49-BB62-B9327A73314B.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/C2AF56C0-86F3-4AAA-A389-0E16C645ACF9.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/8C308E3B-6F0B-4171-8BFA-6E2F51CCFC76.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/FDC4E34E-D78E-4490-867D-9BB21E937948.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/C3B8ACAA-BAA6-47E4-A71C-86E84CDF7C03.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/62FEC15E-DF05-445D-BB2D-C4C045848F46.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/C9D9A840-224E-4AEE-A855-882530CD0B72.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/ABA65763-BA2B-458F-9871-9C01F5442D80.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/C3CCC9BE-82FB-44D4-898F-71FF2AE6565A.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/0A2EBB27-410D-48B4-9110-BDACDCB1CC16.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/6B59A7C9-2BFE-419C-BDCE-9D79383077F2.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/C5428F3C-FE47-4C4B-BDD5-6D172BF36B9A.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/21434D3D-DF5A-4654-B5CD-9B7CECCFA470.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/6CE053CD-CAA8-4B37-A885-F2A2C96D9E07.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/47586C4C-8ED0-42DE-A0B9-11F95316024C.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/E5630256-900A-4FB3-86AC-AE4507D8FFAD.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/2F2EA867-4558-40FC-BDB8-6D65A547CD44.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/0F501042-11EE-4F5C-8AAE-9DF54C69CE82.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/CD1CC30D-D5F0-4116-B809-64FC26184FA5.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/AE6E1B39-76B8-427A-9963-13FCB0C5D90E.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/163430F5-5C3C-4288-812C-1349B90A7FB6.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/92B6594D-23F8-4735-A822-645F217CF691.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/47433CC9-74B9-4366-A3DA-8113B500ED43.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/9FD89F6F-6381-4460-901E-233BA8976FE0.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/274D3E4A-8F74-401E-93DA-34672E7BA83E.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/1791E8D2-304C-4B0F-B75E-60A884A05527.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/082BA635-D1A7-490C-BC6A-7FE6BF260704.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/D9A475BB-414C-4E11-872E-AC8536D6B03E.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/3DF48CF2-0A6D-49B4-BE1D-ECEEC64E912F.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/0FC66E6D-EC20-43A4-B825-3B3139C930F4.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/9C7607F6-5E23-40D6-90E8-58B0543961C3.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/4653EE02-7208-4820-81DF-397139C0A8F1.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/04823D8B-6AED-4E5E-8570-6BF0D79D2CFE.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/246F806B-2BC9-48D7-836F-C96702752B45.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/E7A9A324-5661-4E82-BCE4-380EB7FAED98.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/FB5F3F2A-DAD4-4BAB-84A2-22350FEE444D.png">
+<meta property="og:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/BF159973-AEE0-44F2-9BC1-B96C4DCAB8D1.png">
+<meta property="article:published_time" content="2022-03-01T12:26:42.000Z">
+<meta property="article:modified_time" content="2022-03-01T12:31:30.346Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/source/_posts/centos下hadoop环境集群搭建/1FBB3BA3-C090-4285-9EC3-FB8BF9EE55AC.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -69,49 +183,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/03/01/test/" class="article-date">
-  <time class="dt-published" datetime="2022-03-01T12:31:56.000Z" itemprop="datePublished">2022-03-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/03/01/test/">test</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <img src="![](/test/0A2EBB27-410D-48B4-9110-BDACDCB1CC16.png)">
-![test](test.png)
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/01/test/" data-id="cl084boqy000137nkb1xxhy5p" data-title="test" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="source/_posts/centos下hadoop环境集群搭建-centos下hadoop环境集群搭建" class="h-entry article article-type-source/_posts/centos下hadoop环境集群搭建" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="source/_posts/centos下hadoop环境集群搭建-centos下hadoop环境集群搭建" class="h-entry article article-type-source/_posts/centos下hadoop环境集群搭建" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="article-date">
   <time class="dt-published" datetime="2022-03-01T12:26:42.000Z" itemprop="datePublished">2022-03-01</time>
@@ -124,8 +196,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/03/01/centos%E4%B8%8Bhadoop%E7%8E%AF%E5%A2%83%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">source/_posts/centos下hadoop环境集群搭建</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      source/_posts/centos下hadoop环境集群搭建
     </h1>
   
 
@@ -146,62 +218,28 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2022/03/01/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2022-03-01T08:46:50.462Z" itemprop="datePublished">2022-03-01</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2022/03/01/test/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
+          test
+        
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2022/03/01/hello-world/">Hello World</a>
-    </h1>
   
+    <a href="/2022/03/01/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/01/hello-world/" data-id="cl084bor7000237nkcxav2pxp" data-title="Hello World" class="article-share-link">Share</a>
-      
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
 
 
 </section>
