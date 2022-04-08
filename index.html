@@ -319,9 +319,12 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./zkServer.sh start</span><br><span class="line">JMX enabled by default</span><br><span class="line">Using config: /root/software/zookeeper-3.4.5-cdh5.6.0/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... already running as process 5452.</span><br></pre></td></tr></table></figure>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-server-start.sh ./config/server.properties</span><br></pre></td></tr></table></figure>
 <p>1.3 创建topic</p>
+<p>topic:指定topic name</p>
+<p>partitions:指定分区数，这个参数需要根据broker数和数据量决定，正常情况下，每个broker上两个partition最好</p>
+<p>replication-factor:副本数，建议设置为2</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-topics.sh --zookeeper localhost: 2181/kafka --create --topic topic-test2 --replication-factor 1 --partitions 1</span><br></pre></td></tr></table></figure>
 <p>1.4 启动kafka去消费topic</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic topic-test2</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic topic-test2</span><br><span class="line">--from-beginning 可选参数,代表从头消费</span><br></pre></td></tr></table></figure>
 <p>1.5 启动flume</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/flume-ng agent -n a1 -c ./conf/ -f ./conf/flume-kafka-port.conf -Dflume.root.logger=INFO,console</span><br></pre></td></tr></table></figure>
 <p>1.6 向日志文件&#x2F;tmp&#x2F;log.txt写入一些数据</p>
@@ -339,7 +342,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/03/01/ubuntu%E4%B8%8Bhadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" data-id="cl1q345k500002rnk9cjwfdeh" data-title="ubuntu下hadoop集群搭建" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/03/01/ubuntu%E4%B8%8Bhadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" data-id="cl1q64n360000conkevik54x9" data-title="ubuntu下hadoop集群搭建" class="article-share-link">Share</a>
       
       
       
