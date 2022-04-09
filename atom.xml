@@ -1,20 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>Chenci&#39;blog</title>
   
   
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-04-08T08:28:31.269Z</updated>
+  <updated>2022-04-08T11:01:08.871Z</updated>
   <id>http://example.com/</id>
   
   <author>
-    <name>John Doe</name>
+    <name>Chenci</name>
     
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>scrapy框架学习</title>
+    <link href="http://example.com/2022/04/08/scrapy%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://example.com/2022/04/08/scrapy%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/</id>
+    <published>2022-04-08T10:57:11.000Z</published>
+    <updated>2022-04-08T11:01:08.871Z</updated>
+    
+    <content type="html"><![CDATA[<p>创建项目</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy startproject tutorial</span><br></pre></td></tr></table></figure><p>创建任务</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy genspider first www.baidu.com</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;创建项目&lt;/p&gt;
+&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;p</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>ubuntu下hadoop集群搭建</title>
