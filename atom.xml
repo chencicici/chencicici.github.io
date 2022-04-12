@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-04-09T12:32:19.542Z</updated>
+  <updated>2022-04-09T12:45:02.916Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,32 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>scrapy框架学习</title>
-    <link href="http://example.com/2022/04/08/scrapy%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://example.com/2022/04/08/scrapy%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/</id>
-    <published>2022-04-08T10:57:11.000Z</published>
-    <updated>2022-04-09T12:32:19.542Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy startproject tutorial</span><br></pre></td></tr></table></figure><h2 id="创建任务"><a href="#创建任务" class="headerlink" title="创建任务"></a>创建任务</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy genspider first www.baidu.com</span><br></pre></td></tr></table></figure><p>会生成一个first文件</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">FirstSpider</span>(scrapy.Spider):</span><br><span class="line">    <span class="comment"># 唯一标识符</span></span><br><span class="line">    name = <span class="string">&#x27;first&#x27;</span></span><br><span class="line">    <span class="comment"># 允许的域名</span></span><br><span class="line">    allowed_domains = [<span class="string">&#x27;www.baidu.com&#x27;</span>]</span><br><span class="line">    <span class="comment"># 起始的url,默认发送get请求</span></span><br><span class="line">    start_urls = [<span class="string">&#x27;https://www.baidu.com/&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 数据解析</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">self, response</span>):</span><br><span class="line">        <span class="keyword">pass</span></span><br></pre></td></tr></table></figure><h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>只输出ERROR级别的日志</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 只输出ERROR级别的日志</span></span><br><span class="line">LOG_LEVEL = <span class="string">&#x27;ERROR&#x27;</span></span><br></pre></td></tr></table></figure><p>不遵从robots协议</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ROBOTSTXT_OBEY = <span class="literal">False</span>  </span><br></pre></td></tr></table></figure><p>指定ua</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USER_AGENT = <span class="string">&#x27;tutorial (+http://www.yourdomain.com)&#x27;</span></span><br></pre></td></tr></table></figure><h2 id="运行程序"><a href="#运行程序" class="headerlink" title="运行程序"></a>运行程序</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy crawl first</span><br></pre></td></tr></table></figure><p>会输出一个response对象</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="number">200</span> https:<span class="regexp">//</span>www.baidu.com/&gt;</span><br></pre></td></tr></table></figure><h2 id="数据解析"><a href="#数据解析" class="headerlink" title="数据解析"></a>数据解析</h2>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;创建项目&quot;&gt;&lt;a href=&quot;#创建项目&quot; class=&quot;headerlink&quot; title=&quot;创建项目&quot;&gt;&lt;/a&gt;创建项目&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre</summary>
-      
-    
-    
-    
-    <category term="scrapy" scheme="http://example.com/categories/scrapy/"/>
-    
-    
-    <category term="爬虫" scheme="http://example.com/tags/%E7%88%AC%E8%99%AB/"/>
-    
-    <category term="scrapy" scheme="http://example.com/tags/scrapy/"/>
-    
-  </entry>
   
   <entry>
     <title>ubuntu下hadoop集群搭建</title>
