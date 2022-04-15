@@ -24,15 +24,17 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="scrapy框架学习">
 <meta property="og:url" content="http://example.com/2022/04/08/scrapy%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/index.html">
-<meta property="og:site_name" content="Chenci">
+<meta property="og:site_name" content="Chenci&#39;blog">
 <meta property="og:description" content="创建项目1scrapy startproject tutorial  创建任务1scrapy genspider first www.baidu.com  会生成一个first文件">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/04/08/scrapy%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/img.png">
 <meta property="article:published_time" content="2022-04-08T10:57:11.000Z">
-<meta property="article:modified_time" content="2022-04-14T09:10:52.204Z">
-<meta property="article:author" content="Chenci">
+<meta property="article:modified_time" content="2022-04-15T02:38:27.792Z">
+<meta property="article:author" content="chenci">
 <meta property="article:tag" content="爬虫">
 <meta property="article:tag" content="scrapy">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/04/08/scrapy%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/img.png">
 
 
 <link rel="canonical" href="http://example.com/2022/04/08/scrapy%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/">
@@ -42,7 +44,7 @@
 <script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/04/08/scrapy%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/","path":"2022/04/08/scrapy框架学习/","title":"scrapy框架学习"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>scrapy框架学习 | Chenci</title>
+<title>scrapy框架学习 | Chenci'blog</title>
   
 
 
@@ -52,7 +54,7 @@
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
-<link rel="alternate" href="/atom.xml" title="Chenci" type="application/atom+xml">
+<link rel="alternate" href="/atom.xml" title="Chenci'blog" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -73,7 +75,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <p class="site-title">Chenci</p>
+      <p class="site-title">Chenci'blog</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -145,16 +147,16 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.</span> <span class="nav-text">创建任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="nav-number">4.</span> <span class="nav-text">运行程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">数据解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8"><span class="nav-number">6.</span> <span class="nav-text">持久化存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E4%BA%8E%E7%BB%88%E7%AB%AF%E6%8C%87%E4%BB%A4%E7%9A%84%E5%AD%98%E5%82%A8"><span class="nav-number">6.1.</span> <span class="nav-text">1.基于终端指令的存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%9F%BA%E4%BA%8E%E7%AE%A1%E9%81%93%E7%9A%84%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8"><span class="nav-number">6.2.</span> <span class="nav-text">2.基于管道的持久化存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E8%AF%B7%E6%B1%82%E5%8F%91%E9%80%81"><span class="nav-number">7.</span> <span class="nav-text">手动请求发送</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.</span> <span class="nav-text">创建任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">修改配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%A8%8B%E5%BA%8F"><span class="nav-number">4.</span> <span class="nav-text">运行程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E8%A7%A3%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">数据解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8"><span class="nav-number">6.</span> <span class="nav-text">持久化存储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%9F%BA%E4%BA%8E%E7%BB%88%E7%AB%AF%E6%8C%87%E4%BB%A4%E7%9A%84%E5%AD%98%E5%82%A8"><span class="nav-number">6.1.</span> <span class="nav-text">1.基于终端指令的存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%9F%BA%E4%BA%8E%E7%AE%A1%E9%81%93%E7%9A%84%E6%8C%81%E4%B9%85%E5%8C%96%E5%AD%98%E5%82%A8"><span class="nav-number">6.2.</span> <span class="nav-text">2.基于管道的持久化存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E8%AF%B7%E6%B1%82%E5%8F%91%E9%80%81"><span class="nav-number">7.</span> <span class="nav-text">手动请求发送</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E5%A4%A7%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">8.</span> <span class="nav-text">五大核心组件工作流程</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Chenci"
+    <img class="site-author-image" itemprop="image" alt="chenci"
       src="/images/IMG_0010.JPG">
   <!--
-  <p class="site-author-name" itemprop="name">Chenci</p>
+  <p class="site-author-name" itemprop="name">chenci</p>
   -->
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -241,16 +243,16 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_0010.JPG">
-      <meta itemprop="name" content="Chenci">
+      <meta itemprop="name" content="chenci">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chenci">
+      <meta itemprop="name" content="Chenci'blog">
       <meta itemprop="description" content="">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="scrapy框架学习 | Chenci">
+      <meta itemprop="name" content="scrapy框架学习 | Chenci'blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
@@ -273,7 +275,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-14 17:10:52" itemprop="dateModified" datetime="2022-04-14T17:10:52+08:00">2022-04-14</time>
+      <time title="修改时间：2022-04-15 10:38:27" itemprop="dateModified" datetime="2022-04-15T10:38:27+08:00">2022-04-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -348,6 +350,22 @@
 <h2 id="手动请求发送"><a href="#手动请求发送" class="headerlink" title="手动请求发送"></a>手动请求发送</h2><p>新建工程</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chenci@MacBook-Pro scrapy %scrapy startproject HandReq</span><br><span class="line">chenci@MacBook-Pro scrapy %<span class="built_in">cd</span> HandReq </span><br><span class="line">chenci@MacBook-Pro HandReq %scrapy genspider duanzi www.xxx.com</span><br></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scrapy</span><br><span class="line"><span class="keyword">from</span> HandReq.items <span class="keyword">import</span> HandreqItem</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DuanziSpider</span>(scrapy.Spider):</span><br><span class="line">    name = <span class="string">&#x27;duanzi&#x27;</span></span><br><span class="line">    <span class="comment"># allowed_domains = [&#x27;www.xxx.com&#x27;]</span></span><br><span class="line">    start_urls = [<span class="string">&#x27;https://duanzixing.com/page/1/&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 通用的url模板</span></span><br><span class="line">    url = <span class="string">&#x27;https://duanzixing.com/page/%d/&#x27;</span></span><br><span class="line">    page_num = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">parse</span>(<span class="params">self, response</span>):</span><br><span class="line">        title_list = response.xpath(<span class="string">&#x27;/html/body/section/div/div/article[1]/header/h2/a/text()&#x27;</span>)</span><br><span class="line">        <span class="keyword">for</span> title <span class="keyword">in</span> title_list:</span><br><span class="line">            title = title.extract()</span><br><span class="line">            item = HandreqItem()</span><br><span class="line">            item[<span class="string">&#x27;title&#x27;</span>] = title</span><br><span class="line">            <span class="keyword">yield</span> item</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> self.page_num &lt; <span class="number">5</span>:</span><br><span class="line">            <span class="comment"># 构造页码</span></span><br><span class="line">            new_url = <span class="built_in">format</span>(self.url % self.page_num)</span><br><span class="line">            self.page_num += <span class="number">1</span></span><br><span class="line">            <span class="comment"># 对新的url发起请求,递归回调自己</span></span><br><span class="line">            <span class="keyword">yield</span> scrapy.Request(url=new_url, callback=self.parse)</span><br><span class="line">            <span class="comment"># scrapy.FormRequest(url,callback,formdata) 发送post请求</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="五大核心组件工作流程"><a href="#五大核心组件工作流程" class="headerlink" title="五大核心组件工作流程"></a>五大核心组件工作流程</h2><p><img src="/2022/04/08/scrapy%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0/img.png" alt="1"></p>
+<p>引擎(Scrapy)</p>
+<pre><code>用来处理整个系统的数据流处理, 触发事务(框架核心)
+</code></pre>
+<p>调度器(Scheduler)</p>
+<pre><code>用来接受引擎发过来的请求, 压入队列中, 并在引擎再次请求的时候返回. 可以想像成一个URL（抓取网页的网址或者说是链接）的优先队列, 由它来决定下一个要抓取的网址是什么, 同时去除重复的网址
+</code></pre>
+<p>下载器(Downloader)</p>
+<pre><code>用于下载网页内容, 并将网页内容返回给蜘蛛(Scrapy下载器是建立在twisted这个高效的异步模型上的)
+</code></pre>
+<p>爬虫(Spiders)</p>
+<pre><code>爬虫是主要干活的, 用于从特定的网页中提取自己需要的信息, 即所谓的实体(Item)。用户也可以从中提取出链接,让Scrapy继续抓取下一个页面
+</code></pre>
+<p>项目管道(Pipeline)</p>
+<pre><code>负责处理爬虫从网页中抽取的实体，主要的功能是持久化实体、验证实体的有效性、清除不需要的信息。当页面被爬虫解析后，将被发送到项目管道，并经过几个特定的次序处理数据。
+</code></pre>
 
     </div>
 
@@ -365,11 +383,11 @@
   </button>
   <div class="post-reward">
       <div>
-        <img src="/images/wechatpay.JPG" alt="Chenci 微信">
+        <img src="/images/wechatpay.JPG" alt="chenci 微信">
         <span>微信</span>
       </div>
       <div>
-        <img src="/images/alipay.JPG" alt="Chenci 支付宝">
+        <img src="/images/alipay.JPG" alt="chenci 支付宝">
         <span>支付宝</span>
       </div>
 
@@ -417,7 +435,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Chenci</span>
+  <span class="author" itemprop="copyrightHolder">chenci</span>
 </div>
 
     </div>
