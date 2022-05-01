@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-05-01T13:19:40.942Z</updated>
+  <updated>2022-05-01T13:47:44.491Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>中间件解析漏洞总结</title>
+    <link href="http://example.com/2022/05/01/%E4%B8%AD%E9%97%B4%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/"/>
+    <id>http://example.com/2022/05/01/%E4%B8%AD%E9%97%B4%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/</id>
+    <published>2022-05-01T13:42:26.000Z</published>
+    <updated>2022-05-01T13:47:44.491Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="服务器解析漏洞"><a href="#服务器解析漏洞" class="headerlink" title="服务器解析漏洞"></a>服务器解析漏洞</h1><pre><code>服务器解析漏洞一般是服务器自身或扩展组件带来的漏洞，配合文件上传等漏洞就会产生很大的危害。我们这里整理常见的服务器apache、IIS、nginx的解析漏洞。</code></pre><h1 id="apache"><a href="#apache" class="headerlink" title="apache"></a>apache</h1><ul><li>一、不可识别解析</li></ul><p>apache解析文件的规则是从右到左开始判断解析,如果后缀名为不可识别文件解析,就再往左判断。<br>比如 test.php.owf.rar “.owf”和”.rar” 这两种后缀是apache不可识别解析,apache就会把wooyun.php.owf.rar解析成php。<br>apache版本在以下范围内<br>Apache 2.0.x &lt;&#x3D; 2.0.59 Apache 2.2.x &lt;&#x3D; 2.2.17 Apache 2.2.2 &lt;&#x3D; 2.2.8 都可以通过上传xxx.php.rar或xxx.php+任意无法解析后缀解析为php。</p><ul><li>二、配置问题</li></ul><p>1.如果在 Apache 的 conf 里有这样一行配置 AddHandler php5-script .php 这时只要文件名里包含.php 即使文件名是 test2.php.jpg 也会以 php 来执行。<br>2.如果在 Apache 的 conf 里有这样一行配置 AddType application&#x2F;x-httpd-php .jpg 即使扩展名是 jpg，一样能以 php 方式执行。</p><ul><li>三、罕见后缀</li></ul><p>Apache配置文件中会有.+.ph(p[345]?|t|tml)此类的正则表达式，被当php程序执行的文件名要符合正则表达式。也就是说php3，php4，php5，pht，phtml等文件后缀也是可以被当作php文件进行解析的。</p><ul><li>四、后缀包含换行符\x0A</li></ul><p>CVE-2017-15715：Apache 2.4.0-2.4.29中，上传一个后缀末尾包含换行符的文件，来绕过FilesMatch。绕过FilesMatch不一定能被PHP解析。</p><h1 id="IIS"><a href="#IIS" class="headerlink" title="IIS"></a>IIS</h1><ul><li>一、目录解析</li></ul><p>在IIS-6.0的版本，在.asp或.asa文件夹下的所有类型后缀文件全部解析为.asp文件。<br>存在数据库备份功能的系统并且备份路径可控的话经常会出现这个问题。</p><ul><li>二、文件解析</li></ul><p>在IIS-6.0的版本，服务器默认不解析;后面的内容，所以xxx.asp;.jpg会被解析成xxx.asp。</p><ul><li>三、其他解析类型</li></ul><p>在IIS6.0的版本，如下几种文件类型也会被执行。<br>xxx.asa xxx.cer xxx.cdx</p><ul><li>四、php-cgi漏洞</li></ul><p>在IIS-7.0和IIS-7.5的版本，在php配置文件中，开启cgi.fix_pathinfo，然后上传一个1.jpg的一句话木马文件。然后用菜刀访问1.jpg&#x2F;.php即可连接一句话木马。</p><h1 id="nginx"><a href="#nginx" class="headerlink" title="nginx"></a>nginx</h1><ul><li><p>一、低版本nginx<br>空字节代码执行漏洞：nginx 0.5.x、nginx 0.6.x、Nginx 0.7-0.7.65、Nginx 0.8-0.8.37中可以通过在任意文件名后面增加%00.php解析为php，如1.jpg%00.php</p></li><li><p>二、php-cgi漏洞<br>和IIS的第四点相同，在php配置文件中，开启了cgi.fix_pathinfo，导致图片马1.jpg可以通过访问1.jpg&#x2F;.php、1.jpg%00.php解析成php文件</p></li></ul><h1 id="windows解析漏洞"><a href="#windows解析漏洞" class="headerlink" title="windows解析漏洞"></a>windows解析漏洞</h1><p>Windows操作系统中，文件名不能以空格或.开头，也不能以空格或.结尾。<br>当把一个文件命名为以空格或.开头或结尾时，会自动地去掉开头和结尾处的空格和.。利用此特性，也可能造成文件解析漏洞</p><h1 id="应对"><a href="#应对" class="headerlink" title="应对"></a>应对</h1><ol><li>对于php-cgi漏洞，可以修改php.ini文件，将cgi.fix_pathinfo的值设置为0</li><li>使用白名单匹配文件后缀名</li><li>可以对上传后的文件固定后缀，并对之前的所有字符进行重命名<br>作者：Leticia’s Blog ，详情点击阅读<a href="https://uuzdaisuki.com/2018/05/01/%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/">原文</a>。</li></ol>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;服务器解析漏洞&quot;&gt;&lt;a href=&quot;#服务器解析漏洞&quot; class=&quot;headerlink&quot; title=&quot;服务器解析漏洞&quot;&gt;&lt;/a&gt;服务器解析漏洞&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;服务器解析漏洞一般是服务器自身或扩展组件带来的漏洞，配合文件上传等漏洞就会产生很大的危害。
+我们这里整理常见的服务器apache、IIS、nginx的解析漏洞。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;apache&quot;&gt;&lt;a href=&quot;#apache&quot; class=&quot;headerlink&quot; title=&quot;apache&quot;&gt;&lt;/a&gt;apache&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;一、不可识别解析&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;apache解析文件的规则是从右到左开始判断解析,如果后缀名为不可识别文件解析,就再往左判断。&lt;br&gt;比如 test.php.owf.rar “.owf”和”.rar” 这两种后缀是apache不可识别解析,apache就会把wooyun.php.owf.rar解析成php。&lt;br&gt;apache版本在以下范围内&lt;br&gt;Apache 2.0.x &amp;lt;&amp;#x3D; 2.0.59 Apache 2.2.x &amp;lt;&amp;#x3D; 2.2.17 Apache 2.2.2 &amp;lt;&amp;#x3D; 2.2.8 都可以通过上传xxx.php.rar或xxx.php+任意无法解析后缀解析为php。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="笔记" scheme="http://example.com/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="解析漏洞" scheme="http://example.com/tags/%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E/"/>
+    
+  </entry>
   
   <entry>
     <title>pikachu漏洞靶场通关</title>
