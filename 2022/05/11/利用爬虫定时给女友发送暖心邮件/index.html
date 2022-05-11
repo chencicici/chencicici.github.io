@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="爬取墨迹天气,土味情话,美图定时发送邮件 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用爬虫定时给女友发送暖心邮件">
+<meta property="og:url" content="http://example.com/2022/05/11/%E5%88%A9%E7%94%A8%E7%88%AC%E8%99%AB%E5%AE%9A%E6%97%B6%E7%BB%99%E5%A5%B3%E5%8F%8B%E5%8F%91%E9%80%81%E6%9A%96%E5%BF%83%E9%82%AE%E4%BB%B6/index.html">
+<meta property="og:site_name" content="Chenci&#39;s blog">
+<meta property="og:description" content="爬取墨迹天气,土味情话,美图定时发送邮件 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/05/11/%E5%88%A9%E7%94%A8%E7%88%AC%E8%99%AB%E5%AE%9A%E6%97%B6%E7%BB%99%E5%A5%B3%E5%8F%8B%E5%8F%91%E9%80%81%E6%9A%96%E5%BF%83%E9%82%AE%E4%BB%B6/img.png">
+<meta property="article:published_time" content="2022-05-11T10:50:00.000Z">
+<meta property="article:modified_time" content="2022-05-11T11:05:25.830Z">
+<meta property="article:author" content="chenci">
+<meta property="article:tag" content="requests">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2022/05/11/%E5%88%A9%E7%94%A8%E7%88%AC%E8%99%AB%E5%AE%9A%E6%97%B6%E7%BB%99%E5%A5%B3%E5%8F%8B%E5%8F%91%E9%80%81%E6%9A%96%E5%BF%83%E9%82%AE%E4%BB%B6/img.png">
+
+
+<link rel="canonical" href="http://example.com/2022/05/11/%E5%88%A9%E7%94%A8%E7%88%AC%E8%99%AB%E5%AE%9A%E6%97%B6%E7%BB%99%E5%A5%B3%E5%8F%8B%E5%8F%91%E9%80%81%E6%9A%96%E5%BF%83%E9%82%AE%E4%BB%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/05/11/%E5%88%A9%E7%94%A8%E7%88%AC%E8%99%AB%E5%AE%9A%E6%97%B6%E7%BB%99%E5%A5%B3%E5%8F%8B%E5%8F%91%E9%80%81%E6%9A%96%E5%BF%83%E9%82%AE%E4%BB%B6/","path":"2022/05/11/利用爬虫定时给女友发送暖心邮件/","title":"利用爬虫定时给女友发送暖心邮件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>利用爬虫定时给女友发送暖心邮件 | Chenci's blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Chenci's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Chenci's blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="chenci"
+      src="/images/IMG_0010.JPG">
+  <!--
+  <p class="site-author-name" itemprop="name">chenci</p>
+  -->
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chencicici" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chencicici" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1343369483@qq.com" title="E-Mail → mailto:1343369483@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.uodrad.top/" title="https:&#x2F;&#x2F;www.uodrad.top&#x2F;" rel="noopener" target="_blank">uodrad</a>
+        </li>
+    </ul>
+  </div>
+
+
+       <!--网易云插件-->
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1933503036&auto=0&height=66">
+      </iframe>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/chencicici" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/11/%E5%88%A9%E7%94%A8%E7%88%AC%E8%99%AB%E5%AE%9A%E6%97%B6%E7%BB%99%E5%A5%B3%E5%8F%8B%E5%8F%91%E9%80%81%E6%9A%96%E5%BF%83%E9%82%AE%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_0010.JPG">
+      <meta itemprop="name" content="chenci">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenci's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="利用爬虫定时给女友发送暖心邮件 | Chenci's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          利用爬虫定时给女友发送暖心邮件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-05-11 18:50:00 / 修改时间：19:05:25" itemprop="dateCreated datePublished" datetime="2022-05-11T18:50:00+08:00">2022-05-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%88%AC%E8%99%AB/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>爬取墨迹天气,土味情话,美图定时发送邮件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">from</span> fake_useragent <span class="keyword">import</span> UserAgent</span><br><span class="line"></span><br><span class="line">sender_maile = <span class="string">&#x27;&#x27;</span>  <span class="comment"># 发件人地址</span></span><br><span class="line">sender_pass = <span class="string">&#x27;&#x27;</span>  <span class="comment"># 邮件授权码</span></span><br><span class="line">boy_name = <span class="string">&#x27;&#x27;</span>  <span class="comment"># 发件人姓名</span></span><br><span class="line">girl_name = <span class="string">&#x27;&#x27;</span>  <span class="comment"># 收件人姓名</span></span><br><span class="line">maile_obj = smtplib.SMTP_SSL(<span class="string">&#x27;smtp.qq.com&#x27;</span>, <span class="number">465</span>)  <span class="comment"># 发送的服务器</span></span><br><span class="line">receiver_mail = <span class="string">&#x27;&#x27;</span>  <span class="comment"># 收件人邮箱</span></span><br><span class="line">special_day = <span class="string">&#x27;&#x27;</span>  <span class="comment"># 纪念日</span></span><br><span class="line">province = <span class="string">&#x27;&#x27;</span>  <span class="comment"># 省份 墨迹天气官网查看 示例province = &#x27;guangxi&#x27;</span></span><br><span class="line">city = <span class="string">&#x27;&#x27;</span>  <span class="comment"># 城市 示例city = &#x27;jiangnan-district&#x27; </span></span><br><span class="line">title = <span class="string">&#x27;s&#x27;</span>  <span class="comment"># 邮件主题</span></span><br><span class="line">ua = UserAgent()</span><br><span class="line">header = &#123;</span><br><span class="line">    <span class="string">&#x27;Referer&#x27;</span>: <span class="string">&#x27;https://tianqi.moji.com/weather/china/guangxi&#x27;</span>, <span class="comment"># 根据城市修改</span></span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>: ua.random</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">session = requests.session()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取纪念日距今多少天</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_day</span>():</span><br><span class="line">    d1 = datetime.datetime.strptime(special_day, <span class="string">&#x27;%Y-%m-%d&#x27;</span>)</span><br><span class="line">    d2 = datetime.datetime.strptime(datetime.datetime.now().strftime(<span class="string">&#x27;%Y-%m-%d&#x27;</span>), <span class="string">&#x27;%Y-%m-%d&#x27;</span>)</span><br><span class="line">    delta = d2 - d1</span><br><span class="line">    <span class="keyword">return</span> delta.days</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取每日土味情话,直接调别人写好的api</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_chp</span>():</span><br><span class="line">    url =  <span class="string">&quot;https://api.lovelive.tools/api/SweetNothings&quot;</span></span><br><span class="line">    resp = requests.get(url=url)</span><br><span class="line">    <span class="keyword">return</span> resp.text</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取提醒</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_weathertip</span>():</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        url = <span class="string">f&#x27;https://tianqi.moji.com/weather/china/<span class="subst">&#123;province&#125;</span>/<span class="subst">&#123;city&#125;</span>&#x27;</span></span><br><span class="line">        resp = session.get(url=url, headers=header, verify=<span class="literal">False</span>)</span><br><span class="line">        html = etree.HTML(resp.text)</span><br><span class="line">        em = html.xpath(<span class="string">&#x27;/html/body/div[4]/div[1]/div[4]/em/text()&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">return</span> em</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取每日天气</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_weather</span>():</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        url = <span class="string">f&#x27;https://tianqi.moji.com/weather/china/<span class="subst">&#123;province&#125;</span>/<span class="subst">&#123;city&#125;</span>&#x27;</span></span><br><span class="line">        resp = session.get(url=url, headers=header,  verify=<span class="literal">False</span>)</span><br><span class="line">        html = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        htmls = etree.HTML(resp.text)</span><br><span class="line">        ul = htmls.xpath(<span class="string">&#x27;/html/body/div[5]/div[1]/div[1]/ul&#x27;</span>)</span><br><span class="line">        <span class="keyword">for</span> lis <span class="keyword">in</span> ul:</span><br><span class="line">            <span class="comment"># 获取日期</span></span><br><span class="line">            day = lis.xpath(<span class="string">&#x27;./li[1]/a/text()&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">            <span class="comment"># 获取天气图标</span></span><br><span class="line">            src = lis.xpath(<span class="string">&#x27;./li[2]/span/img/@src&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">            <span class="comment"># 获取天气状况</span></span><br><span class="line">            weather = lis.xpath(<span class="string">&#x27;./li[2]/span/img/@alt&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">            <span class="comment"># 获取温度</span></span><br><span class="line">            temperature = lis.xpath(<span class="string">&#x27;./li[3]/text()&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">            <span class="comment"># 获取空气质量</span></span><br><span class="line">            air = lis.xpath(<span class="string">&#x27;./li[5]/strong/text()&#x27;</span>)[<span class="number">0</span>].strip()</span><br><span class="line">            <span class="comment"># 获取空气质量对应的字体颜色</span></span><br><span class="line">            color = <span class="built_in">str</span>(lis.xpath(<span class="string">&#x27;./li[5]/strong/@class&#x27;</span>)[<span class="number">0</span>])</span><br><span class="line">            <span class="comment"># 判断字体颜色</span></span><br><span class="line">            <span class="keyword">if</span> color == <span class="string">&#x27;level_1&#x27;</span>:</span><br><span class="line">                color = <span class="string">&#x27;#8fc31f&#x27;</span></span><br><span class="line">            <span class="keyword">elif</span> color == <span class="string">&#x27;level_2&#x27;</span>:</span><br><span class="line">                color = <span class="string">&#x27;#d7af0e&#x27;</span></span><br><span class="line">            <span class="keyword">elif</span> color == <span class="string">&#x27;level_3&#x27;</span>:</span><br><span class="line">                color = <span class="string">&#x27;#f39800&#x27;</span></span><br><span class="line">            <span class="keyword">elif</span> color == <span class="string">&#x27;level_4&#x27;</span>:</span><br><span class="line">                color = <span class="string">&#x27;#e2361a&#x27;</span></span><br><span class="line">            <span class="keyword">elif</span> color == <span class="string">&#x27;level_5&#x27;</span>:</span><br><span class="line">                color = <span class="string">&#x27;#5f52a0&#x27;</span></span><br><span class="line">            <span class="keyword">elif</span> color == <span class="string">&#x27;level_6&#x27;</span>:</span><br><span class="line">                color = <span class="string">&#x27;#631541&#x27;</span></span><br><span class="line">            html += <span class="string">&quot;&quot;&quot;&lt;div style=&quot;display: flex;margin-top:5px;height: 30px;line-height: 30px;justify-content: space-around;align-items: center;&quot;&gt;</span></span><br><span class="line"><span class="string">            &lt;span style=&quot;width:15%%; text-align:center;&quot;&gt;%s&lt;/span&gt;</span></span><br><span class="line"><span class="string">            &lt;div style=&quot;width:10%%; text-align:center;&quot;&gt;</span></span><br><span class="line"><span class="string">                &lt;img style=&quot;height:26px;vertical-align:middle;&quot; src=&#x27;%s&#x27; alt=&quot;&quot;&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;span style=&quot;width:25%%; text-align:center;&quot;&gt;%s&lt;/span&gt;</span></span><br><span class="line"><span class="string">            &lt;div style=&quot;width:35%%; &quot;&gt;</span></span><br><span class="line"><span class="string">                &lt;span style=&quot;display:inline-block;padding:0 8px;line-height:25px;color:%s; border-radius:15px; text-align:center;&quot;&gt;%s&lt;/span&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &quot;&quot;&quot;</span> % (day, src, temperature, color, air)</span><br><span class="line">        <span class="keyword">return</span> html</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取图片</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_image</span>():</span><br><span class="line">    url = <span class="string">&quot;http://wufazhuce.com/&quot;</span></span><br><span class="line">    resp = requests.get(url=url)</span><br><span class="line">    html = etree.HTML(resp.text)</span><br><span class="line">    img_url = html.xpath(<span class="string">&#x27;//*[@id=&quot;carousel-one&quot;]/div/div[1]/a/img/@src&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">return</span> img_url</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取当天日期</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_today</span>():</span><br><span class="line">    i = datetime.datetime.now()</span><br><span class="line">    date = <span class="string">&quot;%s/%s/%s&quot;</span> % (i.year, i.month, i.day)</span><br><span class="line">    <span class="keyword">return</span> date</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mail_content = <span class="string">&quot;&quot;&quot;&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="string">                &lt;html&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">                &lt;head&gt;</span></span><br><span class="line"><span class="string">                    &lt;title&gt;</span></span><br><span class="line"><span class="string">                    &lt;/title&gt;</span></span><br><span class="line"><span class="string">                    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;meta charset=&quot;UTF-8&quot;&gt;</span></span><br><span class="line"><span class="string">                &lt;/head&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">                &lt;body style=&quot;margin:0;padding:0;&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;div style=&quot;width:100%; margin: 40px auto;font-size:20px; color:#5f5e5e;text-align:center&quot;&gt;</span></span><br><span class="line"><span class="string">                        &lt;span&gt;今天是我们在一起的第&lt;/span&gt;</span></span><br><span class="line"><span class="string">                        &lt;span style=&quot;font-size:24px;color:rgb(221, 73, 73)&quot;  &gt;&#123;0&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="string">                        &lt;span&gt;天&lt;/span&gt;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;div style=&quot;width:100%; margin: 0 auto;color:#5f5e5e;text-align:center&quot;&gt;</span></span><br><span class="line"><span class="string">                        &lt;span style=&quot;display:block;color:#676767;font-size:20px&quot;&gt;&#123;2&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="string">                        &lt;br&gt;</span></span><br><span class="line"><span class="string">                        &lt;span style=&quot;display:block;color:#676767;font-size:20px&quot;&gt;&#123;1&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="string">                        &lt;span style=&quot;display:block;margin-top:15px;color:#676767;font-size:15px&quot;&gt;近期天气预报&lt;/span&gt;</span></span><br><span class="line"><span class="string">                &#123;3&#125;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;div style=&quot;text-align:center;margin:35px 0;&quot;&gt;</span></span><br><span class="line"><span class="string">                            &lt;span style=&quot;display:block;margin-top:55px;color:#676767;font-size:15px&quot;&gt;&#123;4&#125; ❤️ &#123;5&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="string">                            &lt;span style=&quot;display:block;margin-top:25px;font-size:22px; color:#9d9d9d; &quot;&gt;&#123;6&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="string">                             &lt;img src=&#x27;&#123;7&#125;&#x27; style=&quot;width:100%;margin-top:10px;&quot;  alt=&quot;&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;/body&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">                &lt;/html&gt;&quot;&quot;&quot;</span>.<span class="built_in">format</span>(<span class="built_in">str</span>(get_day()), get_weathertip(), get_chp(), get_weather(), boy_name, girl_name,</span><br><span class="line">                                  get_today(), get_image())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送邮件</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">send_mail</span>():</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        maile_obj.login(sender_maile, sender_pass)</span><br><span class="line">        <span class="comment"># 三个参数分别是发件人邮箱账号,收件人账号,发送的邮件内容</span></span><br><span class="line">        msg = MIMEText(mail_content, _subtype=<span class="string">&#x27;html&#x27;</span>, _charset=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">        msg[<span class="string">&#x27;Subject&#x27;</span>] = title</span><br><span class="line">        msg[<span class="string">&#x27;From&#x27;</span>] = <span class="string">&quot;发送人名称&quot;</span></span><br><span class="line">        msg[<span class="string">&#x27;To&#x27;</span>] = <span class="string">&quot;接收人名称&quot;</span></span><br><span class="line">        maile_obj.sendmail(sender_maile, receiver_mail, msg.as_string())</span><br><span class="line">        maile_obj.quit()</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">except</span> smtplib.SMTPException <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    send_mail()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;发送成功!&#x27;</span>)</span><br><span class="line">    theTime = datetime.datetime.now()</span><br><span class="line">    <span class="built_in">print</span>(theTime)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>效果<br><img src="/2022/05/11/%E5%88%A9%E7%94%A8%E7%88%AC%E8%99%AB%E5%AE%9A%E6%97%B6%E7%BB%99%E5%A5%B3%E5%8F%8B%E5%8F%91%E9%80%81%E6%9A%96%E5%BF%83%E9%82%AE%E4%BB%B6/img.png"></p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.JPG" alt="chenci 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.JPG" alt="chenci 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>chenci
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="http://example.com/2022/05/11/%E5%88%A9%E7%94%A8%E7%88%AC%E8%99%AB%E5%AE%9A%E6%97%B6%E7%BB%99%E5%A5%B3%E5%8F%8B%E5%8F%91%E9%80%81%E6%9A%96%E5%BF%83%E9%82%AE%E4%BB%B6/" title="利用爬虫定时给女友发送暖心邮件">http://example.com/2022/05/11/利用爬虫定时给女友发送暖心邮件/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/requests/" rel="tag"># requests</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/05/07/%E6%9C%89%E9%81%93%E7%BF%BB%E8%AF%91%E9%80%86%E5%90%91/" rel="prev" title="有道翻译逆向">
+                  <i class="fa fa-chevron-left"></i> 有道翻译逆向
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">chenci</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
