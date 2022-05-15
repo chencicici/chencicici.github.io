@@ -36,8 +36,12 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202205151337610.png?token=ARYCSAXFRTG7KB3R6NRVTQDCQCI4S">
 <meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202205151339050.png?token=ARYCSAQFEL42LGPO2MJ7EX3CQCJDS">
 <meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202205151338332.png?token=ARYCSAT4PLVT4OXNI4EO4VTCQCJBA">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202205151515028.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202205151516450.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202205151529002.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202205151534906.png">
 <meta property="article:published_time" content="2022-04-28T14:17:59.000Z">
-<meta property="article:modified_time" content="2022-05-15T05:39:17.861Z">
+<meta property="article:modified_time" content="2022-05-15T07:34:16.448Z">
 <meta property="article:author" content="chenci">
 <meta property="article:tag" content="sql注入">
 <meta property="article:tag" content="靶场">
@@ -155,7 +159,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5"><span class="nav-number">1.</span> <span class="nav-text">sql注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E9%9A%94%E7%AC%A6%E5%92%8C%E6%B3%A8%E9%87%8A%E7%AC%A6"><span class="nav-number">1.1.</span> <span class="nav-text">分隔符和注释符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">注入常用函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E5%9E%8B%E6%B3%A8%E5%85%A5-POST"><span class="nav-number">1.3.</span> <span class="nav-text">数字型注入(POST)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E5%9E%8B-get"><span class="nav-number">1.4.</span> <span class="nav-text">字符型(get)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E5%9E%8B%E6%B3%A8%E5%85%A5"><span class="nav-number">1.5.</span> <span class="nav-text">搜索型注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xx%E5%9E%8B%E6%B3%A8%E5%85%A5"><span class="nav-number">1.6.</span> <span class="nav-text">xx型注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#insert-amp-update%E6%B3%A8%E5%85%A5"><span class="nav-number">1.7.</span> <span class="nav-text">insert&amp;update注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#insert"><span class="nav-number">1.7.1.</span> <span class="nav-text">insert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#update"><span class="nav-number">1.7.2.</span> <span class="nav-text">update</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#delete%E6%B3%A8%E5%85%A5"><span class="nav-number">1.8.</span> <span class="nav-text">delete注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http%E5%A4%B4%E6%B3%A8%E5%85%A5"><span class="nav-number">1.9.</span> <span class="nav-text">http头注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8Eboolian%E7%9A%84%E7%9B%B2%E6%B3%A8"><span class="nav-number">1.10.</span> <span class="nav-text">基于boolian的盲注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E7%9A%84%E7%9B%B2%E6%B3%A8"><span class="nav-number">1.11.</span> <span class="nav-text">基于时间的盲注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5"><span class="nav-number">1.12.</span> <span class="nav-text">宽字节注入</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5"><span class="nav-number">1.</span> <span class="nav-text">sql注入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E9%9A%94%E7%AC%A6%E5%92%8C%E6%B3%A8%E9%87%8A%E7%AC%A6"><span class="nav-number">1.1.</span> <span class="nav-text">分隔符和注释符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E5%85%A5%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">注入常用函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E5%9E%8B%E6%B3%A8%E5%85%A5-POST"><span class="nav-number">1.3.</span> <span class="nav-text">数字型注入(POST)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E5%9E%8B-get"><span class="nav-number">1.4.</span> <span class="nav-text">字符型(get)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%90%9C%E7%B4%A2%E5%9E%8B%E6%B3%A8%E5%85%A5"><span class="nav-number">1.5.</span> <span class="nav-text">搜索型注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xx%E5%9E%8B%E6%B3%A8%E5%85%A5"><span class="nav-number">1.6.</span> <span class="nav-text">xx型注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#insert-amp-update%E6%B3%A8%E5%85%A5"><span class="nav-number">1.7.</span> <span class="nav-text">insert&amp;update注入</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#insert"><span class="nav-number">1.7.1.</span> <span class="nav-text">insert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#update"><span class="nav-number">1.7.2.</span> <span class="nav-text">update</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#delete%E6%B3%A8%E5%85%A5"><span class="nav-number">1.8.</span> <span class="nav-text">delete注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http%E5%A4%B4%E6%B3%A8%E5%85%A5"><span class="nav-number">1.9.</span> <span class="nav-text">http头注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8Eboolian%E7%9A%84%E7%9B%B2%E6%B3%A8"><span class="nav-number">1.10.</span> <span class="nav-text">基于boolian的盲注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E7%9A%84%E7%9B%B2%E6%B3%A8"><span class="nav-number">1.11.</span> <span class="nav-text">基于时间的盲注</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%BD%E5%AD%97%E8%8A%82%E6%B3%A8%E5%85%A5"><span class="nav-number">1.12.</span> <span class="nav-text">宽字节注入</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#unsafe-upfileupload"><span class="nav-number">2.</span> <span class="nav-text">unsafe upfileupload</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AFcheck"><span class="nav-number">2.1.</span> <span class="nav-text">客户端check</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AFcheck"><span class="nav-number">2.2.</span> <span class="nav-text">服务端check</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getimagesize"><span class="nav-number">2.3.</span> <span class="nav-text">getimagesize()</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -172,7 +176,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -183,7 +187,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -283,7 +287,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-15 13:39:17" itemprop="dateModified" datetime="2022-05-15T13:39:17+08:00">2022-05-15</time>
+      <time title="修改时间：2022-05-15 15:34:16" itemprop="dateModified" datetime="2022-05-15T15:34:16+08:00">2022-05-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -479,6 +483,11 @@ SQL注入漏洞主要形成的原因是在数据交互中，前端的数据传�
 <li>爆列数<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name=1%<span class="built_in">df</span><span class="string">&#x27;  union select 1,2# &amp;submit=%E6%9F%A5%E8%AF%A2</span></span><br></pre></td></tr></table></figure></li>
 <li>爆库名<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name=1%<span class="built_in">df</span><span class="string">&#x27;  union select 1,database()# &amp;submit=%E6%9F%A5%E8%AF%A2</span></span><br></pre></td></tr></table></figure></li>
 </ol>
+<h1 id="unsafe-upfileupload"><a href="#unsafe-upfileupload" class="headerlink" title="unsafe upfileupload"></a>unsafe upfileupload</h1><p>文件上传</p>
+<h2 id="客户端check"><a href="#客户端check" class="headerlink" title="客户端check"></a>客户端check</h2><p>前端校验,抓包修改<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151515028.png"></p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151516450.png"></p>
+<h2 id="服务端check"><a href="#服务端check" class="headerlink" title="服务端check"></a>服务端check</h2><p>检查MIME,一样抓包修改<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151529002.png"></p>
+<h2 id="getimagesize"><a href="#getimagesize" class="headerlink" title="getimagesize()"></a>getimagesize()</h2><p>上传图片马,配合文件包含漏洞或者解析漏洞<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151534906.png"></p>
 
     </div>
 
