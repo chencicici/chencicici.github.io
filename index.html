@@ -157,7 +157,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -231,6 +231,76 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/15/test/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_0010.JPG">
+      <meta itemprop="name" content="chenci">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenci's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Chenci's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/05/15/test/" class="post-title-link" itemprop="url">test</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-05-15 14:27:21 / 修改时间：14:27:32" itemprop="dateCreated datePublished" datetime="2022-05-15T14:27:21+08:00">2022-05-15</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151424766.png?token=ARYCSASWHOWU3BBPK4JWMATCQCOMA"></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/11/upload-labs%E9%9D%B6%E5%9C%BA%E9%80%9A%E5%85%B3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -259,9 +329,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-05-11 21:09:15 / 修改时间：21:18:38" itemprop="dateCreated datePublished" datetime="2022-05-11T21:09:15+08:00">2022-05-11</time>
+      <time title="创建时间：2022-05-11 21:09:15" itemprop="dateCreated datePublished" datetime="2022-05-11T21:09:15+08:00">2022-05-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-15 14:06:50" itemprop="dateModified" datetime="2022-05-15T14:06:50+08:00">2022-05-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -283,11 +359,24 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <h1 id="pass-01"><a href="#pass-01" class="headerlink" title="pass-01"></a>pass-01</h1><p>源码</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkFile</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> file = document.<span class="title function_ invoke__">getElementsByName</span>(<span class="string">&#x27;upload_file&#x27;</span>)[<span class="number">0</span>].value;</span><br><span class="line">    <span class="keyword">if</span> (file == <span class="literal">null</span> || file == <span class="string">&quot;&quot;</span>) &#123;</span><br><span class="line">        <span class="title function_ invoke__">alert</span>(<span class="string">&quot;请选择要上传的文件!&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//定义允许上传的文件类型</span></span><br><span class="line">    <span class="keyword">var</span> allow_ext = <span class="string">&quot;.jpg|.png|.gif&quot;</span>;</span><br><span class="line">    <span class="comment">//提取上传文件的类型</span></span><br><span class="line">    <span class="keyword">var</span> ext_name = file.<span class="title function_ invoke__">substring</span>(file.<span class="title function_ invoke__">lastIndexOf</span>(<span class="string">&quot;.&quot;</span>));</span><br><span class="line">    <span class="comment">//判断上传文件类型是否允许上传</span></span><br><span class="line">    <span class="keyword">if</span> (allow_ext.<span class="title function_ invoke__">indexOf</span>(ext_name + <span class="string">&quot;|&quot;</span>) == -<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> errMsg = <span class="string">&quot;该文件不允许上传，请上传&quot;</span> + allow_ext + <span class="string">&quot;类型的文件,当前文件类型为：&quot;</span> + ext_name;</span><br><span class="line">        <span class="title function_ invoke__">alert</span>(errMsg);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>白名单,仅允许上传<code>.jpg|.png|.gif</code>,但是只有前端校验</p>
-
+          <h1 id="pass-01"><a href="#pass-01" class="headerlink" title="pass-01"></a>pass-01</h1><ul>
+<li><p>源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkFile</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> file = document.<span class="title function_ invoke__">getElementsByName</span>(<span class="string">&#x27;upload_file&#x27;</span>)[<span class="number">0</span>].value;</span><br><span class="line">    <span class="keyword">if</span> (file == <span class="literal">null</span> || file == <span class="string">&quot;&quot;</span>) &#123;</span><br><span class="line">        <span class="title function_ invoke__">alert</span>(<span class="string">&quot;请选择要上传的文件!&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//定义允许上传的文件类型</span></span><br><span class="line">    <span class="keyword">var</span> allow_ext = <span class="string">&quot;.jpg|.png|.gif&quot;</span>;</span><br><span class="line">    <span class="comment">//提取上传文件的类型</span></span><br><span class="line">    <span class="keyword">var</span> ext_name = file.<span class="title function_ invoke__">substring</span>(file.<span class="title function_ invoke__">lastIndexOf</span>(<span class="string">&quot;.&quot;</span>));</span><br><span class="line">    <span class="comment">//判断上传文件类型是否允许上传</span></span><br><span class="line">    <span class="keyword">if</span> (allow_ext.<span class="title function_ invoke__">indexOf</span>(ext_name + <span class="string">&quot;|&quot;</span>) == -<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> errMsg = <span class="string">&quot;该文件不允许上传，请上传&quot;</span> + allow_ext + <span class="string">&quot;类型的文件,当前文件类型为：&quot;</span> + ext_name;</span><br><span class="line">        <span class="title function_ invoke__">alert</span>(errMsg);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>上传<br>  白名单,仅允许上传<code>.jpg|.png|.gif</code>,但是只有前端校验<br>  上传jpg抓包修改为php<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151356926.png?token=ARYCSATVNRPU6DWWWKPPKE3CQCLEW"></p>
+</li>
+<li><p>连接webshell<br>  复制图片地址,使用蚁剑连接<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151356854.png?token=ARYCSAREF6OTJWLDGZ2MYFTCQCLFY"></p>
+</li>
+</ul>
+<h1 id="pass-02"><a href="#pass-02" class="headerlink" title="pass-02"></a>pass-02</h1><p>源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$is_upload</span> = <span class="literal">false</span>;</span><br><span class="line"><span class="variable">$msg</span> = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_POST</span>[<span class="string">&#x27;submit&#x27;</span>])) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">file_exists</span>(UPLOAD_PATH)) &#123;</span><br><span class="line">        <span class="keyword">if</span> ((<span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;type&#x27;</span>] == <span class="string">&#x27;image/jpeg&#x27;</span>) || (<span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;type&#x27;</span>] == <span class="string">&#x27;image/png&#x27;</span>) || (<span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;type&#x27;</span>] == <span class="string">&#x27;image/gif&#x27;</span>)) &#123;</span><br><span class="line">            <span class="variable">$temp_file</span> = <span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>];</span><br><span class="line">            <span class="variable">$img_path</span> = UPLOAD_PATH . <span class="string">&#x27;/&#x27;</span> . <span class="variable">$_FILES</span>[<span class="string">&#x27;upload_file&#x27;</span>][<span class="string">&#x27;name&#x27;</span>]            </span><br><span class="line">            <span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$temp_file</span>, <span class="variable">$img_path</span>)) &#123;</span><br><span class="line">                <span class="variable">$is_upload</span> = <span class="literal">true</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="variable">$msg</span> = <span class="string">&#x27;上传出错！&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="variable">$msg</span> = <span class="string">&#x27;文件类型不正确，请重新上传！&#x27;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="variable">$msg</span> = UPLOAD_PATH.<span class="string">&#x27;文件夹不存在,请手工创建！&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/05/11/upload-labs%E9%9D%B6%E5%9C%BA%E9%80%9A%E5%85%B3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -341,9 +430,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-05-11 18:50:00 / 修改时间：19:15:13" itemprop="dateCreated datePublished" datetime="2022-05-11T18:50:00+08:00">2022-05-11</time>
+      <time title="创建时间：2022-05-11 18:50:00" itemprop="dateCreated datePublished" datetime="2022-05-11T18:50:00+08:00">2022-05-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-15 14:34:54" itemprop="dateModified" datetime="2022-05-15T14:34:54+08:00">2022-05-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -368,7 +463,7 @@
           <p>爬取墨迹天气,土味情话,ONE每日图片定时发送邮件</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> smtplib</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"><span class="keyword">from</span> fake_useragent <span class="keyword">import</span> UserAgent</span><br><span class="line"></span><br><span class="line">sender_maile = <span class="string">&#x27;&#x27;</span>  <span class="comment"># 发件人地址</span></span><br><span class="line">sender_pass = <span class="string">&#x27;&#x27;</span>  <span class="comment"># 邮件授权码</span></span><br><span class="line">boy_name = <span class="string">&#x27;&#x27;</span>  <span class="comment"># 发件人姓名</span></span><br><span class="line">girl_name = <span class="string">&#x27;&#x27;</span>  <span class="comment"># 收件人姓名</span></span><br><span class="line">maile_obj = smtplib.SMTP_SSL(<span class="string">&#x27;smtp.qq.com&#x27;</span>, <span class="number">465</span>)  <span class="comment"># 发送的服务器</span></span><br><span class="line">receiver_mail = <span class="string">&#x27;&#x27;</span>  <span class="comment"># 收件人邮箱</span></span><br><span class="line">special_day = <span class="string">&#x27;&#x27;</span>  <span class="comment"># 纪念日</span></span><br><span class="line">province = <span class="string">&#x27;&#x27;</span>  <span class="comment"># 省份 墨迹天气官网查看 示例province = &#x27;guangxi&#x27;</span></span><br><span class="line">city = <span class="string">&#x27;&#x27;</span>  <span class="comment"># 城市 示例city = &#x27;jiangnan-district&#x27; </span></span><br><span class="line">title = <span class="string">&#x27;s&#x27;</span>  <span class="comment"># 邮件主题</span></span><br><span class="line">ua = UserAgent()</span><br><span class="line">header = &#123;</span><br><span class="line">    <span class="string">&#x27;Referer&#x27;</span>: <span class="string">&#x27;https://tianqi.moji.com/weather/china/guangxi&#x27;</span>, <span class="comment"># 根据城市修改</span></span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>: ua.random</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">session = requests.session()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取纪念日距今多少天</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_day</span>():</span><br><span class="line">    d1 = datetime.datetime.strptime(special_day, <span class="string">&#x27;%Y-%m-%d&#x27;</span>)</span><br><span class="line">    d2 = datetime.datetime.strptime(datetime.datetime.now().strftime(<span class="string">&#x27;%Y-%m-%d&#x27;</span>), <span class="string">&#x27;%Y-%m-%d&#x27;</span>)</span><br><span class="line">    delta = d2 - d1</span><br><span class="line">    <span class="keyword">return</span> delta.days</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取每日土味情话</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_chp</span>():</span><br><span class="line">    url =  <span class="string">&quot;https://api.lovelive.tools/api/SweetNothings&quot;</span></span><br><span class="line">    resp = requests.get(url=url)</span><br><span class="line">    <span class="keyword">return</span> resp.text</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取提醒</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_weathertip</span>():</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        url = <span class="string">f&#x27;https://tianqi.moji.com/weather/china/<span class="subst">&#123;province&#125;</span>/<span class="subst">&#123;city&#125;</span>&#x27;</span></span><br><span class="line">        resp = session.get(url=url, headers=header, verify=<span class="literal">False</span>)</span><br><span class="line">        html = etree.HTML(resp.text)</span><br><span class="line">        em = html.xpath(<span class="string">&#x27;/html/body/div[4]/div[1]/div[4]/em/text()&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">return</span> em</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取每日天气</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_weather</span>():</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        url = <span class="string">f&#x27;https://tianqi.moji.com/weather/china/<span class="subst">&#123;province&#125;</span>/<span class="subst">&#123;city&#125;</span>&#x27;</span></span><br><span class="line">        resp = session.get(url=url, headers=header,  verify=<span class="literal">False</span>)</span><br><span class="line">        html = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        htmls = etree.HTML(resp.text)</span><br><span class="line">        ul = htmls.xpath(<span class="string">&#x27;/html/body/div[5]/div[1]/div[1]/ul&#x27;</span>)</span><br><span class="line">        <span class="keyword">for</span> lis <span class="keyword">in</span> ul:</span><br><span class="line">            <span class="comment"># 获取日期</span></span><br><span class="line">            day = lis.xpath(<span class="string">&#x27;./li[1]/a/text()&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">            <span class="comment"># 获取天气图标</span></span><br><span class="line">            src = lis.xpath(<span class="string">&#x27;./li[2]/span/img/@src&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">            <span class="comment"># 获取天气状况</span></span><br><span class="line">            weather = lis.xpath(<span class="string">&#x27;./li[2]/span/img/@alt&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">            <span class="comment"># 获取温度</span></span><br><span class="line">            temperature = lis.xpath(<span class="string">&#x27;./li[3]/text()&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">            <span class="comment"># 获取空气质量</span></span><br><span class="line">            air = lis.xpath(<span class="string">&#x27;./li[5]/strong/text()&#x27;</span>)[<span class="number">0</span>].strip()</span><br><span class="line">            <span class="comment"># 获取空气质量对应的字体颜色</span></span><br><span class="line">            color = <span class="built_in">str</span>(lis.xpath(<span class="string">&#x27;./li[5]/strong/@class&#x27;</span>)[<span class="number">0</span>])</span><br><span class="line">            <span class="comment"># 判断字体颜色</span></span><br><span class="line">            <span class="keyword">if</span> color == <span class="string">&#x27;level_1&#x27;</span>:</span><br><span class="line">                color = <span class="string">&#x27;#8fc31f&#x27;</span></span><br><span class="line">            <span class="keyword">elif</span> color == <span class="string">&#x27;level_2&#x27;</span>:</span><br><span class="line">                color = <span class="string">&#x27;#d7af0e&#x27;</span></span><br><span class="line">            <span class="keyword">elif</span> color == <span class="string">&#x27;level_3&#x27;</span>:</span><br><span class="line">                color = <span class="string">&#x27;#f39800&#x27;</span></span><br><span class="line">            <span class="keyword">elif</span> color == <span class="string">&#x27;level_4&#x27;</span>:</span><br><span class="line">                color = <span class="string">&#x27;#e2361a&#x27;</span></span><br><span class="line">            <span class="keyword">elif</span> color == <span class="string">&#x27;level_5&#x27;</span>:</span><br><span class="line">                color = <span class="string">&#x27;#5f52a0&#x27;</span></span><br><span class="line">            <span class="keyword">elif</span> color == <span class="string">&#x27;level_6&#x27;</span>:</span><br><span class="line">                color = <span class="string">&#x27;#631541&#x27;</span></span><br><span class="line">            html += <span class="string">&quot;&quot;&quot;&lt;div style=&quot;display: flex;margin-top:5px;height: 30px;line-height: 30px;justify-content: space-around;align-items: center;&quot;&gt;</span></span><br><span class="line"><span class="string">            &lt;span style=&quot;width:15%%; text-align:center;&quot;&gt;%s&lt;/span&gt;</span></span><br><span class="line"><span class="string">            &lt;div style=&quot;width:10%%; text-align:center;&quot;&gt;</span></span><br><span class="line"><span class="string">                &lt;img style=&quot;height:26px;vertical-align:middle;&quot; src=&#x27;%s&#x27; alt=&quot;&quot;&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;span style=&quot;width:25%%; text-align:center;&quot;&gt;%s&lt;/span&gt;</span></span><br><span class="line"><span class="string">            &lt;div style=&quot;width:35%%; &quot;&gt;</span></span><br><span class="line"><span class="string">                &lt;span style=&quot;display:inline-block;padding:0 8px;line-height:25px;color:%s; border-radius:15px; text-align:center;&quot;&gt;%s&lt;/span&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &lt;/div&gt;</span></span><br><span class="line"><span class="string">            &quot;&quot;&quot;</span> % (day, src, temperature, color, air)</span><br><span class="line">        <span class="keyword">return</span> html</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取图片</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_image</span>():</span><br><span class="line">    url = <span class="string">&quot;http://wufazhuce.com/&quot;</span></span><br><span class="line">    resp = requests.get(url=url)</span><br><span class="line">    html = etree.HTML(resp.text)</span><br><span class="line">    img_url = html.xpath(<span class="string">&#x27;//*[@id=&quot;carousel-one&quot;]/div/div[1]/a/img/@src&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">return</span> img_url</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取当天日期</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_today</span>():</span><br><span class="line">    i = datetime.datetime.now()</span><br><span class="line">    date = <span class="string">&quot;%s/%s/%s&quot;</span> % (i.year, i.month, i.day)</span><br><span class="line">    <span class="keyword">return</span> date</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">mail_content = <span class="string">&quot;&quot;&quot;&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="string">                &lt;html&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">                &lt;head&gt;</span></span><br><span class="line"><span class="string">                    &lt;title&gt;</span></span><br><span class="line"><span class="string">                    &lt;/title&gt;</span></span><br><span class="line"><span class="string">                    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;meta charset=&quot;UTF-8&quot;&gt;</span></span><br><span class="line"><span class="string">                &lt;/head&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">                &lt;body style=&quot;margin:0;padding:0;&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;div style=&quot;width:100%; margin: 40px auto;font-size:20px; color:#5f5e5e;text-align:center&quot;&gt;</span></span><br><span class="line"><span class="string">                        &lt;span&gt;今天是我们在一起的第&lt;/span&gt;</span></span><br><span class="line"><span class="string">                        &lt;span style=&quot;font-size:24px;color:rgb(221, 73, 73)&quot;  &gt;&#123;0&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="string">                        &lt;span&gt;天&lt;/span&gt;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;div style=&quot;width:100%; margin: 0 auto;color:#5f5e5e;text-align:center&quot;&gt;</span></span><br><span class="line"><span class="string">                        &lt;span style=&quot;display:block;color:#676767;font-size:20px&quot;&gt;&#123;2&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="string">                        &lt;br&gt;</span></span><br><span class="line"><span class="string">                        &lt;span style=&quot;display:block;color:#676767;font-size:20px&quot;&gt;&#123;1&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="string">                        &lt;span style=&quot;display:block;margin-top:15px;color:#676767;font-size:15px&quot;&gt;近期天气预报&lt;/span&gt;</span></span><br><span class="line"><span class="string">                &#123;3&#125;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;div style=&quot;text-align:center;margin:35px 0;&quot;&gt;</span></span><br><span class="line"><span class="string">                            &lt;span style=&quot;display:block;margin-top:55px;color:#676767;font-size:15px&quot;&gt;&#123;4&#125; ❤️ &#123;5&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="string">                            &lt;span style=&quot;display:block;margin-top:25px;font-size:22px; color:#9d9d9d; &quot;&gt;&#123;6&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="string">                             &lt;img src=&#x27;&#123;7&#125;&#x27; style=&quot;width:100%;margin-top:10px;&quot;  alt=&quot;&quot;&gt;</span></span><br><span class="line"><span class="string">                    &lt;/div&gt;</span></span><br><span class="line"><span class="string">                &lt;/body&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">                &lt;/html&gt;&quot;&quot;&quot;</span>.<span class="built_in">format</span>(<span class="built_in">str</span>(get_day()), get_weathertip(), get_chp(), get_weather(), boy_name, girl_name,</span><br><span class="line">                                  get_today(), get_image())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送邮件</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">send_mail</span>():</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        maile_obj.login(sender_maile, sender_pass)</span><br><span class="line">        <span class="comment"># 三个参数分别是发件人邮箱账号,收件人账号,发送的邮件内容</span></span><br><span class="line">        msg = MIMEText(mail_content, _subtype=<span class="string">&#x27;html&#x27;</span>, _charset=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">        msg[<span class="string">&#x27;Subject&#x27;</span>] = title</span><br><span class="line">        msg[<span class="string">&#x27;From&#x27;</span>] = <span class="string">&quot;发送人名称&quot;</span></span><br><span class="line">        msg[<span class="string">&#x27;To&#x27;</span>] = <span class="string">&quot;接收人名称&quot;</span></span><br><span class="line">        maile_obj.sendmail(sender_maile, receiver_mail, msg.as_string())</span><br><span class="line">        maile_obj.quit()</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">except</span> smtplib.SMTPException <span class="keyword">as</span> e:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    send_mail()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;发送成功!&#x27;</span>)</span><br><span class="line">    theTime = datetime.datetime.now()</span><br><span class="line">    <span class="built_in">print</span>(theTime)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>效果<br><img src="/2022/05/11/%E5%88%A9%E7%94%A8%E7%88%AC%E8%99%AB%E5%AE%9A%E6%97%B6%E7%BB%99%E5%A5%B3%E5%8F%8B%E5%8F%91%E9%80%81%E6%9A%96%E5%BF%83%E9%82%AE%E4%BB%B6/img.png"></p>
+<p>效果<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151434500.png?token=ARYCSAQPCUTWVPSDZCCU65LCQCPT2"></p>
 
       
     </div>
@@ -605,7 +700,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-11 18:56:41" itemprop="dateModified" datetime="2022-05-11T18:56:41+08:00">2022-05-11</time>
+      <time title="修改时间：2022-05-15 13:39:17" itemprop="dateModified" datetime="2022-05-15T13:39:17+08:00">2022-05-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -870,7 +965,7 @@ SQL注入漏洞主要形成的原因是在数据交互中，前端的数据传�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-11 18:56:41" itemprop="dateModified" datetime="2022-05-11T18:56:41+08:00">2022-05-11</time>
+      <time title="修改时间：2022-05-15 13:54:25" itemprop="dateModified" datetime="2022-05-15T13:54:25+08:00">2022-05-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -984,7 +1079,7 @@ SQL注入漏洞主要形成的原因是在数据交互中，前端的数据传�
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-22 18:05:07" itemprop="dateModified" datetime="2022-04-22T18:05:07+08:00">2022-04-22</time>
+      <time title="修改时间：2022-05-15 14:37:20" itemprop="dateModified" datetime="2022-05-15T14:37:20+08:00">2022-05-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -1119,95 +1214,6 @@ SQL注入漏洞主要形成的原因是在数据交互中，前端的数据传�
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/04/18/msf%E5%90%8E%E6%B8%97%E9%80%8F%E4%BD%BF%E7%94%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/18/docker%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_0010.JPG">
-      <meta itemprop="name" content="chenci">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chenci's blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Chenci's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/18/docker%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">docker基本使用</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-04-18 08:33:24 / 修改时间：08:34:49" itemprop="dateCreated datePublished" datetime="2022-04-18T08:33:24+08:00">2022-04-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">工具使用</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="docker帮助命令"><a href="#docker帮助命令" class="headerlink" title="docker帮助命令"></a>docker帮助命令</h2><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">version</span> 显示版本信息</span><br><span class="line">docker <span class="keyword">help</span> 帮助</span><br><span class="line">docker info 基本信息</span><br></pre></td></tr></table></figure>
-<h2 id="docker镜像命令"><a href="#docker镜像命令" class="headerlink" title="docker镜像命令"></a>docker镜像命令</h2><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">docker</span> <span class="string">images</span></span><br><span class="line"><span class="comment"># 可选项</span></span><br><span class="line">-<span class="string">a</span>, <span class="built_in">--all</span>   <span class="comment"># 列出所有镜像</span></span><br><span class="line">-<span class="string">q</span>, <span class="built_in">--quite</span> <span class="comment"># 只显示镜像的id</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="docker-search-搜索镜像"><a href="#docker-search-搜索镜像" class="headerlink" title="docker search 搜索镜像"></a>docker search 搜索镜像</h4>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/18/docker%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
