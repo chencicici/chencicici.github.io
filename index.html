@@ -157,7 +157,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -168,7 +168,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -222,6 +222,113 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/19/xss-labs%E9%9D%B6%E5%9C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_0010.JPG">
+      <meta itemprop="name" content="chenci">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chenci's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Chenci's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/05/19/xss-labs%E9%9D%B6%E5%9C%BA/" class="post-title-link" itemprop="url">xss-labs靶场</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-05-19 14:04:04 / 修改时间：17:38:58" itemprop="dateCreated datePublished" datetime="2022-05-19T14:04:04+08:00">2022-05-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">靶场</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="less-01"><a href="#less-01" class="headerlink" title="less-01"></a>less-01</h1><ul>
+<li><p>源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="title function_ invoke__">ini_set</span>(<span class="string">&quot;display_errors&quot;</span>, <span class="number">0</span>);</span><br><span class="line"><span class="variable">$str</span> = <span class="variable">$_GET</span>[<span class="string">&quot;name&quot;</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h2 align=center&gt;欢迎用户&quot;</span>.<span class="variable">$str</span>.<span class="string">&quot;&lt;/h2&gt;&quot;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>反射型xss,无过滤</p>
+</li>
+<li><p>payload<br>对于XSS漏洞，在实战中未避免因关键字被发现，多采用h5标签进行试探。<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205191420542.png"><br>注入XSS</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name=<span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"><span class="title function_">alert</span>(<span class="string">&#x27;xss&#x27;</span>)</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>  <img src="https://raw.githubusercontent.com/chencicici/images/main/202205191428059.png"></p>
+</li>
+</ul>
+<h1 id="less-02"><a href="#less-02" class="headerlink" title="less-02"></a>less-02</h1><ul>
+<li><p>源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line"><span class="title function_ invoke__">ini_set</span>(<span class="string">&quot;display_errors&quot;</span>, <span class="number">0</span>);</span><br><span class="line"><span class="variable">$str</span> = <span class="variable">$_GET</span>[<span class="string">&quot;keyword&quot;</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&quot;&lt;h2 align=center&gt;没有找到和&quot;</span>.<span class="title function_ invoke__">htmlspecialchars</span>(<span class="variable">$str</span>).<span class="string">&quot;相关的结果.&lt;/h2&gt;&quot;</span>.<span class="string">&#x27;&lt;center&gt;</span></span><br><span class="line"><span class="string">&lt;form action=level2.php method=GET&gt;</span></span><br><span class="line"><span class="string">&lt;input name=keyword  value=&quot;&#x27;</span>.<span class="variable">$str</span>.<span class="string">&#x27;&quot;&gt;</span></span><br><span class="line"><span class="string">&lt;input type=submit name=submit value=&quot;搜索&quot;/&gt;</span></span><br><span class="line"><span class="string">&lt;/form&gt;</span></span><br><span class="line"><span class="string">&lt;/center&gt;&#x27;</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>反射型XSS,<code>htmlspecialchars($str)</code>过滤,把预定义的字符 “&lt;” （小于）和 “&gt;” （大于）转换为 HTML 实体</p>
+</li>
+<li><p>payload<br>此处需要将突破点转向value，首先应该闭合标签（“&gt;），在进行xss注入。</p>
+  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keyword=<span class="string">&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  <img src="https://raw.githubusercontent.com/chencicici/images/main/202205191444081.png"></p>
+</li>
+</ul>
+<h1 id="less-03"><a href="#less-03" class="headerlink" title="less-03"></a>less-03</h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/05/19/xss-labs%E9%9D%B6%E5%9C%BA/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1132,107 +1239,6 @@ SQL注入漏洞主要形成的原因是在数据交互中，前端的数据传�
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2022/04/20/%E5%8D%8E%E4%B8%BAHCIA/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/18/msf%E5%90%8E%E6%B8%97%E9%80%8F%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_0010.JPG">
-      <meta itemprop="name" content="chenci">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chenci's blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Chenci's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/18/msf%E5%90%8E%E6%B8%97%E9%80%8F%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">msf后渗透使用</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-04-18 08:51:15" itemprop="dateCreated datePublished" datetime="2022-04-18T08:51:15+08:00">2022-04-18</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-20 15:15:02" itemprop="dateModified" datetime="2022-04-20T15:15:02+08:00">2022-04-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" itemprop="url" rel="index"><span itemprop="name">工具使用</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="msf后渗透命令整理"><a href="#msf后渗透命令整理" class="headerlink" title="msf后渗透命令整理"></a>msf后渗透命令整理</h1><ul>
-<li>后渗透基本知识</li>
-<li>权限维持,权限提升,内网渗透等</li>
-<li>内网渗透:信息收集,读取用户hash,浏览器密码等</li>
-<li>域渗透:获取域控权限</li>
-</ul>
-<h2 id="1-后渗透基本操作"><a href="#1-后渗透基本操作" class="headerlink" title="1.后渗透基本操作"></a>1.后渗透基本操作</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">background		    让meterpreter处于后台</span><br><span class="line">sessions -i 会话号	    与会话进行交互</span><br><span class="line">quit 			    退出会话</span><br><span class="line">shell			    获取一个交互式shell</span><br><span class="line">irb		            开启ruby终端</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="2-文件操作命令"><a href="#2-文件操作命令" class="headerlink" title="2.文件操作命令"></a>2.文件操作命令</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/18/msf%E5%90%8E%E6%B8%97%E9%80%8F%E4%BD%BF%E7%94%A8/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
