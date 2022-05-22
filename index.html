@@ -826,7 +826,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-05-22 14:51:38" itemprop="dateModified" datetime="2022-05-22T14:51:38+08:00">2022-05-22</time>
+      <time title="修改时间：2022-05-22 16:04:35" itemprop="dateModified" datetime="2022-05-22T16:04:35+08:00">2022-05-22</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -859,9 +859,10 @@
       输入过滤：对输入进行过滤，不允许可能导致XSS攻击的字符输入;
       输出转义：根据输出点的位置对输出到前端的内容进行适当转义;
 </code></pre>
-<h2 id="反射型XSS"><a href="#反射型XSS" class="headerlink" title="反射型XSS"></a>反射型XSS</h2><p>对输入长度有限制,直接在url里插入js代码</p>
+<h2 id="反射型XSS-GET"><a href="#反射型XSS-GET" class="headerlink" title="反射型XSS(GET)"></a>反射型XSS(GET)</h2><p>对输入长度有限制,直接在url里插入js代码</p>
 <ul>
-<li>payload<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;<span class="title function_">alert</span>(<span class="number">1</span>)&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+<li>payload  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;<span class="title function_">alert</span>(<span class="number">1</span>)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+  <img src="https://raw.githubusercontent.com/chencicici/images/main/202205221450440.png"></li>
 </ul>
           <!--noindex-->
             <div class="post-button">
