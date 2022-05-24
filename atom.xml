@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-05-19T09:38:58.756Z</updated>
+  <updated>2022-05-24T15:34:13.422Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>awvs联动xray扫描</title>
+    <link href="http://example.com/2022/05/24/awvs%E8%81%94%E5%8A%A8xray%E6%89%AB%E6%8F%8F/"/>
+    <id>http://example.com/2022/05/24/awvs%E8%81%94%E5%8A%A8xray%E6%89%AB%E6%8F%8F/</id>
+    <published>2022-05-24T15:09:57.000Z</published>
+    <updated>2022-05-24T15:34:13.422Z</updated>
+    
+    <content type="html"><![CDATA[<p>awvs 的爬虫很好用，支持表单分析和单页应用的爬取，xray 的扫描能力比较强，速度也更快。awvs 和 xray 搭配使用则是如虎添翼。<br>官网<a href="https://docs.xray.cool/#/scenario/awvs">xray手册</a></p><h1 id="awvs安装"><a href="#awvs安装" class="headerlink" title="awvs安装"></a>awvs安装</h1><p><a href="https://hub.docker.com/r/secfa/awvs">docker镜像地址</a></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#  pull 拉取下载镜像</span></span><br><span class="line">docker pull secfa/docker-awvs</span><br><span class="line"></span><br><span class="line"><span class="comment">#  将Docker的3443端口映射到物理机的 13443端口</span></span><br><span class="line">docker run -it -d -p 13443:3443 secfa/docker-awvs</span><br><span class="line"></span><br><span class="line"><span class="comment"># 容器的相关信息</span></span><br><span class="line">username: admin@admin.com</span><br><span class="line">password: Admin123</span><br><span class="line">AWVS版本：14</span><br><span class="line"></span><br><span class="line"><span class="comment">#如何更改凭据</span></span><br><span class="line"></span><br><span class="line">1.docker <span class="built_in">exec</span> -u root -it <span class="variable">$docker_names</span> /bin/bash</span><br><span class="line">2.运行/home/acunetix/.acunetix/change_credentials.sh</span><br><span class="line">3.输入您的新凭证</span><br></pre></td></tr></table></figure><h1 id="xray安装"><a href="#xray安装" class="headerlink" title="xray安装"></a>xray安装</h1><p><a href="https://github.com/chaitin/xray/releases">下载地址</a></p><p>将xray添加为命令</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## xray</span></span><br><span class="line"><span class="built_in">alias</span> xray=<span class="string">&quot;/xray/xray_darwin_amd64&quot;</span> <span class="comment">#xray路径</span></span><br><span class="line"><span class="built_in">export</span> <span class="built_in">alias</span></span><br></pre></td></tr></table></figure><h1 id="联合使用"><a href="#联合使用" class="headerlink" title="联合使用"></a>联合使用</h1><ul><li><p>启动xray<br>首先启动 xray 的被动代理，下面的命令将启动一个监听在所有网卡 1111 端口的 HTTP 代理, 并将扫描结果保存在 awvs.html 内。</p><pre><code class="bash">./xray webscan --listen 0.0.0.0:1111 --html-output awvs.html</code></pre><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202205242323790.png"></p></li><li><p>启动awvs<br>  打开awvs如果浏览器报 不是私密链接且没有继续访问,在awvs页面直接输入<code>thisisunsafe</code>,浏览器会自动跳转</p><p>  添加目标并设置为仅爬取,此处使用本地靶场环境<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205242324038.png"></p><p>  使用xray的代理,因为是docker环境,ip为<code>物理机的内网ip</code>,不能写127.0.0.1或者localhost,这样awvs容器才可以找到,如果xray在公网就写公网ip<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205242326873.png"></p></li><li><p>扫描<br>点击扫描后终端出现回显则表示成功<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205242329664.png"></p><p>  扫描结束后会出现一个awvs.html就是扫描结果,使用浏览器打开<br>  <img src="https://raw.githubusercontent.com/chencicici/images/main/202205242331538.png"></p></li></ul>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;awvs 的爬虫很好用，支持表单分析和单页应用的爬取，xray 的扫描能力比较强，速度也更快。awvs 和 xray 搭配使用则是如虎添翼。&lt;br&gt;官网&lt;a href=&quot;https://docs.xray.cool/#/scenario/awvs&quot;&gt;xray手册&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&quot;awvs安装&quot;&gt;&lt;a href=&quot;#awvs安装&quot; class=&quot;headerlink&quot; title=&quot;awvs安装&quot;&gt;&lt;/a&gt;awvs安装&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://hub.docker.com/r/secfa/awvs&quot;&gt;docker镜像地址&lt;/a&gt;&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#  pull 拉取下载镜像&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker pull secfa/docker-awvs&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#  将Docker的3443端口映射到物理机的 13443端口&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker run -it -d -p 13443:3443 secfa/docker-awvs&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 容器的相关信息&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;username: admin@admin.com&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;password: Admin123&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;AWVS版本：14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#如何更改凭据&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;1.docker &lt;span class=&quot;built_in&quot;&gt;exec&lt;/span&gt; -u root -it &lt;span class=&quot;variable&quot;&gt;$docker_names&lt;/span&gt; /bin/bash&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2.运行/home/acunetix/.acunetix/change_credentials.sh&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3.输入您的新凭证&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;h1 id=&quot;xray安装&quot;&gt;&lt;a href=&quot;#xray安装&quot; class=&quot;headerlink&quot; title=&quot;xray安装&quot;&gt;&lt;/a&gt;xray安装&lt;/h1&gt;</summary>
+    
+    
+    
+    <category term="工具" scheme="http://example.com/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="awvs" scheme="http://example.com/tags/awvs/"/>
+    
+    <category term="xray" scheme="http://example.com/tags/xray/"/>
+    
+  </entry>
   
   <entry>
     <title>xss-labs靶场</title>
