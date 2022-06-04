@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2022-06-03T12:57:25.459Z</updated>
+  <updated>2022-06-04T04:32:23.598Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Weblogic WLS CoreComponents反序列化漏洞复现</title>
+    <link href="http://example.com/2022/06/04/WeblogicWLSCoreComponents%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
+    <id>http://example.com/2022/06/04/WeblogicWLSCoreComponents%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/</id>
+    <published>2022-06-04T04:11:18.000Z</published>
+    <updated>2022-06-04T04:32:23.598Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="漏洞解析"><a href="#漏洞解析" class="headerlink" title="漏洞解析"></a>漏洞解析</h1><p>Weblogic WLS Core Components 反序列化命令执行漏洞（CVE-2018-2628）<br>Oracle 2018年4月补丁中，修复了Weblogic Server WLS Core Components中出现的一个反序列化漏洞（CVE-2018-2628），该漏洞通过t3协议触发，可导致未授权的用户在远程服务器执行任意命令。</p><h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>vulhub环境</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> CVE-2018-2628  </span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure><h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><p>使用工具检测<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206041231208.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206041231652.png"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;漏洞解析&quot;&gt;&lt;a href=&quot;#漏洞解析&quot; class=&quot;headerlink&quot; title=&quot;漏洞解析&quot;&gt;&lt;/a&gt;漏洞解析&lt;/h1&gt;&lt;p&gt;Weblogic WLS Core Components 反序列化命令执行漏洞（CVE-2018-2628）&lt;br&gt;Oracle 2018年4月补丁中，修复了Weblogic Server WLS Core Components中出现的一个反序列化漏洞（CVE-2018-2628），该漏洞通过t3协议触发，可导致未授权的用户在远程服务器执行任意命令。&lt;/p&gt;
+&lt;h1 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h1&gt;&lt;p&gt;vulhub环境&lt;/p&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; CVE-2018-2628  &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker-compose up -d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</summary>
+    
+    
+    
+    <category term="漏洞复现" scheme="http://example.com/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/"/>
+    
+    
+    <category term="反序列化" scheme="http://example.com/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/>
+    
+    <category term="Weblogic" scheme="http://example.com/tags/Weblogic/"/>
+    
+  </entry>
   
   <entry>
     <title>vulnhub-XXE Lab:1</title>
@@ -575,32 +600,6 @@ require(),require_once()
     <category term="教程" scheme="http://example.com/tags/%E6%95%99%E7%A8%8B/"/>
     
     <category term="docker" scheme="http://example.com/tags/docker/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>信息收集</title>
-    <link href="http://example.com/2022/04/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"/>
-    <id>http://example.com/2022/04/17/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/</id>
-    <published>2022-04-17T11:52:17.000Z</published>
-    <updated>2022-05-15T06:08:40.522Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="信息收集流程框架"><a href="#信息收集流程框架" class="headerlink" title="信息收集流程框架"></a>信息收集流程框架</h1><pre><code>web安全的本质是信息收集,信息收集的广度决定了渗透测试的深度</code></pre><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151406722.png?token=ARYCSAQD6OKJD27QWBHELEDCQCML2"></p><h1 id="google-hacking"><a href="#google-hacking" class="headerlink" title="google hacking"></a>google hacking</h1><p>利用谷歌强大的搜索引擎,经常会有意想不到的的收获</p><h2 id="基本的搜索"><a href="#基本的搜索" class="headerlink" title="基本的搜索"></a>基本的搜索</h2><ul><li>逻辑与 and</li><li>逻辑或 or</li><li>逻辑非 </li><li>通配符 *</li></ul><h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>intext寻找网页正文中的关键字,如: intext后台登录</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151407831.png?token=ARYCSAWV4LKDZRPCSEVF6JTCQCMMU"></p><p>intitle寻找网页标题中的关键字,如: intitle</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151407472.png?token=ARYCSARBOVPDEZB5OZMIVK3CQCMNG"></p><p>allintitle用法和intitle差不多,差别在于可指定多个关键字<br>inurl返回url中含有关键字的网页,如: inurl:login</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151407166.png?token=ARYCSAQ3SFZMMU3UYVUJCGLCQCMOQ"></p><p>查找管理员登录界面</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151407174.png?token=ARYCSAQOLC655DBNNP7VXPLCQCMPK"></p><p>查找phpmyadmin</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151408516.png?token=ARYCSASH2YTTZCBNY6FPUJDCQCMQG"></p><p>allinurl和inurl的用法差不多,差别在于可指定多个关键字<br>site指定访问的网站,如,site:baidu.com inurl:login</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151408454.png?token=ARYCSARRLHPP2UJ4SQO2VWLCQCMQY"></p><h2 id="查找网站后台"><a href="#查找网站后台" class="headerlink" title="查找网站后台"></a>查找网站后台</h2><ul><li>site:xx.com intext:管理</li><li>site:xx.com inurl:login</li><li>site:xx.com intitle:后台</li></ul><h2 id="查看服务器使用的程序"><a href="#查看服务器使用的程序" class="headerlink" title="查看服务器使用的程序"></a>查看服务器使用的程序</h2><ul><li>site:xx.com filetype:asp</li><li>site:xx.com filetype:php</li><li>site:xx.com filetype:jsp</li><li>site:xx.com filetype:aspx</li></ul><h2 id="查看上传漏洞"><a href="#查看上传漏洞" class="headerlink" title="查看上传漏洞"></a>查看上传漏洞</h2><ul><li>site:xx.com inurl:file</li><li>site:xx.com inurl:load</li></ul><h1 id="dns域名信息"><a href="#dns域名信息" class="headerlink" title="dns域名信息"></a>dns域名信息</h1><p>首先是对应域名的ip,域名注册人,邮箱,dns,子域名之类的信息</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151408552.png?token=ARYCSAXOYDDMLZE6YSW4UZLCQCMRI"></p><h2 id="whois查询"><a href="#whois查询" class="headerlink" title="whois查询"></a>whois查询</h2><ul><li>然后判断是否有cdn    <a href="http://cdn.chinaz.com/">http://cdn.chinaz.com</a></li><li>也可以使用不同地区的电脑ping,看ip是否是同一个</li><li>如果查询出的ip有多个就说明使用了cdn</li></ul><h2 id="CDN查询"><a href="#CDN查询" class="headerlink" title="CDN查询"></a>CDN查询</h2><ul><li>绕过cdn查询真实ip <a href="https://x.threatbook.cn/">https://x.threatbook.cn/</a> 微步</li></ul><h1 id="整站分析"><a href="#整站分析" class="headerlink" title="整站分析"></a>整站分析</h1><p>服务器类型</p><ul><li>服务器平台,版本等<br>网站容器</li><li>搭建网站的服务组件,如:iis,apache,nginx等等<br>脚本类型</li><li>常见的有asp,php,jsp,aspx<br>数据库类型</li><li>常见的有access,sqlserver,mysql,oracle<br>cms类型</li><li>网站模板<br>waf</li><li>安全防护软件</li></ul><h2 id="服务器类型-windows-x2F-linux"><a href="#服务器类型-windows-x2F-linux" class="headerlink" title="服务器类型(windows&#x2F;linux)"></a>服务器类型(windows&#x2F;linux)</h2><ul><li>nmap 扫描</li><li>google抓包分析</li></ul><h2 id="网站容器-iis-apache-nginx"><a href="#网站容器-iis-apache-nginx" class="headerlink" title="网站容器(iis,apache,nginx)"></a>网站容器(iis,apache,nginx)</h2><p>知道网站容器很重要,如iis6.0的解析漏洞,ngixn&lt;0.83的解析漏洞.,iis7.0的畸形解析漏洞等等</p><ul><li>nmap 扫描</li><li>google抓包分析</li></ul><h2 id="脚本类型-php-jsp-asp-aspx等"><a href="#脚本类型-php-jsp-asp-aspx等" class="headerlink" title="脚本类型(php,jsp,asp,aspx等)"></a>脚本类型(php,jsp,asp,aspx等)</h2><ul><li>根据网站的url</li><li>直接打开一个展示页面查看</li><li>根据firefox的插件查看</li></ul><h2 id="数据库类型"><a href="#数据库类型" class="headerlink" title="数据库类型"></a>数据库类型</h2><ul><li>mysql端口为3389,数据库后缀名.sql</li><li>sqlserver端口为1433,数据库后缀名.mdf</li><li>access后缀名为.mdb</li><li>oraacle,端口为1521</li></ul><p>一般的常见搭配为</p><ul><li>ASP和ASPX:access,sqlserver</li><li>PHP:mysql</li><li>JSP:oracle,mysql</li></ul><h2 id="端口扫描"><a href="#端口扫描" class="headerlink" title="端口扫描"></a>端口扫描</h2><p>扫描目标开放了哪些端口,如常见的135,137,445经常爆发出漏洞</p><ul><li>21,22,23,3389    ftp,ssh,telnet,windows远程桌面</li><li>873 rsync 未授权访问漏洞</li><li>3306 mysql 弱口令</li><li>6379 redis未授权访问漏洞</li></ul><h2 id="网站敏感目录和文件"><a href="#网站敏感目录和文件" class="headerlink" title="网站敏感目录和文件"></a>网站敏感目录和文件</h2><ul><li>后台目录:万能密码,弱口令,爆破</li><li>安装包:获取数据库信息,甚至是网站源码</li><li>上传目录:上传木马,一句话等</li><li>mysql管理接口:爆破,弱口令,万能密码,甚至能直接拿shell</li><li>phpinfo:暴露各种配置信息</li><li>编辑器:各种畸形漏洞</li><li>robots.txt</li></ul><h2 id="旁站和C段"><a href="#旁站和C段" class="headerlink" title="旁站和C段"></a>旁站和C段</h2><ul><li><p>旁站指的是同一服务器上得不同网站,如果你拿不下这个网站,不如试试旁站.拿下旁站webshell,再提权也就拿下了这个网站了</p></li><li><p>C段指的是同一网段的其他服务器,192.168.0.1,0就是C段.如果拿下了C段中一台服务器,就可使用嗅探工具,arp欺骗等劫持流量,找到关键信息,拿下服务器</p></li><li><p>旁站查询:<a href="http://s.tool.chinaz.com/same">http://s.tool.chinaz.com/same</a></p></li><li><p>C段查询:<a href="http://www.webscan.cc/">http://www.webscan.cc/</a></p></li></ul>]]></content>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;信息收集流程框架&quot;&gt;&lt;a href=&quot;#信息收集流程框架&quot; class=&quot;headerlink&quot; title=&quot;信息收集流程框架&quot;&gt;&lt;/a&gt;信息收集流程框架&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;web安全的本质是信息收集,信息收集的广度决定了渗透测试的深度
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/chencicici/images/main/202205151406722.png?token=ARYCSAQD6OKJD27QWBHELEDCQCML2&quot;&gt;&lt;/p&gt;
-&lt;h1 id=&quot;google-hacking&quot;&gt;&lt;a href=&quot;#google-hacking&quot; class=&quot;headerlink&quot; title=&quot;google hacking&quot;&gt;&lt;/a&gt;google hacking&lt;/h1&gt;&lt;p&gt;利用谷歌强大的搜索引擎,经常会有意想不到的的收获&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="笔记" scheme="http://example.com/categories/%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="web安全" scheme="http://example.com/tags/web%E5%AE%89%E5%85%A8/"/>
-    
-    <category term="信息收集" scheme="http://example.com/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/"/>
     
   </entry>
   
