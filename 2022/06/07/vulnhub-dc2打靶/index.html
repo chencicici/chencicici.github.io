@@ -21,16 +21,41 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="article">
+    <meta name="description" content="环境vulnhub环境,项目地址https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;dc-2,311&#x2F;靶机:172.16.17.143攻击机kali:172.16.17.140 目标 信息收集">
+<meta property="og:type" content="article">
 <meta property="og:title" content="vulnhub-dc2打靶">
 <meta property="og:url" content="http://example.com/2022/06/07/vulnhub-dc2%E6%89%93%E9%9D%B6/index.html">
 <meta property="og:site_name" content="Syst1m">
+<meta property="og:description" content="环境vulnhub环境,项目地址https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;dc-2,311&#x2F;靶机:172.16.17.143攻击机kali:172.16.17.140 目标 信息收集">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206071953622.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206071939781.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072051340.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206071940839.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206071952711.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072000538.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072000379.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072012702.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072018340.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072035043.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072041502.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072044253.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072047333.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072057740.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072100660.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072059691.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072103628.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072116628.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072120697.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072129726.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072127120.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206072128530.png">
 <meta property="article:published_time" content="2022-06-07T11:35:24.000Z">
-<meta property="article:modified_time" content="2022-06-07T11:35:24.833Z">
+<meta property="article:modified_time" content="2022-06-07T13:31:17.115Z">
 <meta property="article:author" content="Syst1m">
-<meta property="article:tag" content="blog,爬虫,web安全">
+<meta property="article:tag" content="vulnhub">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206071953622.png">
 
 
 <link rel="canonical" href="http://example.com/2022/06/07/vulnhub-dc2%E6%89%93%E9%9D%B6/">
@@ -130,7 +155,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -143,6 +168,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%AE%E6%A0%87"><span class="nav-number">2.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-number">3.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%88%86%E7%A0%B4"><span class="nav-number">4.</span> <span class="nav-text">爆破</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E6%9D%83"><span class="nav-number">5.</span> <span class="nav-text">提权</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -262,8 +288,18 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-06-07 19:35:24" itemprop="dateCreated datePublished" datetime="2022-06-07T19:35:24+08:00">2022-06-07</time>
+      <time title="创建时间：2022-06-07 19:35:24 / 修改时间：21:31:17" itemprop="dateCreated datePublished" datetime="2022-06-07T19:35:24+08:00">2022-06-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%89%93%E9%9D%B6/" itemprop="url" rel="index"><span itemprop="name">打靶</span></a>
+        </span>
     </span>
 
   
@@ -283,7 +319,33 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        
+        <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>vulnhub环境,项目地址<a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/dc-2,311/">https://www.vulnhub.com/entry/dc-2,311/</a><br>靶机:172.16.17.143<br>攻击机kali:172.16.17.140</p>
+<h1 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h1><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206071953622.png"></p>
+<h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>找到靶机ip<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206071939781.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072051340.png"></p>
+<p>打开跳转dc-2&#x2F;,502<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206071940839.png"></p>
+<p>抓包发现301永久跳转一个页面<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206071952711.png"></p>
+<p>添加一个解析<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072000538.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072000379.png"><br>拿到第一个flag,提示我们使用cewl来生成密码</p>
+<h1 id="爆破"><a href="#爆破" class="headerlink" title="爆破"></a>爆破</h1><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072012702.png"><br>cewl使用 <a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/network/190128.html">https://www.freebuf.com/articles/network/190128.html</a></p>
+<p>使用cewl生成字典<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072018340.png"></p>
+<p>需要扫出登录点<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072035043.png"><br>经典wordpress</p>
+<p>掏出wpscan,枚举用户</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wpscan --url  http://dc-2 -e u</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072041502.png"></p>
+<p>将用户名写入txt,开始爆破</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wpscan --url  http://dc-2 -U name.txt -P pwd.txt</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072044253.png"></p>
+<p>登录jerry账号发现flag2<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072047333.png"><br>flag提示,如果wp没法利用就找别的方法,想到刚刚信息收集还有ssh,用这两个账号去试试</p>
+<p>msf爆破ssh<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072057740.png"><br>最后使用tom用户成功登录</p>
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><p>尝试之后发现权限很低,使用vi查看内容<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072100660.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072059691.png"><br>得到提示,尝试su,发现没有这个命令,查看一下当前用户的环境变量<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072103628.png"></p>
+<p>使用vi尝试绕过,得到一个正常环境变量</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vi a.txt</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置shell变量</span></span><br><span class="line">:shell = /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment">#启动shell</span></span><br><span class="line">:shell</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入环境变量</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/bin</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072116628.png"></p>
+<p>登录jerry,使用刚刚爆破出的密码,得到flag4.txt,没有提示<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072120697.png"></p>
+<p>查看历史命令,发现有使用sudo git,也就是说git是有root权限的<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072129726.png"></p>
+<p>git提权</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo git <span class="built_in">help</span> add</span><br><span class="line">末尾输入!/bin/bash</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">sudo git <span class="built_in">help</span> config</span><br><span class="line">末尾输入</span><br><span class="line">!<span class="string">&#x27;sh&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072127120.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072128530.png"></p>
+
     </div>
 
     
@@ -328,6 +390,9 @@
 </ul>
 </div>
 
+          <div class="post-tags">
+              <a href="/tags/vulnhub/" rel="tag"># vulnhub</a>
+          </div>
 
         
 
