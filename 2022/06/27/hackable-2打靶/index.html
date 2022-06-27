@@ -21,24 +21,44 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"syst1m.top","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Syst1m">
-<meta property="og:url" content="https://syst1m.top/tags/sql%E6%B3%A8%E5%85%A5/index.html">
+    <meta name="description" content="环境vulnhub项目 https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;darkhole-2,740&#x2F;靶机:172.16.17.155攻击机kali:172.16.17.140 信息收集对靶机进行端口扫描,开放了21,22,80,存在Anonymous用户 网站就一个apache首页">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hackable:2打靶">
+<meta property="og:url" content="https://syst1m.top/2022/06/27/hackable-2%E6%89%93%E9%9D%B6/index.html">
 <meta property="og:site_name" content="Syst1m">
+<meta property="og:description" content="环境vulnhub项目 https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;darkhole-2,740&#x2F;靶机:172.16.17.155攻击机kali:172.16.17.140 信息收集对靶机进行端口扫描,开放了21,22,80,存在Anonymous用户 网站就一个apache首页">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206271926183.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206271935104.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206271932686.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206271934487.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206271938467.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206271939684.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206271939512.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206271941357.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206271944032.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206271947654.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206271949779.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206271950204.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206271953098.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206271954027.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206271958787.png">
+<meta property="article:published_time" content="2022-06-27T07:44:44.000Z">
+<meta property="article:modified_time" content="2022-06-27T11:58:21.981Z">
 <meta property="article:author" content="Syst1m">
-<meta property="article:tag" content="blog,爬虫,web安全">
+<meta property="article:tag" content="vulnhub">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206271926183.png">
 
 
-<link rel="canonical" href="https://syst1m.top/tags/sql%E6%B3%A8%E5%85%A5/">
+<link rel="canonical" href="https://syst1m.top/2022/06/27/hackable-2%E6%89%93%E9%9D%B6/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"tags/sql注入/index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://syst1m.top/2022/06/27/hackable-2%E6%89%93%E9%9D%B6/","path":"2022/06/27/hackable-2打靶/","title":"hackable:2打靶"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>标签: sql注入 | Syst1m</title>
+<title>hackable:2打靶 | Syst1m</title>
   
 
 
@@ -128,7 +148,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -141,6 +161,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-number">2.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Exploit"><span class="nav-number">3.</span> <span class="nav-text">Exploit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ftp"><span class="nav-number">3.1.</span> <span class="nav-text">ftp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E6%9D%83"><span class="nav-number">3.2.</span> <span class="nav-text">提权</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -221,110 +242,141 @@
 </noscript>
 
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
+
+
+<div class="post-block">
   
   
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h1 class="collection-header">sql注入
-          <small>标签</small>
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://syst1m.top/2022/06/27/hackable-2%E6%89%93%E9%9D%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_0010.JPG">
+      <meta itemprop="name" content="Syst1m">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Syst1m">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="hackable:2打靶 | Syst1m">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          hackable:2打靶
         </h1>
-      </div>
 
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+
+      <time title="创建时间：2022-06-27 15:44:44 / 修改时间：19:58:21" itemprop="dateCreated datePublished" datetime="2022-06-27T15:44:44+08:00">2022-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%89%93%E9%9D%B6/" itemprop="url" rel="index"><span itemprop="name">打靶</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>vulnhub项目 <a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/darkhole-2,740/">https://www.vulnhub.com/entry/darkhole-2,740/</a><br>靶机:172.16.17.155<br>攻击机kali:172.16.17.140</p>
+<h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>对靶机进行端口扫描,开放了21,22,80,存在Anonymous用户<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271926183.png"></p>
+<p>网站就一个apache首页<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271935104.png"></p>
+<h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><h2 id="ftp"><a href="#ftp" class="headerlink" title="ftp"></a>ftp</h2><p>回到ftp使用Anonymous用户登录,密码为任意邮箱,<a href="mailto:&#49;&#50;&#51;&#64;&#49;&#x32;&#x33;&#x2e;&#x63;&#111;&#x6d;">&#49;&#50;&#51;&#64;&#49;&#x32;&#x33;&#x2e;&#x63;&#111;&#x6d;</a><br>发现存在一个html文件下载下来<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271932686.png"></p>
+<p>打开,查看源代码,title有一串可疑字符,和一句提示<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271934487.png"></p>
+<p>没有利用的点,回到网站,扫一下目录,扫到一个files<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271938467.png"></p>
+<p>打开发现一个CALL.html,和ftp上的一模一样<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271939684.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271939512.png"></p>
+<p>猜测ftp目录和web目录为同一个,利用ftp上传webshell试试<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271941357.png"></p>
+<p>访问存在,上蚁剑<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271944032.png"></p>
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>用蚁剑反弹一个shell到kali<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271947654.png"></p>
+<p>翻家目录,翻到一个txt,提示我们运行一个sh脚本,运行之后出来一串密文<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271949779.png"></p>
+<p>尝试解密onion,应该是shrek的密码,和最开始的html标题一样…<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271950204.png"></p>
+<p>ssh登录上来<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271953098.png"></p>
+<p>查看拥有sudo权限的文件<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271954027.png"></p>
+<p>有python,直接写shell<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271958787.png"></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-06-24T13:37:14+08:00"
-              content="2022-06-24">
-          06-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/06/24/sql%E6%B3%A8%E5%85%A5%E4%B9%8Bmysql%E6%B3%A8%E5%85%A5%E5%A7%BF%E5%8A%BF%E5%8F%8A%E7%BB%95%E8%BF%87%E6%80%BB%E7%BB%93/" itemprop="url">
-            <span itemprop="name">sql注入之mysql注入姿势及绕过总结</span>
-          </a>
-      </div>
-
+    
+    
+    
       
-    </header>
+
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Syst1m
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://syst1m.top/2022/06/27/hackable-2%E6%89%93%E9%9D%B6/" title="hackable:2打靶">https://syst1m.top/2022/06/27/hackable-2打靶/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/vulnhub/" rel="tag"># vulnhub</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/25/vulnhub-darkhole-2%E6%89%93%E9%9D%B6/" rel="prev" title="vulnhub-darkhole:2打靶">
+                  <i class="fa fa-chevron-left"></i> vulnhub-darkhole:2打靶
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-05-29T22:41:09+08:00"
-              content="2022-05-29">
-          05-29
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/05/29/%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5getshell%E5%88%B0%E6%8F%90%E6%9D%83/" itemprop="url">
-            <span itemprop="name">报错注入getshell到提权</span>
-          </a>
-      </div>
 
-      
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-04-28T22:17:59+08:00"
-              content="2022-04-28">
-          04-28
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/04/28/pikachu%E6%BC%8F%E6%B4%9E%E9%9D%B6%E5%9C%BA%E9%80%9A%E5%85%B3/" itemprop="url">
-            <span itemprop="name">pikachu漏洞靶场通关</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-04-24T14:56:30+08:00"
-              content="2022-04-24">
-          04-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2022/04/24/SQL%E6%B3%A8%E5%85%A5%E9%9D%B6%E5%9C%BAsqli-labs/" itemprop="url">
-            <span itemprop="name">SQL注入靶场sqli-labs</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-    </div>
-  </div>
-  
-  
-  
 
 </div>
   </main>
