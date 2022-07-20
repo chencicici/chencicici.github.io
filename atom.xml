@@ -6,7 +6,7 @@
   <link href="https://syst1m.top/atom.xml" rel="self"/>
   
   <link href="https://syst1m.top/"/>
-  <updated>2022-07-17T09:47:58.988Z</updated>
+  <updated>2022-07-20T11:42:13.131Z</updated>
   <id>https://syst1m.top/</id>
   
   <author>
@@ -15,6 +15,59 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ATT&amp;CK红队实战靶场02</title>
+    <link href="https://syst1m.top/2022/07/18/ATT-CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA02/"/>
+    <id>https://syst1m.top/2022/07/18/ATT-CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA02/</id>
+    <published>2022-07-18T10:04:35.000Z</published>
+    <updated>2022-07-20T11:42:13.131Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="拓扑图"><a href="#拓扑图" class="headerlink" title="拓扑图"></a>拓扑图</h1><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191524897.png"></p><h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p><code>WEB初始密码错误，需要使用administrator登录，密码为空</code></p><table><thead><tr><th>虚拟机</th><th>网络模式</th><th>密码</th></tr></thead><tbody><tr><td>DC</td><td>net1仅主机：10.10.10.10</td><td>1qaz@WSX</td></tr><tr><td>PC</td><td>net1桥接复制物理网络：192.168.31.189   net2仅主机：10.10.10.201</td><td>1qaz@WSX</td></tr><tr><td>WEB</td><td>net1桥接复制物理网络：192.168.31.18     net2仅主机：10.10.10.80</td><td>administra&#x2F;空</td></tr><tr><td>Kali</td><td>net1桥接复制物理网络：192.168.31.118</td><td></td></tr></tbody></table><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191620529.png"></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191620506.png"></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191621606.png"></p><p>开启weblogic服务在C:\Oracle\Middleware\user_projects\domains\base_domain\bin下以管理员运行</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191626843.png"></p><h1 id="外网渗透"><a href="#外网渗透" class="headerlink" title="外网渗透"></a>外网渗透</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>发现根本ping不通</p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191629862.png" style="zoom:50%;" /><p>采用半开放式方式扫描</p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191642494.png" style="zoom:50%;" /><p>开放135存在smb服务，445可能存在ms17_010,3389是远程可能存在弱口令，7001weblogic可能存在命令执行</p><h2 id="web打点"><a href="#web打点" class="headerlink" title="web打点"></a>web打点</h2><p>使用工具检测出存在CVE-2020-2551</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191648372.png"></p><p>本来想使用工具直接上传webshell，但是上传成功后蚁剑一直连接不上，怀疑是被杀软阻止了</p><p>重新使用msf生成payload上传jspshell</p><p>上传路径<code>C:\Oracle\Middleware\wlserver_10.3\server\lib\consoleapp\webapp\framework\skins\wlsconsole\images\1.jsp</code></p><p>访问路径<code>http://192.168.31.18:7001/console/framework/skins/wlsconsole/images/1.jsp</code></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191803812.png"></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191801883.png"></p><p>kali监听返回一个会话，自带提权失败，应该是被杀软拦截了</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191804270.png"></p><p>发现存在360，很多操作被拦截</p><p>![image-20220719181132987](&#x2F;Users&#x2F;chenci&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20220719181132987.png)</p><p><code>ps</code>继续查看进程,发现系统进程services.exe</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191824277.png"></p><p>将我们msf后门的进程迁移至这个进程，拿到system权限</p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191825675.png" style="zoom:50%;" /><p>关闭360</p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191836792.png" style="zoom:50%;" /><h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h1><h2 id="信息收集-1"><a href="#信息收集-1" class="headerlink" title="信息收集"></a>信息收集</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">查看域名 net config workstation</span><br><span class="line">查看有几个域  net view /domain</span><br><span class="line">查看域内主机  net view</span><br><span class="line">查询域内用户   net user /domain <span class="comment">#该命令在本环境中需要在system权限下执行</span></span><br><span class="line">查看域管理员   net group <span class="string">&quot;domain admins&quot;</span> /domain  </span><br><span class="line">查看域控    net group <span class="string">&quot;domain controllers&quot;</span> /domain  </span><br><span class="line">关闭防火墙netsh advfirewall <span class="built_in">set</span> allprofiles state off</span><br></pre></td></tr></table></figure><p>判断是否存在域</p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191833680.png" style="zoom:50%;" /><p>发现还有一个网段，域控一般是本机的dns地址</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191841223.png"></p><p>也可以通过msf来定位</p><p><code>run post/windows/gather/enum_domain 查看域控</code></p><p><code>run post/windows/gather/enum_ad_computers查看域内成员</code></p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191846946.png" style="zoom:50%;" /><h2 id="横向打点"><a href="#横向打点" class="headerlink" title="横向打点"></a>横向打点</h2><p><code>run post/multi/manage/autoroute 新建路由</code></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191856195.png"></p><p><code>run autoroute -p 查看路由</code></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191858908.png"></p><p>background挂起会话，添加route只能使用msf自带的工具，要使用别的，还需要反向代理</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191905070.png"></p><p><code>vim /etc/proxychains4.conf 添加代理</code></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191908336.png"></p><p>测试代理是否可用</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207192015948.png"></p><p><code>post/windows/gather/arp_scanner 扫描存活主机</code></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207192017651.png"></p><p>使用kiwi抓取密码</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207191920816.png"></p><p>生成payload上线cs，使用svc提升至system权限</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207201912329.png"></p><h2 id="PsExec传递"><a href="#PsExec传递" class="headerlink" title="PsExec传递"></a>PsExec传递</h2><p>使用现在这台主机中转一个监听器，利用psexec横向移动至DC，DC成功上线</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207201917397.png"></p><p>还剩一台pc也是一样的打法</p>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;拓扑图&quot;&gt;&lt;a href=&quot;#拓扑图&quot; class=&quot;headerlink&quot; title=&quot;拓扑图&quot;&gt;&lt;/a&gt;拓扑图&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/chencicici/images/main/202207191524897.png&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;环境搭建&quot;&gt;&lt;a href=&quot;#环境搭建&quot; class=&quot;headerlink&quot; title=&quot;环境搭建&quot;&gt;&lt;/a&gt;环境搭建&lt;/h1&gt;&lt;p&gt;&lt;code&gt;WEB初始密码错误，需要使用administrator登录，密码为空&lt;/code&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;虚拟机&lt;/th&gt;
+&lt;th&gt;网络模式&lt;/th&gt;
+&lt;th&gt;密码&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;&lt;tr&gt;
+&lt;td&gt;DC&lt;/td&gt;
+&lt;td&gt;net1仅主机：10.10.10.10&lt;/td&gt;
+&lt;td&gt;1qaz@WSX&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;PC&lt;/td&gt;
+&lt;td&gt;net1桥接复制物理网络：192.168.31.189   net2仅主机：10.10.10.201&lt;/td&gt;
+&lt;td&gt;1qaz@WSX&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;WEB&lt;/td&gt;
+&lt;td&gt;net1桥接复制物理网络：192.168.31.18     net2仅主机：10.10.10.80&lt;/td&gt;
+&lt;td&gt;administra&amp;#x2F;空&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Kali&lt;/td&gt;
+&lt;td&gt;net1桥接复制物理网络：192.168.31.118&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;</summary>
+    
+    
+    
+    <category term="打靶" scheme="https://syst1m.top/categories/%E6%89%93%E9%9D%B6/"/>
+    
+    
+    <category term="ATT&amp;CK" scheme="https://syst1m.top/tags/ATT-CK/"/>
+    
+    <category term="内网渗透" scheme="https://syst1m.top/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>ATT&amp;CK红队实战靶场01</title>
@@ -73,7 +126,7 @@
     <published>2022-06-27T07:44:44.000Z</published>
     <updated>2022-06-27T12:00:56.660Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>vulnhub项目 <a href="https://www.vulnhub.com/entry/darkhole-2,740/">https://www.vulnhub.com/entry/darkhole-2,740/</a><br>靶机:172.16.17.155<br>攻击机kali:172.16.17.140</p><h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>对靶机进行端口扫描,开放了21,22,80,存在Anonymous用户<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271926183.png"></p><p>网站就一个apache首页<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271935104.png"></p><h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><h2 id="ftp"><a href="#ftp" class="headerlink" title="ftp"></a>ftp</h2><p>回到ftp使用Anonymous用户登录,密码为任意邮箱,<a href="mailto:&#49;&#50;&#51;&#x40;&#x31;&#50;&#51;&#x2e;&#x63;&#111;&#x6d;">&#49;&#50;&#51;&#x40;&#x31;&#50;&#51;&#x2e;&#x63;&#111;&#x6d;</a><br>发现存在一个html文件下载下来<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271932686.png"></p><p>打开,查看源代码,title有一串可疑字符,和一句提示<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271934487.png"></p><p>没有利用的点,回到网站,扫一下目录,扫到一个files<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271938467.png"></p><p>打开发现一个CALL.html,和ftp上的一模一样<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271939684.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271939512.png"></p><p>猜测ftp目录和web目录为同一个,利用ftp上传webshell试试<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271941357.png"></p><p>访问存在,上蚁剑<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271944032.png"></p><h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>用蚁剑反弹一个shell到kali<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271947654.png"></p><p>翻家目录,翻到一个txt,提示我们运行一个sh脚本,运行之后出来一串密文<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271949779.png"></p><p>尝试解密onion,应该是shrek的密码,和最开始的html标题一样…<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271950204.png"></p><p>ssh登录上来<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271953098.png"></p><p>查看拥有sudo权限的文件<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271954027.png"></p><p>有python,直接写shell<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271958787.png"></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>vulnhub项目 <a href="https://www.vulnhub.com/entry/darkhole-2,740/">https://www.vulnhub.com/entry/darkhole-2,740/</a><br>靶机:172.16.17.155<br>攻击机kali:172.16.17.140</p><h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>对靶机进行端口扫描,开放了21,22,80,存在Anonymous用户<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271926183.png"></p><p>网站就一个apache首页<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271935104.png"></p><h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><h2 id="ftp"><a href="#ftp" class="headerlink" title="ftp"></a>ftp</h2><p>回到ftp使用Anonymous用户登录,密码为任意邮箱,<a href="mailto:&#49;&#50;&#x33;&#x40;&#x31;&#x32;&#51;&#x2e;&#99;&#111;&#x6d;">&#49;&#50;&#x33;&#x40;&#x31;&#x32;&#51;&#x2e;&#99;&#111;&#x6d;</a><br>发现存在一个html文件下载下来<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271932686.png"></p><p>打开,查看源代码,title有一串可疑字符,和一句提示<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271934487.png"></p><p>没有利用的点,回到网站,扫一下目录,扫到一个files<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271938467.png"></p><p>打开发现一个CALL.html,和ftp上的一模一样<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271939684.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271939512.png"></p><p>猜测ftp目录和web目录为同一个,利用ftp上传webshell试试<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271941357.png"></p><p>访问存在,上蚁剑<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271944032.png"></p><h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>用蚁剑反弹一个shell到kali<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271947654.png"></p><p>翻家目录,翻到一个txt,提示我们运行一个sh脚本,运行之后出来一串密文<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271949779.png"></p><p>尝试解密onion,应该是shrek的密码,和最开始的html标题一样…<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271950204.png"></p><p>ssh登录上来<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271953098.png"></p><p>查看拥有sudo权限的文件<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271954027.png"></p><p>有python,直接写shell<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206271958787.png"></p>]]></content>
     
     
     <summary type="html">&lt;h1 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h1&gt;&lt;p&gt;vulnhub项目 &lt;a href=&quot;https://www.vulnhub.com/entry/darkhole-2,740/&quot;&gt;https://www.vulnhub.com/entry/darkhole-2,740/&lt;/a&gt;&lt;br&gt;靶机:172.16.17.155&lt;br&gt;攻击机kali:172.16.17.140&lt;/p&gt;
@@ -482,29 +535,6 @@
     <category term="vulnhub" scheme="https://syst1m.top/tags/vulnhub/"/>
     
     <category term="红队" scheme="https://syst1m.top/tags/%E7%BA%A2%E9%98%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vulnhub-dc2打靶</title>
-    <link href="https://syst1m.top/2022/06/07/vulnhub-dc2%E6%89%93%E9%9D%B6/"/>
-    <id>https://syst1m.top/2022/06/07/vulnhub-dc2%E6%89%93%E9%9D%B6/</id>
-    <published>2022-06-07T11:35:24.000Z</published>
-    <updated>2022-06-07T13:31:17.115Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>vulnhub环境,项目地址<a href="https://www.vulnhub.com/entry/dc-2,311/">https://www.vulnhub.com/entry/dc-2,311/</a><br>靶机:172.16.17.143<br>攻击机kali:172.16.17.140</p><h1 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h1><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206071953622.png"></p><h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>找到靶机ip<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206071939781.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072051340.png"></p><p>打开跳转dc-2&#x2F;,502<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206071940839.png"></p><p>抓包发现301永久跳转一个页面<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206071952711.png"></p><p>添加一个解析<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072000538.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072000379.png"><br>拿到第一个flag,提示我们使用cewl来生成密码</p><h1 id="爆破"><a href="#爆破" class="headerlink" title="爆破"></a>爆破</h1><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072012702.png"><br>cewl使用 <a href="https://www.freebuf.com/articles/network/190128.html">https://www.freebuf.com/articles/network/190128.html</a></p><p>使用cewl生成字典<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072018340.png"></p><p>需要扫出登录点<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072035043.png"><br>经典wordpress</p><p>掏出wpscan,枚举用户</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wpscan --url  http://dc-2 -e u</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072041502.png"></p><p>将用户名写入txt,开始爆破</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wpscan --url  http://dc-2 -U name.txt -P pwd.txt</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072044253.png"></p><p>登录jerry账号发现flag2<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072047333.png"><br>flag提示,如果wp没法利用就找别的方法,想到刚刚信息收集还有ssh,用这两个账号去试试</p><p>msf爆破ssh<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072057740.png"><br>最后使用tom用户成功登录</p><h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><p>尝试之后发现权限很低,使用vi查看内容<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072100660.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072059691.png"><br>得到提示,尝试su,发现没有这个命令,查看一下当前用户的环境变量<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072103628.png"></p><p>使用vi尝试绕过,得到一个正常环境变量</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">vi a.txt</span><br><span class="line"></span><br><span class="line"><span class="comment">#设置shell变量</span></span><br><span class="line">:shell = /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="comment">#启动shell</span></span><br><span class="line">:shell</span><br><span class="line"></span><br><span class="line"><span class="comment"># 导入环境变量</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/bin</span><br><span class="line"></span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072116628.png"></p><p>登录jerry,使用刚刚爆破出的密码,得到flag4.txt,没有提示<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072120697.png"></p><p>查看历史命令,发现有使用sudo git,也就是说git是有root权限的<br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072129726.png"></p><p>git提权</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo git <span class="built_in">help</span> add</span><br><span class="line">末尾输入!/bin/bash</span><br><span class="line"></span><br><span class="line">或者</span><br><span class="line"></span><br><span class="line">sudo git <span class="built_in">help</span> config</span><br><span class="line">末尾输入</span><br><span class="line">!<span class="string">&#x27;sh&#x27;</span></span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072127120.png"><br><img src="https://raw.githubusercontent.com/chencicici/images/main/202206072128530.png"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h1&gt;&lt;p&gt;vulnhub环境,项目地址&lt;a href=&quot;https://www.vulnhub.com/entry/dc-2,311/&quot;&gt;https://www.vulnhub.com/entry/dc-2,311/&lt;/a&gt;&lt;br&gt;靶机:172.16.17.143&lt;br&gt;攻击机kali:172.16.17.140&lt;/p&gt;
-&lt;h1 id=&quot;目标&quot;&gt;&lt;a href=&quot;#目标&quot; class=&quot;headerlink&quot; title=&quot;目标&quot;&gt;&lt;/a&gt;目标&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/chencicici/images/main/202206071953622.png&quot;&gt;&lt;/p&gt;
-&lt;h1 id=&quot;信息收集&quot;&gt;&lt;a href=&quot;#信息收集&quot; class=&quot;headerlink&quot; title=&quot;信息收集&quot;&gt;&lt;/a&gt;信息收集&lt;/h1&gt;</summary>
-    
-    
-    
-    <category term="打靶" scheme="https://syst1m.top/categories/%E6%89%93%E9%9D%B6/"/>
-    
-    
-    <category term="vulnhub" scheme="https://syst1m.top/tags/vulnhub/"/>
     
   </entry>
   
