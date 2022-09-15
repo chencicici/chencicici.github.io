@@ -157,7 +157,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -168,7 +168,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-count">62</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -222,6 +222,102 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://syst1m.top/2022/05/26/CTF-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_0010.JPG">
+      <meta itemprop="name" content="Syst1m">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Syst1m">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Syst1m">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/05/26/CTF-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" class="post-title-link" itemprop="url">CTF-文件包含</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-05-26 21:48:19 / 修改时间：22:41:03" itemprop="dateCreated datePublished" datetime="2022-05-26T21:48:19+08:00">2022-05-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CTF/" itemprop="url" rel="index"><span itemprop="name">CTF</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="文件包含解析"><a href="#文件包含解析" class="headerlink" title="文件包含解析"></a>文件包含解析</h1><pre><code>文件包含，是一个功能。在各种开发语言中都提供了内置的文件包含函数，其可以使开发人员在一个代码文件中直接包含（引入）另外一个代码文件。 比如 在PHP中，提供了：
+include(),include_once()
+require(),require_once()
+这些文件包含函数，这些函数在代码设计中被经常使用到。
+大多数情况下，文件包含函数中包含的代码文件是固定的，因此也不会出现安全问题。 但是，有些时候，文件包含的代码文件被写成了一个变量，且这个变量可以由前端用户传进来，这种情况下，如果没有做足够的安全考虑，则可能会引发文件包含漏洞。 攻击着会指定一个“意想不到”的文件让包含函数去执行，从而造成恶意操作。 根据不同的配置环境，文件包含漏洞分为如下两种情况：
+1.本地文件包含漏洞：仅能够对服务器本地的文件进行包含，由于服务器上的文件并不是攻击者所能够控制的，因此该情况下，攻击着更多的会包含一些 固定的系统配置文件，从而读取系统敏感信息。很多时候本地文件包含漏洞会结合一些特殊的文件上传漏洞，从而形成更大的威力。
+2.远程文件包含漏洞：能够通过url地址对远程的文件进行包含，这意味着攻击者可以传入任意的代码，这种情况没啥好说的，准备挂彩。
+因此，在web应用系统的功能设计上尽量不要让前端用户直接传变量给包含函数，如果非要这么做，也一定要做严格的白名单策略进行过滤。
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202205262150221.png"></p>
+<h1 id="各种语言的文件包含"><a href="#各种语言的文件包含" class="headerlink" title="各种语言的文件包含"></a>各种语言的文件包含</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--#include file=&quot;1.asp&quot; --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!--#include file=&quot;top.aspx&quot; --&gt;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/05/26/CTF-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1128,120 +1224,6 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u http://www.xxxxx.com/test.php?p=2 --file-write /localhost/mm.php --file <span class="comment">#使用sqlmap绕过防火墙进行注入测试</span></span><br></pre></td></tr></table></figure></li>
 </ol>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://syst1m.top/2022/04/24/SQL%E6%B3%A8%E5%85%A5%E9%9D%B6%E5%9C%BAsqli-labs/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/IMG_0010.JPG">
-      <meta itemprop="name" content="Syst1m">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Syst1m">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Syst1m">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/04/24/SQL%E6%B3%A8%E5%85%A5%E9%9D%B6%E5%9C%BAsqli-labs/" class="post-title-link" itemprop="url">SQL注入靶场sqli-labs</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-04-24 14:56:30" itemprop="dateCreated datePublished" datetime="2022-04-24T14:56:30+08:00">2022-04-24</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-23 20:47:02" itemprop="dateModified" datetime="2022-06-23T20:47:02+08:00">2022-06-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">靶场</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h1><p>SQL注入是一种代码注入技术，用于攻击数据驱动的应用程序。 在应用程序中，如果没有做恰当的过滤，则可能使得恶意的SQL语句被插入输入字段中执行（例如将数据库内容转储给攻击者）</p>
-<h2 id="常见的注入点"><a href="#常见的注入点" class="headerlink" title="常见的注入点"></a>常见的注入点</h2><ul>
-<li>GET&#x2F;POST&#x2F;PUT&#x2F;DELETE参数</li>
-<li>X-Forwarded-For</li>
-<li>文件名</li>
-<li>4.1.2.2. Fuzz注入点</li>
-<li>‘ &#x2F; “</li>
-<li>1&#x2F;1</li>
-<li>1&#x2F;0</li>
-<li>and 1&#x3D;1</li>
-<li>“ and “1”&#x3D;”1</li>
-<li>and 1&#x3D;2 </li>
-<li>or 1&#x3D;1</li>
-<li>or 1&#x3D;</li>
-<li>‘ and ‘1’&#x3D;’1</li>
-<li>+ - ^ * % &#x2F;</li>
-<li>&lt;&lt; &gt;&gt; || | &amp; &amp;&amp;</li>
-<li>~</li>
-<li>!</li>
-<li>@</li>
-<li>反引号执行</li>
-</ul>
-<h2 id="4-1-2-3-测试用常量"><a href="#4-1-2-3-测试用常量" class="headerlink" title="4.1.2.3. 测试用常量"></a>4.1.2.3. 测试用常量</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/04/24/SQL%E6%B3%A8%E5%85%A5%E9%9D%B6%E5%9C%BAsqli-labs/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 
