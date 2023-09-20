@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Syst1m</title>
+  <title>Syst1m‘s blog</title>
   
-  
+  <subtitle>网络安全博客</subtitle>
   <link href="https://syst1m.top/atom.xml" rel="self"/>
   
   <link href="https://syst1m.top/"/>
